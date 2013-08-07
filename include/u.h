@@ -53,7 +53,7 @@ extern "C" {
 #	undef __LONG_LONG_SUPPORTED
 #	define __LONG_LONG_SUPPORTED
 #endif
-#if defined(__DragonFlyBSD__)
+#if defined(__DragonFly__)
 #	include <sys/cdefs.h>
 	/* for strtoll */
 #	undef __ISO_C_VISIBLE
@@ -122,10 +122,10 @@ typedef long p9jmp_buf[sizeof(sigjmp_buf)/sizeof(long)];
 #		undef _NEEDUSHORT
 #		undef _NEEDUINT
 #	endif
-#elif defined(__DragonFlyBSD__)
+#elif defined(__DragonFly__)
 #	include <sys/types.h>
 #	include <osreldate.h>
-#	if __DragonFlyBSD_version >= 500000
+#	if __DragonFly_version >= 300500
 #		define PLAN9PORT_USING_PTHREADS 1
 #		include <pthread.h>
 #	endif

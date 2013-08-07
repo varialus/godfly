@@ -3,6 +3,7 @@
 // license that can be found in the LICENSE file.
 
 #include "a.h"
+#include <sys/param.h>
 
 #ifndef __ARMEL__
 char *
@@ -17,7 +18,7 @@ static void useVFPv1(void);
 char *
 xgetgoarm(void)
 {
-#if defined(__NetBSD__) || defined(__FreeBSD__) || defined(__DragonFlyBSD__)
+#if defined(__NetBSD__) || defined(__FreeBSD__) || defined(__DragonFly__)
 	// NetBSD has buggy support for VFPv2 (incorrect inexact, 
 	// denormial, and NaN handling). When GOARM=6, some of our
 	// math tests fails on Raspberry Pi.
