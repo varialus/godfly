@@ -681,6 +681,8 @@ main(int argc, char **argv)
 	gohostos = "openbsd";
 #elif defined(__NetBSD__)
 	gohostos = "netbsd";
+#elif defined(__DragonFly__)
+	gohostos = "dragonflybsd";
 #else
 	fatal("unknown operating system");
 #endif
