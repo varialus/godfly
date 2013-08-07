@@ -13,7 +13,8 @@ Roadmap
 Reverse Progress Log
 ------------
 
-* dfly: Rinse. Repeat. Except use git clone http://github.com/varialus/godfly.git .
+* FreeBSD: echo "devel" > $GOROOT/VERSION
+* dfly: Rinse. Repeat. Except use GOOS=dragonflybsd and git clone http://github.com/varialus/godfly.git .
 * FreeBSD: Rinse. Repeat. Except use git clone http://github.com/varialus/godfly.git .
 * dfly: Currently fails quickly.
 * FreeBSD: ALL TESTS PASS
