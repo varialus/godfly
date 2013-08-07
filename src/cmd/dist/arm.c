@@ -17,7 +17,7 @@ static void useVFPv1(void);
 char *
 xgetgoarm(void)
 {
-#if defined(__NetBSD__) || defined(__FreeBSD__)
+#if defined(__NetBSD__) || defined(__FreeBSD__) || defined(__DragonFlyBSD__)
 	// NetBSD has buggy support for VFPv2 (incorrect inexact, 
 	// denormial, and NaN handling). When GOARM=6, some of our
 	// math tests fails on Raspberry Pi.
@@ -27,6 +27,7 @@ xgetgoarm(void)
 	// failure and crash NetBSD/evbarm kernel.
 	// FreeBSD also have broken VFP support, so disable VFP also
 	// on FreeBSD.
+	// DragonFly BSD is based on FreeBSD, so disable for now.
 	return "5";
 #endif
 	if(xtryexecfunc(useVFPv3))

@@ -104,6 +104,7 @@ typedef struct {
 #define ELFOSABI_AIX		7	/* AIX */
 #define ELFOSABI_IRIX		8	/* IRIX */
 #define ELFOSABI_FREEBSD	9	/* FreeBSD */
+#define ELFOSABI_DRAGONFLYBSD	9	/* DragonFlyBSD */
 #define ELFOSABI_TRU64		10	/* TRU64 UNIX */
 #define ELFOSABI_MODESTO	11	/* Novell Modesto */
 #define ELFOSABI_OPENBSD	12	/* OpenBSD */
@@ -1005,6 +1006,7 @@ void	asmbelf(vlong symo);
 void	asmbelfsetup(void);
 extern char linuxdynld[];
 extern char freebsddynld[];
+extern char dragonflybsddynld[];
 extern char netbsddynld[];
 extern char openbsddynld[];
 int	elfreloc1(Reloc*, vlong sectoff);

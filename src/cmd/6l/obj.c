@@ -50,6 +50,7 @@ Header headers[] = {
 	"darwin", Hdarwin,
 	"linux", Hlinux,
 	"freebsd", Hfreebsd,
+	"dragonflybsd", Hdragonflybsd,
 	"netbsd", Hnetbsd,
 	"openbsd", Hopenbsd,
 	"windows", Hwindows,
@@ -64,6 +65,7 @@ Header headers[] = {
  *	-Hdarwin -Tx -Rx		is apple MH-exec
  *	-Hlinux -Tx -Rx			is linux elf-exec
  *	-Hfreebsd -Tx -Rx		is FreeBSD elf-exec
+ *	-Hdragonflybsd -Tx -Rx		is DragonFly BSD elf-exec
  *	-Hnetbsd -Tx -Rx		is NetBSD elf-exec
  *	-Hopenbsd -Tx -Rx		is OpenBSD elf-exec
  *	-Hwindows -Tx -Rx		is MS Windows PE32+
@@ -149,6 +151,7 @@ main(int argc, char *argv[])
 		break;
 	case Hdarwin:
 	case Hfreebsd:
+	case Hdragonflybsd:
 	case Hlinux:
 	case Hnetbsd:
 	case Hopenbsd:
@@ -212,6 +215,7 @@ main(int argc, char *argv[])
 		break;
 	case Hlinux:	/* elf64 executable */
 	case Hfreebsd:	/* freebsd */
+	case Hdragonflybsd:	/* dragonflybsd */
 	case Hnetbsd:	/* netbsd */
 	case Hopenbsd:	/* openbsd */
 		/*

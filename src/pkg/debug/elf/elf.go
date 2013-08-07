@@ -126,6 +126,7 @@ const (
 	ELFOSABI_AIX        OSABI = 7   /* AIX */
 	ELFOSABI_IRIX       OSABI = 8   /* IRIX */
 	ELFOSABI_FREEBSD    OSABI = 9   /* FreeBSD */
+	ELFOSABI_DRAGONFLYBSD    OSABI = 9   /* DragonFly BSD */
 	ELFOSABI_TRU64      OSABI = 10  /* TRU64 UNIX */
 	ELFOSABI_MODESTO    OSABI = 11  /* Novell Modesto */
 	ELFOSABI_OPENBSD    OSABI = 12  /* OpenBSD */
@@ -146,6 +147,7 @@ var osabiStrings = []intName{
 	{7, "ELFOSABI_AIX"},
 	{8, "ELFOSABI_IRIX"},
 	{9, "ELFOSABI_FREEBSD"},
+	{9, "ELFOSABI_DRAGONFLYBSD"},
 	{10, "ELFOSABI_TRU64"},
 	{11, "ELFOSABI_MODESTO"},
 	{12, "ELFOSABI_OPENBSD"},

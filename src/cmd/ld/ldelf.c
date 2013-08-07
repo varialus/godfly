@@ -84,6 +84,7 @@ enum
 	ElfAbiAix,
 	ElfAbiIrix,
 	ElfAbiFreeBSD,
+	ElfAbiDragonFlyBSD,
 	ElfAbiTru64,
 	ElfAbiModesto,
 	ElfAbiOpenBSD,

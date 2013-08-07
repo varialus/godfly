@@ -47,6 +47,11 @@ includes_FreeBSD='
 #include <sys/event.h>
 '
 
+includes_DragonFlyBSD='
+#include <sys/wait.h>
+#include <sys/event.h>
+'
+
 includes='
 #include <sys/types.h>
 #include <fcntl.h>
