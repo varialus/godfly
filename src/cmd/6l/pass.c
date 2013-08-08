@@ -311,7 +311,7 @@ patch(void)
 		}
 		if(HEADTYPE == Hlinux || HEADTYPE == Hfreebsd
 		|| HEADTYPE == Hopenbsd || HEADTYPE == Hnetbsd
-		|| HEADTYPE == Hplan9x64) {
+		|| HEADTYPE == Hdragonflybsd || HEADTYPE == Hplan9x64) {
 			// ELF uses FS instead of GS.
 			if(p->from.type == D_INDIR+D_GS)
 				p->from.type = D_INDIR+D_FS;
@@ -447,7 +447,7 @@ dostkoff(void)
 			p->as = AMOVQ;
 			if(HEADTYPE == Hlinux || HEADTYPE == Hfreebsd
 			|| HEADTYPE == Hopenbsd || HEADTYPE == Hnetbsd
-			|| HEADTYPE == Hplan9x64)	// ELF uses FS
+			|| HEADTYPE == Hdragonflybsd || HEADTYPE == Hplan9x64)	// ELF uses FS
 				p->from.type = D_INDIR+D_FS;
 			else
 				p->from.type = D_INDIR+D_GS;
