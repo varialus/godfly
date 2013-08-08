@@ -109,6 +109,7 @@ typedef struct {
 #define ELFOSABI_OPENBSD	12	/* OpenBSD */
 #define ELFOSABI_OPENVMS	13	/* Open VMS */
 #define ELFOSABI_NSK		14	/* HP Non-Stop Kernel */
+#define ELFOSABI_DRAGONFLYBSD	15	/* DragonFly BSD */
 #define ELFOSABI_ARM		97	/* ARM */
 #define ELFOSABI_STANDALONE	255	/* Standalone (embedded) application */
 
