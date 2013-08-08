@@ -13,7 +13,7 @@ enum
 	ESRCH = 3,
 	ENOTSUP = 91,
 
-	// From DragonFly BSD's sys/time.h
+	// From DragonFly BSD's <sys/time.h>
 	CLOCK_REALTIME = 0,
 	CLOCK_VIRTUAL = 1,
 	CLOCK_PROF = 2,
@@ -23,11 +23,14 @@ enum
 extern SigTab runtime·sigtab[];
 
 static Sigset sigset_none;
-static Sigset sigset_all = ~(Sigset)0;
+static Sigset sigset_all = { ~(uint32)0, ~(uint32)0, ~(uint32)0, ~(uint32)0, };
 
-extern int64 runtime·tfork(void *param, uintptr psize, M *mp, G *gp, void (*fn)(void));
-extern int32 runtime·thrsleep(void *ident, int32 clock_id, void *tsp, void *lock, const int32 *abort);
-extern int32 runtime·thrwakeup(void *ident, int32 n);
+extern void runtime·getcontext(UcontextT *context);
+extern int32 runtime·lwp_create(UcontextT *context, uintptr flags, void *lwpid);
+extern void runtime·lwp_mcontext_init(void *mc, void *stack, M *mp, G *gp, void (*fn)(void));
+extern int32 runtime·lwp_park(Timespec *abstime, int32 unpark, void *hint, void *unparkhint);
+extern int32 runtime·lwp_unpark(int32 lwp, void *hint);
+extern int32 runtime·lwp_self(void);
 
 // From DragonFly BSD's <sys/sysctl.h>
 #define	CTL_HW	6
@@ -74,14 +77,31 @@ runtime·semasleep(int64 ns)
 		if(m->waitsemacount == 0) {
 			// sleep until semaphore != 0 or timeout.
 			// thrsleep unlocks m->waitsemalock.
-			if(ns < 0)
-				runtime·thrsleep(&m->waitsemacount, 0, nil, &m->waitsemalock, nil);
-			else {
-				ns += runtime·nanotime();
+			if(ns < 0) {
+				// TODO(jsing) - potential deadlock!
+				//
+				// There is a potential deadlock here since we
+				// have to release the waitsemalock mutex
+				// before we call lwp_park() to suspend the
+				// thread. This allows another thread to
+				// release the lock and call lwp_unpark()
+				// before the thread is actually suspended.
+				// If this occurs the current thread will end
+				// up sleeping indefinitely. Unfortunately
+				// the DragonFly BSD kernel does not appear to provide
+				// a mechanism for unlocking the userspace
+				// mutex once the thread is actually parked.
+				runtime·atomicstore(&m->waitsemalock, 0);
+				runtime·lwp_park(nil, 0, &m->waitsemacount, nil);
+			} else {
+				ns = ns + runtime·nanotime();
 				// NOTE: tv_nsec is int64 on amd64, so this assumes a little-endian system.
 				ts.tv_nsec = 0;
 				ts.tv_sec = runtime·timediv(ns, 1000000000, (int32*)&ts.tv_nsec);
-				runtime·thrsleep(&m->waitsemacount, CLOCK_REALTIME, &ts, &m->waitsemalock, nil);
+				// TODO(jsing) - potential deadlock!
+				// See above for details.
+				runtime·atomicstore(&m->waitsemalock, 0);
+				runtime·lwp_park(&ts, 0, &m->waitsemacount, nil);
 			}
 			// reacquire lock
 			while(runtime·xchg(&m->waitsemalock, 1))
@@ -119,7 +139,9 @@ runtime·semawakeup(M *mp)
 	while(runtime·xchg(&mp->waitsemalock, 1))
 		runtime·osyield();
 	mp->waitsemacount++;
-	ret = runtime·thrwakeup(&mp->waitsemacount, 1);
+	// TODO(jsing) - potential deadlock, see semasleep() for details.
+	// Confirm that LWP is parked before unparking...
+	ret = runtime·lwp_unpark(mp->procid, &mp->waitsemacount);
 	if(ret != 0 && ret != ESRCH)
 		runtime·printf("thrwakeup addr=%p sem=%d ret=%d\n", &mp->waitsemacount, mp->waitsemacount, ret);
 	// spin-mutex unlock
@@ -129,8 +151,7 @@ runtime·semawakeup(M *mp)
 void
 runtime·newosproc(M *mp, void *stk)
 {
-	Tfork param;
-	Sigset oset;
+	UcontextT uc;
 	int32 ret;
 
 	if(0) {
@@ -141,18 +162,18 @@ runtime·newosproc(M *mp, void *stk)
 
 	mp->tls[0] = mp->id;	// so 386 asm can find it
 
-	param.tf_tcb = (byte*)&mp->tls[0];
-	param.tf_tid = (int32*)&mp->procid;
-	param.tf_stack = stk;
+	runtime·getcontext(&uc);
 
-	oset = runtime·sigprocmask(SIG_SETMASK, sigset_all);
-	ret = runtime·tfork((byte*)&param, sizeof(param), mp, mp->g0, runtime·mstart);
-	runtime·sigprocmask(SIG_SETMASK, oset);
+	uc.uc_flags = _UC_SIGMASK | _UC_CPU;
+	uc.uc_link = nil;
+	uc.uc_sigmask = sigset_all;
+
+	runtime·lwp_mcontext_init(&uc.uc_mcontext, stk, mp, mp->g0, runtime·mstart);
+
+	ret = runtime·lwp_create(&uc, 0, &mp->procid);
 
 	if(ret < 0) {
 		runtime·printf("runtime: failed to create new OS thread (have %d already; errno=%d)\n", runtime·mcount() - 1, -ret);
-		if (ret == -ENOTSUP)
-			runtime·printf("runtime: is kern.rthreads disabled?\n");
 		runtime·throw("runtime.newosproc");
 	}
 }
@@ -198,9 +219,11 @@ runtime·mpreinit(M *mp)
 void
 runtime·minit(void)
 {
+	m->procid = runtime·lwp_self();
+
 	// Initialize signal handling
 	runtime·signalstack((byte*)m->gsignal->stackguard - StackGuard, 32*1024);
-	runtime·sigprocmask(SIG_SETMASK, sigset_none);
+	runtime·sigprocmask(SIG_SETMASK, &sigset_none, nil);
 }
 
 // Called from dropm to undo the effect of an minit.
@@ -252,10 +275,10 @@ extern void runtime·sigtramp(void);
 
 typedef struct sigaction {
 	union {
-		void    (*__sa_handler)(int32);
-		void    (*__sa_sigaction)(int32, Siginfo*, void *);
-	} __sigaction_u;		/* signal handler */
-	uint32	sa_mask;		/* signal mask to apply */
+		void    (*_sa_handler)(int32);
+		void    (*_sa_sigaction)(int32, Siginfo*, void *);
+	} _sa_u;			/* signal handler */
+	uint32	sa_mask[4];		/* signal mask to apply */
 	int32	sa_flags;		/* see signal options below */
 } Sigaction;
 
@@ -268,10 +291,13 @@ runtime·setsig(int32 i, GoSighandler *fn, bool restart)
 	sa.sa_flags = SA_SIGINFO|SA_ONSTACK;
 	if(restart)
 		sa.sa_flags |= SA_RESTART;
-	sa.sa_mask = ~0U;
-	if(fn == runtime·sighandler)
+	sa.sa_mask[0] = ~0U;
+	sa.sa_mask[1] = ~0U;
+	sa.sa_mask[2] = ~0U;
+	sa.sa_mask[3] = ~0U;
+	if (fn == runtime·sighandler)
 		fn = (void*)runtime·sigtramp;
-	sa.__sigaction_u.__sa_sigaction = (void*)fn;
+	sa._sa_u._sa_sigaction = (void*)fn;
 	runtime·sigaction(i, &sa, nil);
 }
 
@@ -282,9 +308,9 @@ runtime·getsig(int32 i)
 
 	runtime·memclr((byte*)&sa, sizeof sa);
 	runtime·sigaction(i, nil, &sa);
-	if((void*)sa.__sigaction_u.__sa_sigaction == runtime·sigtramp)
+	if((void*)sa._sa_u._sa_sigaction == runtime·sigtramp)
 		return runtime·sighandler;
-	return (void*)sa.__sigaction_u.__sa_sigaction;
+	return (void*)sa._sa_u._sa_sigaction;
 }
 
 void
