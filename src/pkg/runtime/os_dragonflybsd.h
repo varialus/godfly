@@ -1,27 +1,26 @@
-// Copyright 2010 The Go Authors.  All rights reserved.
+// Copyright 2011 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
 #define SS_DISABLE 4
 
-#define SIG_BLOCK 1
-#define SIG_UNBLOCK 2
-#define SIG_SETMASK 3
-
-struct sigaction;
-
+int32	runtime·thr_new(ThrParam*, int32);
 void	runtime·sigpanic(void);
-
-void	runtime·setitimer(int32, Itimerval*, Itimerval*);
-void	runtime·sigaction(int32, struct sigaction*, struct sigaction*);
 void	runtime·sigaltstack(Sigaltstack*, Sigaltstack*);
-void	runtime·sigprocmask(int32, Sigset*, Sigset*);
+struct	sigaction;
+void	runtime·sigaction(int32, struct sigaction*, struct sigaction*);
+void	runtime·sigprocmask(Sigset *, Sigset *);
+void	runtime·setitimer(int32, Itimerval*, Itimerval*);
 int32	runtime·sysctl(uint32*, uint32, byte*, uintptr*, byte*, uintptr);
-extern void runtime·lwp_tramp(void);
+
 
 #define	NSIG 33
-#define	SI_USER	0
+#define	SI_USER	0x10001
 
-// From DragonFly BSD's <sys/ucontext.h>
-#define _UC_SIGMASK	0x01
-#define _UC_CPU		0x04
+#define RLIMIT_AS 10
+typedef struct Rlimit Rlimit;
+struct Rlimit {
+	int64	rlim_cur;
+	int64	rlim_max;
+};
+int32	runtime·getrlimit(int32, Rlimit*);
