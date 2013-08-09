@@ -17,6 +17,11 @@ extern SigTab runtime·sigtab[];
 static Sigset sigset_none;
 static Sigset sigset_all = { ~(uint32)0, ~(uint32)0, ~(uint32)0, ~(uint32)0, };
 
+enum
+{
+	ESRCH = 3
+}
+
 static int32
 getncpu(void)
 {
