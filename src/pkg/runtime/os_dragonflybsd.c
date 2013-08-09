@@ -37,6 +37,12 @@ getncpu(void)
 		return 1;
 }
 
+uintptr
+runtime·semacreate(void)
+{
+	return 1;
+}
+
 void runtime·thr_start(void*);
 
 void
