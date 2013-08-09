@@ -43,6 +43,24 @@ runtime·semacreate(void)
 	return 1;
 }
 
+void
+runtime·semawakeup(M *mp)
+{
+	uint32 ret;
+
+	// spin-mutex lock
+	while(runtime·xchg(&mp->waitsemalock, 1))
+		runtime·osyield();
+	mp->waitsemacount++;
+	// TODO(jsing) - potential deadlock, see semasleep() for details.
+	// Confirm that LWP is parked before unparking...
+	ret = runtime·lwp_unpark(mp->procid, &mp->waitsemacount);
+	if(ret != 0 && ret != ESRCH)
+		runtime·printf("thrwakeup addr=%p sem=%d ret=%d\n", &mp->waitsemacount, mp->waitsemacount, ret);
+	// spin-mutex unlock
+	runtime·atomicstore(&mp->waitsemalock, 0);
+}
+
 void runtime·thr_start(void*);
 
 void
