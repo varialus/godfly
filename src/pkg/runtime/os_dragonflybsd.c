@@ -20,9 +20,11 @@ static Sigset sigset_all = { ~(uint32)0, ~(uint32)0, ~(uint32)0, ~(uint32)0, };
 enum
 {
 	ESRCH = 3
-}
+};
 
-static int32 getncpu(void) {
+static int32
+getncpu(void)
+{
 	uint32 mib[2];
 	uint32 out;
 	int32 ret;
