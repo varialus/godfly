@@ -3,6 +3,20 @@ godfly
 
 Golang on DragonFly BSD
 
+Go Linux Emulation on 32-bit DragonFly BSD
+------------------------------------------
+
+1. Instal 32-bit DragonFly BSD
+2. Log in as root
+3. kldload linux
+4. pkg_radd suse_base
+5. ln -s /usr/pkg/emul /compat
+6. curl http://go.googlecode.com/files/go1.1.1.linux-386.tar.gz -O
+7. mkdir /compat/linux/usr/local
+8. tar -C /compat/linux/usr/local -xzf go1.1.1.linux-386.tar.gz
+9. brandelf -t Linux /compat/linux/usr/local/go/bin/go
+10. /compat/linux/usr/local/go/bin/go version
+
 Roadmap
 -------
 
