@@ -22,8 +22,7 @@ enum
 	ESRCH = 3
 }
 
-static int32
-getncpu(void)
+static int32 getncpu(void)
 {
 	uint32 mib[2];
 	uint32 out;
