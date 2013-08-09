@@ -87,6 +87,7 @@ enum
 	ElfAbiTru64,
 	ElfAbiModesto,
 	ElfAbiOpenBSD,
+	ElfAbiDragonFlyBSD = 15,
 	ElfAbiARM = 97,
 	ElfAbiEmbedded = 255,
 
