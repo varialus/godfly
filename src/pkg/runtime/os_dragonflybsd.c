@@ -66,6 +66,73 @@ runtime·semawakeup(M *mp)
 	runtime·atomicstore(&mp->waitsemalock, 0);
 }
 
+int32
+runtime·semasleep(int64 ns)
+{
+	Timespec ts;
+
+	// spin-mutex lock
+	while(runtime·xchg(&m->waitsemalock, 1))
+		runtime·osyield();
+
+	for(;;) {
+		// lock held
+		if(m->waitsemacount == 0) {
+			// sleep until semaphore != 0 or timeout.
+			// thrsleep unlocks m->waitsemalock.
+			if(ns < 0) {
+				// TODO(jsing) - potential deadlock!
+				//
+				// There is a potential deadlock here since we
+				// have to release the waitsemalock mutex
+				// before we call lwp_park() to suspend the
+				// thread. This allows another thread to
+				// release the lock and call lwp_unpark()
+				// before the thread is actually suspended.
+				// If this occurs the current thread will end
+				// up sleeping indefinitely. Unfortunately
+				// the NetBSD kernel does not appear to provide
+				// a mechanism for unlocking the userspace
+				// mutex once the thread is actually parked.
+				runtime·atomicstore(&m->waitsemalock, 0);
+				runtime·lwp_park(nil, 0, &m->waitsemacount, nil);
+			} else {
+				ns = ns + runtime·nanotime();
+				// NOTE: tv_nsec is int64 on amd64, so this assumes a little-endian system.
+				ts.tv_nsec = 0;
+				ts.tv_sec = runtime·timediv(ns, 1000000000, (int32*)&ts.tv_nsec);
+				// TODO(jsing) - potential deadlock!
+				// See above for details.
+				runtime·atomicstore(&m->waitsemalock, 0);
+				runtime·lwp_park(&ts, 0, &m->waitsemacount, nil);
+			}
+			// reacquire lock
+			while(runtime·xchg(&m->waitsemalock, 1))
+				runtime·osyield();
+		}
+
+		// lock held (again)
+		if(m->waitsemacount != 0) {
+			// semaphore is available.
+			m->waitsemacount--;
+			// spin-mutex unlock
+			runtime·atomicstore(&m->waitsemalock, 0);
+			return 0;  // semaphore acquired
+		}
+
+		// semaphore not available.
+		// if there is a timeout, stop now.
+		// otherwise keep trying.
+		if(ns >= 0)
+			break;
+	}
+
+	// lock held but giving up
+	// spin-mutex unlock
+	runtime·atomicstore(&m->waitsemalock, 0);
+	return -1;
+}
+
 void runtime·thr_start(void*);
 
 void
