@@ -131,7 +131,6 @@ const (
 	ELFOSABI_OPENBSD      OSABI = 12  /* OpenBSD */
 	ELFOSABI_OPENVMS      OSABI = 13  /* Open VMS */
 	ELFOSABI_NSK          OSABI = 14  /* HP Non-Stop Kernel */
-	ELFOSABI_DRAGONFLYBSD OSABI = 15  /* DragonFly BSD */
 	ELFOSABI_ARM          OSABI = 97  /* ARM */
 	ELFOSABI_STANDALONE   OSABI = 255 /* Standalone (embedded) application */
 )
@@ -152,7 +151,6 @@ var osabiStrings = []intName{
 	{12, "ELFOSABI_OPENBSD"},
 	{13, "ELFOSABI_OPENVMS"},
 	{14, "ELFOSABI_NSK"},
-	{15, "ELFOSABI_DRAGONFLYBSD"},
 	{97, "ELFOSABI_ARM"},
 	{255, "ELFOSABI_STANDALONE"},
 }
