@@ -17,6 +17,9 @@ extern SigTab runtime·sigtab[];
 static Sigset sigset_none;
 static Sigset sigset_all = { ~(uint32)0, ~(uint32)0, ~(uint32)0, ~(uint32)0, };
 
+extern int32 runtime·lwp_park(Timespec *abstime, int32 unpark, void *hint, void *unparkhint);
+extern int32 runtime·lwp_unpark(int32 lwp, void *hint);
+
 enum
 {
 	ESRCH = 3
