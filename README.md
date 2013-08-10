@@ -88,6 +88,7 @@ Files Needing Manual Review
 * src/pkg/runtime/signals_dragonflybsd.h
 * src/pkg/runtime/sys_dragonflybsd_amd64.s
 * src/pkg/syscall/syscall_dragonflybsd.go
+* src/pkg/syscall/syscall_dragonflybsd_386.go
 * src/pkg/syscall/syscall_dragonflybsd_amd64.go
 * Any Other Copied Manually Written Code
 
