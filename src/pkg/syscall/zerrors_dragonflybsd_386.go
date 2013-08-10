@@ -232,6 +232,7 @@ const (
 	CSUSP                             = 0x1a
 	CTL_MAXNAME                       = 0x18
 	CTL_NET                           = 0x4
+	CTL_QUERY                         = -0x2
 	DLT_A429                          = 0xb8
 	DLT_A653_ICM                      = 0xb9
 	DLT_AIRONET_HEADER                = 0x78

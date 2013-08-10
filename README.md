@@ -90,7 +90,7 @@ Files Needing Manual Review
 * src/pkg/syscall/syscall_dragonflybsd.go
 * src/pkg/syscall/syscall_dragonflybsd_386.go
 * src/pkg/syscall/syscall_dragonflybsd_amd64.go
-* Any Other Copied Manually Written Code
+* Any Other Copied Manually-Written-Code
 
 Recent amd64 Compilation Error
 ------------------------
