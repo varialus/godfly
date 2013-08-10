@@ -103,6 +103,11 @@ func SetsockoptIPMreqn(fd, level, opt int, mreq *IPMreqn) (err error) {
 	return setsockopt(fd, level, opt, uintptr(unsafe.Pointer(mreq)), unsafe.Sizeof(*mreq))
 }
 
+//sys getdents(fd int, buf []byte) (n int, err error)
+func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
+	return getdents(fd, buf)
+}
+
 /*
  * Exposed directly
  */
