@@ -1466,7 +1466,7 @@ elfobj:
 	else if(HEADTYPE == Hopenbsd)
 		eh->ident[EI_OSABI] = ELFOSABI_OPENBSD;
 	else if(HEADTYPE == Hdragonflybsd)
-		eh->ident[EI_OSABI] = ELFOSABI_FREEBSD;
+		eh->ident[EI_OSABI] = ELFOSABI_NONE;
 	if(PtrSize == 8)
 		eh->ident[EI_CLASS] = ELFCLASS64;
 	else
