@@ -443,3 +443,16 @@ type BpfZbufHeader struct {
 	User_gen   uint32
 	X_bzh_pad  [5]uint32
 }
+
+type Sysctlnode struct {
+	Flags           uint32
+	Num             int32
+	Name            [32]int8
+	Ver             uint32
+	X__rsvd         uint32
+	Un              [16]byte
+	X_sysctl_size   [8]byte
+	X_sysctl_func   [8]byte
+	X_sysctl_parent [8]byte
+	X_sysctl_desc   [8]byte
+}
