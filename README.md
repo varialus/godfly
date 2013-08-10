@@ -83,7 +83,9 @@ Files Needing Manual Review
 * src/pkg/runtime/os_dragonflybsd.h
 * src/pkg/runtime/os_dragonflybsd.c
 * src/pkg/runtime/mem_dragonflybsd.c
+* src/pkg/runtime/rt0_dragonflybsd_386.s
 * src/pkg/runtime/rt0_dragonflybsd_amd64.s
+* src/pkg/runtime/signal_dragonflybsd_386.h
 * src/pkg/runtime/signal_dragonflybsd_amd64.h
 * src/pkg/runtime/signals_dragonflybsd.h
 * src/pkg/runtime/sys_dragonflybsd_386.s
