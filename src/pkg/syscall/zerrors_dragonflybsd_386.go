@@ -1300,6 +1300,7 @@ const (
 	SO_TYPE                           = 0x1008
 	SO_USELOOPBACK                    = 0x40
 	SO_USER_COOKIE                    = 0x1015
+	SYSCTL_VERS_1                     = 0x1000000
 	TCIFLUSH                          = 0x1
 	TCIOFLUSH                         = 0x3
 	TCOFLUSH                          = 0x2
