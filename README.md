@@ -69,7 +69,6 @@ Files Needing Auto-Generation
 * src/pkg/syscall/zsyscall_dragonflybsd_386.go
 * src/pkg/syscall/zsyscall_dragonflybsd_amd64.go
 * src/pkg/syscall/zsysnum_dragonflybsd_386.go
-* src/pkg/syscall/zsysnum_dragonflybsd_386.go
 * src/pkg/syscall/zsysnum_dragonflybsd_amd64.go
 * src/pkg/syscall/ztypes_dragonflybsd_386.go
 * src/pkg/syscall/ztypes_dragonflybsd_amd64.go
