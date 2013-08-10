@@ -334,6 +334,17 @@ TEXT runtime·osyield(SB),7,$-4
 	INT	$0x80
 	RET
 
+TEXT runtime·lwp_park(SB),7,$-4
+	MOVL	$434, AX		// sys__lwp_park
+	INT	$0x80
+	RET
+
+TEXT runtime·lwp_unpark(SB),7,$-4
+	MOVL	$321, AX		// sys__lwp_unpark
+	INT	$0x80
+	RET
+
+
 TEXT runtime·sigprocmask(SB),7,$16
 	MOVL	$0, 0(SP)		// syscall gap
 	MOVL	$3, 4(SP)		// arg 1 - how (SIG_SETMASK)

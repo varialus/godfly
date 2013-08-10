@@ -33,22 +33,6 @@ TEXT runtime·thr_start(SB),7,$0
 
 	MOVQ 0, AX			// crash (not reached)
 
-TEXT runtime·lwp_park(SB),7,$0
-	MOVQ	8(SP), DI		// arg 1 - abstime
-	MOVL	16(SP), SI		// arg 2 - unpark
-	MOVQ	24(SP), DX		// arg 3 - hint
-	MOVQ	32(SP), R10		// arg 4 - unparkhint
-	MOVL	$434, AX		// sys__lwp_park
-	SYSCALL
-	RET
-
-TEXT runtime·lwp_unpark(SB),7,$0
-	MOVQ	8(SP), DI		// arg 1 - lwp
-	MOVL	16(SP), SI		// arg 2 - hint
-	MOVL	$321, AX		// sys__lwp_unpark
-	SYSCALL
-	RET
-
 // Exit the entire program (like C exit)
 TEXT runtime·exit(SB),7,$-8
 	MOVL	8(SP), DI		// arg 1 exit status
@@ -275,6 +259,22 @@ TEXT runtime·sysctl(SB),7,$0
 
 TEXT runtime·osyield(SB),7,$-4
 	MOVL	$331, AX		// sys_sched_yield
+	SYSCALL
+	RET
+
+TEXT runtime·lwp_park(SB),7,$0
+	MOVQ	8(SP), DI		// arg 1 - abstime
+	MOVL	16(SP), SI		// arg 2 - unpark
+	MOVQ	24(SP), DX		// arg 3 - hint
+	MOVQ	32(SP), R10		// arg 4 - unparkhint
+	MOVL	$434, AX		// sys__lwp_park
+	SYSCALL
+	RET
+
+TEXT runtime·lwp_unpark(SB),7,$0
+	MOVQ	8(SP), DI		// arg 1 - lwp
+	MOVL	16(SP), SI		// arg 2 - hint
+	MOVL	$321, AX		// sys__lwp_unpark
 	SYSCALL
 	RET
 
