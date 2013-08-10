@@ -69,7 +69,7 @@ Files Needing Auto-Generation
 * src/pkg/syscall/ztypes_dragonflybsd_amd64.go
 * All Other Auto-Generated Files
 
-Recent Compilation Error
+Recent amd64 Compilation Error
 ------------------------
 
 \# Building C bootstrap tool.<br />
