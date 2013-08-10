@@ -54,6 +54,13 @@ Notes
 * Used FreeBSD specific code as a template.
 * Where FreeBSD code doesn't work, used NetBSD code with adjustments to make it work.
 
+Code Generation Notes
+---------------------
+
+* Comments within src/pkg/syscall/mk*
+* Syntax of call to mktypes within src/pkg/syscall/mkall.sh
+* GOARCH=amd64 go tool cgo -cdefs defs_dragonflybsd.go >defs_dragonflybsd_amd64.h
+
 Files Needing Auto-Generation
 -----------------------------
 
@@ -68,6 +75,22 @@ Files Needing Auto-Generation
 * src/pkg/syscall/ztypes_dragonflybsd_386.go
 * src/pkg/syscall/ztypes_dragonflybsd_amd64.go
 * All Other Auto-Generated Files
+
+Files Needing Manual Review
+---------------------------
+
+* src/libmach/dragonflybsd.c
+* src/pkg/os/stat_dragonflybsd.go
+* src/pkg/runtime/defs_dragonflybsd.go
+* src/pkg/runtime/os_dragonflybsd.h
+* src/pkg/runtime/os_dragonflybsd.c
+* src/pkg/runtime/mem_dragonflybsd.c
+* src/pkg/runtime/rt0_dragonflybsd_amd64.s
+* src/pkg/runtime/signal_dragonflybsd_amd64.h
+* src/pkg/runtime/signals_dragonflybsd.h
+* src/pkg/runtime/sys_dragonflybsd_amd64.s
+* src/pkg/syscall/syscall_dragonflybsd.go
+* src/pkg/syscall/syscall_dragonflybsd_amd64.go
 
 Recent amd64 Compilation Error
 ------------------------
