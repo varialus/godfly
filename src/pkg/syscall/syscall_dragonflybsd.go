@@ -22,76 +22,40 @@ type SockaddrDatalink struct {
 	Nlen   uint8
 	Alen   uint8
 	Slen   uint8
-	Data   [12]int8
+	Data   [46]int8
 	raw    RawSockaddrDatalink
 }
 
-func Syscall9(trap, a1, a2, a3, a4, a5, a6, a7, a8, a9 uintptr) (r1, r2 uintptr, err Errno)
-
-func sysctlNodes(mib []_C_int) (nodes []Sysctlnode, err error) {
-	var olen uintptr
-
-	// Get a list of all sysctl nodes below the given MIB by performing
-	// a sysctl for the given MIB with CTL_QUERY appended.
-	mib = append(mib, CTL_QUERY)
-	qnode := Sysctlnode{Flags: SYSCTL_VERS_1}
-	qp := (*byte)(unsafe.Pointer(&qnode))
-	sz := unsafe.Sizeof(qnode)
-	if err = sysctl(mib, nil, &olen, qp, sz); err != nil {
-		return nil, err
-	}
-
-	// Now that we know the size, get the actual nodes.
-	nodes = make([]Sysctlnode, olen/sz)
-	np := (*byte)(unsafe.Pointer(&nodes[0]))
-	if err = sysctl(mib, np, &olen, qp, sz); err != nil {
-		return nil, err
-	}
-
-	return nodes, nil
-}
-
+// Translate "kern.hostname" to []_C_int{0,1,2,3}.
 func nametomib(name string) (mib []_C_int, err error) {
+	const siz = unsafe.Sizeof(mib[0])
 
-	// Split name into components.
-	var parts []string
-	last := 0
-	for i := 0; i < len(name); i++ {
-		if name[i] == '.' {
-			parts = append(parts, name[last:i])
-			last = i + 1
-		}
-	}
-	parts = append(parts, name[last:])
+	// NOTE(rsc): It seems strange to set the buffer to have
+	// size CTL_MAXNAME+2 but use only CTL_MAXNAME
+	// as the size.  I don't know why the +2 is here, but the
+	// kernel uses +2 for its own implementation of this function.
+	// I am scared that if we don't include the +2 here, the kernel
+	// will silently write 2 words farther than we specify
+	// and we'll get memory corruption.
+	var buf [CTL_MAXNAME + 2]_C_int
+	n := uintptr(CTL_MAXNAME) * siz
 
-	// Discover the nodes and construct the MIB OID.
-	for partno, part := range parts {
-		nodes, err := sysctlNodes(mib)
-		if err != nil {
-			return nil, err
-		}
-		for _, node := range nodes {
-			n := make([]byte, 0)
-			for i := range node.Name {
-				if node.Name[i] != 0 {
-					n = append(n, byte(node.Name[i]))
-				}
-			}
-			if string(n) == part {
-				mib = append(mib, _C_int(node.Num))
-				break
-			}
-		}
-		if len(mib) != partno+1 {
-			return nil, EINVAL
-		}
+	p := (*byte)(unsafe.Pointer(&buf[0]))
+	bytes, err := ByteSliceFromString(name)
+	if err != nil {
+		return nil, err
 	}
 
-	return mib, nil
+	// Magic sysctl: "setting" 0.3 to a string name
+	// lets you read back the array of integers form.
+	if err = sysctl([]_C_int{0, 3}, p, &n, &bytes[0], uintptr(len(name))); err != nil {
+		return nil, err
+	}
+	return buf[0 : n/siz], nil
 }
 
 // ParseDirent parses up to max directory entries in buf,
-// appending the names to names. It returns the number
+// appending the names to names.  It returns the number
 // bytes consumed from buf, the number of entries added
 // to names, and the new names slice.
 func ParseDirent(buf []byte, max int, names []string) (consumed int, count int, newnames []string) {
@@ -118,7 +82,8 @@ func ParseDirent(buf []byte, max int, names []string) (consumed int, count int, 
 	return origlen - len(buf), count, names
 }
 
-//sysnb pipe() (fd1 int, fd2 int, err error)
+//sysnb pipe() (r int, w int, err error)
+
 func Pipe(p []int) (err error) {
 	if len(p) != 2 {
 		return EINVAL
@@ -127,14 +92,15 @@ func Pipe(p []int) (err error) {
 	return
 }
 
-//sys getdents(fd int, buf []byte) (n int, err error)
-func Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error) {
-	return getdents(fd, buf)
+func GetsockoptIPMreqn(fd, level, opt int) (*IPMreqn, error) {
+	var value IPMreqn
+	vallen := _Socklen(SizeofIPMreqn)
+	errno := getsockopt(fd, level, opt, uintptr(unsafe.Pointer(&value)), &vallen)
+	return &value, errno
 }
 
-// TODO
-func sendfile(outfd int, infd int, offset *int64, count int) (written int, err error) {
-	return -1, ENOSYS
+func SetsockoptIPMreqn(fd, level, opt int, mreq *IPMreqn) (err error) {
+	return setsockopt(fd, level, opt, uintptr(unsafe.Pointer(mreq)), unsafe.Sizeof(*mreq))
 }
 
 /*
@@ -158,10 +124,14 @@ func sendfile(outfd int, infd int, offset *int64, count int) (written int, err e
 //sys	Flock(fd int, how int) (err error)
 //sys	Fpathconf(fd int, name int) (val int, err error)
 //sys	Fstat(fd int, stat *Stat_t) (err error)
+//sys	Fstatfs(fd int, stat *Statfs_t) (err error)
 //sys	Fsync(fd int) (err error)
 //sys	Ftruncate(fd int, length int64) (err error)
+//sys	Getdirentries(fd int, buf []byte, basep *uintptr) (n int, err error)
+//sys	Getdtablesize() (size int)
 //sysnb	Getegid() (egid int)
 //sysnb	Geteuid() (uid int)
+//sys	Getfsstat(buf []Statfs_t, flags int) (n int, err error)
 //sysnb	Getgid() (gid int)
 //sysnb	Getpgid(pid int) (pgid int, err error)
 //sysnb	Getpgrp() (pgrp int)
@@ -198,6 +168,7 @@ func sendfile(outfd int, infd int, offset *int64, count int) (written int, err e
 //sysnb	Setegid(egid int) (err error)
 //sysnb	Seteuid(euid int) (err error)
 //sysnb	Setgid(gid int) (err error)
+//sys	Setlogin(name string) (err error)
 //sysnb	Setpgid(pid int, pgid int) (err error)
 //sys	Setpriority(which int, who int, prio int) (err error)
 //sysnb	Setregid(rgid int, egid int) (err error)
@@ -207,283 +178,220 @@ func sendfile(outfd int, infd int, offset *int64, count int) (written int, err e
 //sysnb	Settimeofday(tp *Timeval) (err error)
 //sysnb	Setuid(uid int) (err error)
 //sys	Stat(path string, stat *Stat_t) (err error)
+//sys	Statfs(path string, stat *Statfs_t) (err error)
 //sys	Symlink(path string, link string) (err error)
 //sys	Sync() (err error)
 //sys	Truncate(path string, length int64) (err error)
 //sys	Umask(newmask int) (oldmask int)
+//sys	Undelete(path string) (err error)
 //sys	Unlink(path string) (err error)
 //sys	Unmount(path string, flags int) (err error)
 //sys	write(fd int, p []byte) (n int, err error)
-//sys	mmap(addr uintptr, length uintptr, prot int, flag int, fd int, pos int64) (ret uintptr, err error)
-//sys	munmap(addr uintptr, length uintptr) (err error)
+//sys   mmap(addr uintptr, length uintptr, prot int, flag int, fd int, pos int64) (ret uintptr, err error)
+//sys   munmap(addr uintptr, length uintptr) (err error)
 //sys	readlen(fd int, buf *byte, nbuf int) (n int, err error) = SYS_READ
 //sys	writelen(fd int, buf *byte, nbuf int) (n int, err error) = SYS_WRITE
 
 /*
  * Unimplemented
  */
-// ____semctl13
-// __clone
-// __fhopen40
-// __fhstat40
-// __fhstatvfs140
-// __fstat30
-// __getcwd
-// __getfh30
-// __getlogin
-// __lstat30
-// __mount50
-// __msgctl13
-// __msync13
-// __ntp_gettime30
-// __posix_chown
-// __posix_fadvise50
-// __posix_fchown
-// __posix_lchown
-// __posix_rename
-// __setlogin
-// __shmctl13
-// __sigaction_sigtramp
-// __sigaltstack14
-// __sigpending14
-// __sigprocmask14
-// __sigsuspend14
-// __sigtimedwait
-// __stat30
-// __syscall
-// __vfork14
-// _ksem_close
-// _ksem_destroy
-// _ksem_getvalue
-// _ksem_init
-// _ksem_open
-// _ksem_post
-// _ksem_trywait
-// _ksem_unlink
-// _ksem_wait
-// _lwp_continue
-// _lwp_create
-// _lwp_ctl
-// _lwp_detach
-// _lwp_exit
-// _lwp_getname
-// _lwp_getprivate
-// _lwp_kill
-// _lwp_park
-// _lwp_self
-// _lwp_setname
-// _lwp_setprivate
-// _lwp_suspend
-// _lwp_unpark
-// _lwp_unpark_all
-// _lwp_wait
-// _lwp_wakeup
-// _pset_bind
-// _sched_getaffinity
-// _sched_getparam
-// _sched_setaffinity
-// _sched_setparam
-// acct
-// aio_cancel
-// aio_error
-// aio_fsync
-// aio_read
-// aio_return
-// aio_suspend
-// aio_write
-// break
-// clock_getres
-// clock_gettime
-// clock_settime
-// compat_09_ogetdomainname
-// compat_09_osetdomainname
-// compat_09_ouname
-// compat_10_omsgsys
-// compat_10_osemsys
-// compat_10_oshmsys
-// compat_12_fstat12
-// compat_12_getdirentries
-// compat_12_lstat12
-// compat_12_msync
-// compat_12_oreboot
-// compat_12_oswapon
-// compat_12_stat12
-// compat_13_sigaction13
-// compat_13_sigaltstack13
-// compat_13_sigpending13
-// compat_13_sigprocmask13
-// compat_13_sigreturn13
-// compat_13_sigsuspend13
-// compat_14___semctl
-// compat_14_msgctl
-// compat_14_shmctl
-// compat_16___sigaction14
-// compat_16___sigreturn14
-// compat_20_fhstatfs
-// compat_20_fstatfs
-// compat_20_getfsstat
-// compat_20_statfs
-// compat_30___fhstat30
-// compat_30___fstat13
-// compat_30___lstat13
-// compat_30___stat13
-// compat_30_fhopen
-// compat_30_fhstat
-// compat_30_fhstatvfs1
-// compat_30_getdents
-// compat_30_getfh
-// compat_30_ntp_gettime
-// compat_30_socket
-// compat_40_mount
-// compat_43_fstat43
-// compat_43_lstat43
-// compat_43_oaccept
-// compat_43_ocreat
-// compat_43_oftruncate
-// compat_43_ogetdirentries
-// compat_43_ogetdtablesize
-// compat_43_ogethostid
-// compat_43_ogethostname
-// compat_43_ogetkerninfo
-// compat_43_ogetpagesize
-// compat_43_ogetpeername
-// compat_43_ogetrlimit
-// compat_43_ogetsockname
-// compat_43_okillpg
-// compat_43_olseek
-// compat_43_ommap
-// compat_43_oquota
-// compat_43_orecv
-// compat_43_orecvfrom
-// compat_43_orecvmsg
-// compat_43_osend
-// compat_43_osendmsg
-// compat_43_osethostid
-// compat_43_osethostname
-// compat_43_osetrlimit
-// compat_43_osigblock
-// compat_43_osigsetmask
-// compat_43_osigstack
-// compat_43_osigvec
-// compat_43_otruncate
-// compat_43_owait
-// compat_43_stat43
-// execve
-// extattr_delete_fd
-// extattr_delete_file
-// extattr_delete_link
-// extattr_get_fd
-// extattr_get_file
-// extattr_get_link
-// extattr_list_fd
-// extattr_list_file
-// extattr_list_link
-// extattr_set_fd
-// extattr_set_file
-// extattr_set_link
-// extattrctl
-// fchroot
-// fdatasync
-// fgetxattr
-// fktrace
-// flistxattr
-// fork
-// fremovexattr
-// fsetxattr
-// fstatvfs1
-// fsync_range
-// getcontext
-// getitimer
-// getvfsstat
-// getxattr
-// ioctl
-// ktrace
-// lchflags
-// lchmod
-// lfs_bmapv
-// lfs_markv
-// lfs_segclean
-// lfs_segwait
-// lgetxattr
-// lio_listio
-// listxattr
-// llistxattr
-// lremovexattr
-// lseek
-// lsetxattr
-// lutimes
-// madvise
-// mincore
-// minherit
-// mlock
-// mlockall
-// modctl
-// mprotect
-// mq_close
-// mq_getattr
-// mq_notify
-// mq_open
-// mq_receive
-// mq_send
-// mq_setattr
-// mq_timedreceive
-// mq_timedsend
-// mq_unlink
-// mremap
-// msgget
-// msgrcv
-// msgsnd
-// munlock
-// munlockall
-// nfssvc
-// ntp_adjtime
-// pmc_control
-// pmc_get_info
-// poll
-// pollts
-// preadv
-// profil
-// pselect
-// pset_assign
-// pset_create
-// pset_destroy
-// ptrace
-// pwritev
-// quotactl
-// rasctl
-// readv
-// reboot
-// removexattr
-// sa_enable
-// sa_preempt
-// sa_register
-// sa_setconcurrency
-// sa_stacks
-// sa_yield
-// sbrk
-// sched_yield
-// semconfig
-// semget
-// semop
-// setcontext
-// setitimer
-// setxattr
-// shmat
-// shmdt
-// shmget
-// sstk
-// statvfs1
-// swapctl
-// sysarch
-// syscall
-// timer_create
-// timer_delete
-// timer_getoverrun
-// timer_gettime
-// timer_settime
-// undelete
-// utrace
-// uuidgen
-// vadvise
-// vfork
-// writev
+// Profil
+// Sigaction
+// Sigprocmask
+// Getlogin
+// Sigpending
+// Sigaltstack
+// Ioctl
+// Reboot
+// Execve
+// Vfork
+// Sbrk
+// Sstk
+// Ovadvise
+// Mincore
+// Setitimer
+// Swapon
+// Select
+// Sigsuspend
+// Readv
+// Writev
+// Nfssvc
+// Getfh
+// Quotactl
+// Mount
+// Csops
+// Waitid
+// Add_profil
+// Kdebug_trace
+// Sigreturn
+// Mmap
+// Mlock
+// Munlock
+// Atsocket
+// Kqueue_from_portset_np
+// Kqueue_portset
+// Getattrlist
+// Setattrlist
+// Getdirentriesattr
+// Searchfs
+// Delete
+// Copyfile
+// Poll
+// Watchevent
+// Waitevent
+// Modwatch
+// Getxattr
+// Fgetxattr
+// Setxattr
+// Fsetxattr
+// Removexattr
+// Fremovexattr
+// Listxattr
+// Flistxattr
+// Fsctl
+// Initgroups
+// Posix_spawn
+// Nfsclnt
+// Fhopen
+// Minherit
+// Semsys
+// Msgsys
+// Shmsys
+// Semctl
+// Semget
+// Semop
+// Msgctl
+// Msgget
+// Msgsnd
+// Msgrcv
+// Shmat
+// Shmctl
+// Shmdt
+// Shmget
+// Shm_open
+// Shm_unlink
+// Sem_open
+// Sem_close
+// Sem_unlink
+// Sem_wait
+// Sem_trywait
+// Sem_post
+// Sem_getvalue
+// Sem_init
+// Sem_destroy
+// Open_extended
+// Umask_extended
+// Stat_extended
+// Lstat_extended
+// Fstat_extended
+// Chmod_extended
+// Fchmod_extended
+// Access_extended
+// Settid
+// Gettid
+// Setsgroups
+// Getsgroups
+// Setwgroups
+// Getwgroups
+// Mkfifo_extended
+// Mkdir_extended
+// Identitysvc
+// Shared_region_check_np
+// Shared_region_map_np
+// __pthread_mutex_destroy
+// __pthread_mutex_init
+// __pthread_mutex_lock
+// __pthread_mutex_trylock
+// __pthread_mutex_unlock
+// __pthread_cond_init
+// __pthread_cond_destroy
+// __pthread_cond_broadcast
+// __pthread_cond_signal
+// Setsid_with_pid
+// __pthread_cond_timedwait
+// Aio_fsync
+// Aio_return
+// Aio_suspend
+// Aio_cancel
+// Aio_error
+// Aio_read
+// Aio_write
+// Lio_listio
+// __pthread_cond_wait
+// Iopolicysys
+// Mlockall
+// Munlockall
+// __pthread_kill
+// __pthread_sigmask
+// __sigwait
+// __disable_threadsignal
+// __pthread_markcancel
+// __pthread_canceled
+// __semwait_signal
+// Proc_info
+// Stat64_extended
+// Lstat64_extended
+// Fstat64_extended
+// __pthread_chdir
+// __pthread_fchdir
+// Audit
+// Auditon
+// Getauid
+// Setauid
+// Getaudit
+// Setaudit
+// Getaudit_addr
+// Setaudit_addr
+// Auditctl
+// Bsdthread_create
+// Bsdthread_terminate
+// Stack_snapshot
+// Bsdthread_register
+// Workq_open
+// Workq_ops
+// __mac_execve
+// __mac_syscall
+// __mac_get_file
+// __mac_set_file
+// __mac_get_link
+// __mac_set_link
+// __mac_get_proc
+// __mac_set_proc
+// __mac_get_fd
+// __mac_set_fd
+// __mac_get_pid
+// __mac_get_lcid
+// __mac_get_lctx
+// __mac_set_lctx
+// Setlcid
+// Read_nocancel
+// Write_nocancel
+// Open_nocancel
+// Close_nocancel
+// Wait4_nocancel
+// Recvmsg_nocancel
+// Sendmsg_nocancel
+// Recvfrom_nocancel
+// Accept_nocancel
+// Msync_nocancel
+// Fcntl_nocancel
+// Select_nocancel
+// Fsync_nocancel
+// Connect_nocancel
+// Sigsuspend_nocancel
+// Readv_nocancel
+// Writev_nocancel
+// Sendto_nocancel
+// Pread_nocancel
+// Pwrite_nocancel
+// Waitid_nocancel
+// Poll_nocancel
+// Msgsnd_nocancel
+// Msgrcv_nocancel
+// Sem_wait_nocancel
+// Aio_suspend_nocancel
+// __sigwait_nocancel
+// __semwait_signal_nocancel
+// __mac_mount
+// __mac_get_mount
+// __mac_getfsstat
