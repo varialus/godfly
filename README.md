@@ -54,6 +54,21 @@ Notes
 * Used FreeBSD specific code as a template.
 * Where FreeBSD code doesn't work, used NetBSD code with adjustments to make it work.
 
+Files Needing Auto-Generation
+-----------------------------
+
+* src/pkg/runtime/defs_dragonflybsd_386.h
+* src/pkg/runtime/defs_dragonflybsd_amd64.h
+* src/pkg/syscall/zerrors_dragonflybsd_386.go
+* src/pkg/syscall/zerrors_dragonflybsd_amd64.go
+* src/pkg/syscall/zsyscall_dragonflybsd_386.go
+* src/pkg/syscall/zsyscall_dragonflybsd_amd64.go
+* src/pkg/syscall/zsysnum_dragonflybsd_386.go
+* src/pkg/syscall/zsysnum_dragonflybsd_amd64.go
+* src/pkg/syscall/ztypes_dragonflybsd_386.go
+* src/pkg/syscall/ztypes_dragonflybsd_amd64.go
+* All Other Auto-Generated Files
+
 Recent Compilation Error
 ------------------------
 
