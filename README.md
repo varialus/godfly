@@ -71,6 +71,7 @@ Files Needing Auto-Generation
 * src/pkg/syscall/zsyscall_dragonflybsd_386.go
 * src/pkg/syscall/zsyscall_dragonflybsd_amd64.go
 * src/pkg/syscall/zsysnum_dragonflybsd_386.go
+* src/pkg/syscall/zsysnum_dragonflybsd_386.go
 * src/pkg/syscall/zsysnum_dragonflybsd_amd64.go
 * src/pkg/syscall/ztypes_dragonflybsd_386.go
 * src/pkg/syscall/ztypes_dragonflybsd_amd64.go
@@ -91,6 +92,7 @@ Files Needing Manual Review
 * src/pkg/runtime/sys_dragonflybsd_amd64.s
 * src/pkg/syscall/syscall_dragonflybsd.go
 * src/pkg/syscall/syscall_dragonflybsd_amd64.go
+* Any Other Copied Manually Written Code
 
 Recent amd64 Compilation Error
 ------------------------
