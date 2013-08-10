@@ -95,8 +95,37 @@ Files Needing Manual Review
 * src/pkg/syscall/syscall_dragonflybsd_amd64.go
 * Any Other Copied Manually-Written-Code
 
-Recent amd64 Compilation Error
-------------------------
+Recent Error
+------------
+
+High Level 32-bit
+=================
+
+\# Building C bootstrap tool.<br />
+cmd/dist<br />
+\# Building compilers and Go bootstrap tool for host, dragonflybsd/386<br />
+lib9<br />
+libbio<br />
+...<br />
+pkg/go/build<br />
+cmd/go<br />
+./make.bash: line 141: 24655 Bus error: 10           (core dumped) "$GOTOOLDIR"/go_bootstrap clean -i std<br />
+bash-4.2# Aug 10 01:18:20 df3 kernel: pid 24655 (go_bootstrap), uid 0: exited on signal 10 (core dumped)
+
+
+Low Level 32-bit
+================
+
+(gdb) run<br />
+Starting program: /root/go/pkg/tool/dragonflybsd_386/go_bootstrap<br />
+<br />
+Program received signal SIGBUS, Bus error.<br />
+runtime.setldt (address=void)<br />
+    at /root/go/src/pkg/runtime/sys_dragonflybsd_386.s:299<br />
+299             MOVW    AX, GS
+
+High Level 64-bit
+=================
 
 \# Building C bootstrap tool.<br />
 cmd/dist<br />
@@ -108,3 +137,8 @@ pkg/go/build<br />
 cmd/go<br />
 ./make.bash: line 141: 18147 Segmentation fault: 11 (core dumped) "$GOTOOLDIR"/go_bootstrap clean -i std<br />
 bash-4.2# Aug  9 00:44:55  kernel: pid 18147 (go_bootstrap), uid 0: exited on signal 11 (core )
+
+Notes
+=====
+
+Conversation between Snert and dho at http://go-lang.cat-v.org/irc-logs/go-nuts/2009-11-19
