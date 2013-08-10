@@ -102,6 +102,28 @@ Recent Error
 
 Conversation between Snert and dho at http://go-lang.cat-v.org/irc-logs/go-nuts/2009-11-19
 
+### High Level 64-bit
+
+\# Building C bootstrap tool.<br />
+cmd/dist<br />
+\# Building compilers and Go bootstrap tool for host, dragonflybsd/amd64<br />
+lib9<br />
+libbio<br />
+...<br />
+pkg/go/build<br />
+cmd/go<br />
+./make.bash: line 141: 18147 Segmentation fault: 11 (core dumped) "$GOTOOLDIR"/go_bootstrap clean -i std<br />
+bash-4.2# Aug  9 00:44:55  kernel: pid 18147 (go_bootstrap), uid 0: exited on signal 11 (core )
+
+### Low Level 64-bit
+
+(gdb) run<br />
+Starting program: /root/go/pkg/tool/dragonflybsd_amd64/go_bootstrap<br />
+<br />
+Program received signal SIGSEGV, Segmentation fault.<br />
+runtime.settls () at /root/go/src/pkg/runtime/sys_dragonflybsd_amd64.s:242<br />
+242             MOVL    $0xf1, 0xf1  // crash
+
 ### High Level 32-bit
 
 \# Building C bootstrap tool.<br />
@@ -124,16 +146,3 @@ Program received signal SIGBUS, Bus error.<br />
 runtime.setldt (address=void)<br />
     at /root/go/src/pkg/runtime/sys_dragonflybsd_386.s:299<br />
 299             MOVW    AX, GS
-
-### High Level 64-bit
-
-\# Building C bootstrap tool.<br />
-cmd/dist<br />
-\# Building compilers and Go bootstrap tool for host, dragonflybsd/amd64<br />
-lib9<br />
-libbio<br />
-...<br />
-pkg/go/build<br />
-cmd/go<br />
-./make.bash: line 141: 18147 Segmentation fault: 11 (core dumped) "$GOTOOLDIR"/go_bootstrap clean -i std<br />
-bash-4.2# Aug  9 00:44:55  kernel: pid 18147 (go_bootstrap), uid 0: exited on signal 11 (core )
