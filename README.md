@@ -15,7 +15,7 @@ Go Linux Emulation on 32-bit DragonFly BSD
 7. mkdir /compat/linux/usr/local
 8. tar -C /compat/linux/usr/local -xzf go1.1.1.linux-386.tar.gz
 9. brandelf -t Linux /compat/linux/usr/local/go/bin/go
-10. /compat/linux/usr/local/go/bin/go version
+10. /compat/linux/usr/local/go/bin/go env
 
 Roadmap
 -------
@@ -33,24 +33,22 @@ Setup
 4. bash
 5. mkdir ~/go
 6. mkdir ~/bin
-7. export GOROOT=$HOME/go
-8. export GOARCH=amd64
-9. export GOOS=freebsd or export GOOS=dragonflybsd
-10. cd go
-11. git clone http://github.com/varialus/godfly.git .
-12. cd src
-13. ./all.bash
-14. Fix errors and push fixes to github.com.
-15. cd ..
-16. git clean -f
-17. rm -r ~/bin
-18. mkdir ~/bin
-19. git pull
-20. Repeat steps 12 through 19.
+7. cd go
+8. git clone http://github.com/varialus/godfly.git .
+9. cd src
+10. ./all.bash
+11. Fix errors and push fixes to github.com.
+12. cd ..
+13. git clean -f
+14. rm -r ~/bin
+15. mkdir ~/bin
+16. git pull
+17. Repeat steps 9 through 16.
 
 Notes
 -----
 
+* http://golang.org/doc/install/source
 * Used FreeBSD specific code as a template.
 * Where FreeBSD code doesn't work, used NetBSD code with adjustments to make it work.
 
