@@ -116,23 +116,23 @@ func (i Data) GoString() string { return stringName(uint32(i), dataStrings, true
 type OSABI byte
 
 const (
-	ELFOSABI_NONE         OSABI = 0   /* UNIX System V ABI */
-	ELFOSABI_HPUX         OSABI = 1   /* HP-UX operating system */
-	ELFOSABI_NETBSD       OSABI = 2   /* NetBSD */
-	ELFOSABI_LINUX        OSABI = 3   /* GNU/Linux */
-	ELFOSABI_HURD         OSABI = 4   /* GNU/Hurd */
-	ELFOSABI_86OPEN       OSABI = 5   /* 86Open common IA32 ABI */
-	ELFOSABI_SOLARIS      OSABI = 6   /* Solaris */
-	ELFOSABI_AIX          OSABI = 7   /* AIX */
-	ELFOSABI_IRIX         OSABI = 8   /* IRIX */
-	ELFOSABI_FREEBSD      OSABI = 9   /* FreeBSD */
-	ELFOSABI_TRU64        OSABI = 10  /* TRU64 UNIX */
-	ELFOSABI_MODESTO      OSABI = 11  /* Novell Modesto */
-	ELFOSABI_OPENBSD      OSABI = 12  /* OpenBSD */
-	ELFOSABI_OPENVMS      OSABI = 13  /* Open VMS */
-	ELFOSABI_NSK          OSABI = 14  /* HP Non-Stop Kernel */
-	ELFOSABI_ARM          OSABI = 97  /* ARM */
-	ELFOSABI_STANDALONE   OSABI = 255 /* Standalone (embedded) application */
+	ELFOSABI_NONE       OSABI = 0   /* UNIX System V ABI */
+	ELFOSABI_HPUX       OSABI = 1   /* HP-UX operating system */
+	ELFOSABI_NETBSD     OSABI = 2   /* NetBSD */
+	ELFOSABI_LINUX      OSABI = 3   /* GNU/Linux */
+	ELFOSABI_HURD       OSABI = 4   /* GNU/Hurd */
+	ELFOSABI_86OPEN     OSABI = 5   /* 86Open common IA32 ABI */
+	ELFOSABI_SOLARIS    OSABI = 6   /* Solaris */
+	ELFOSABI_AIX        OSABI = 7   /* AIX */
+	ELFOSABI_IRIX       OSABI = 8   /* IRIX */
+	ELFOSABI_FREEBSD    OSABI = 9   /* FreeBSD */
+	ELFOSABI_TRU64      OSABI = 10  /* TRU64 UNIX */
+	ELFOSABI_MODESTO    OSABI = 11  /* Novell Modesto */
+	ELFOSABI_OPENBSD    OSABI = 12  /* OpenBSD */
+	ELFOSABI_OPENVMS    OSABI = 13  /* Open VMS */
+	ELFOSABI_NSK        OSABI = 14  /* HP Non-Stop Kernel */
+	ELFOSABI_ARM        OSABI = 97  /* ARM */
+	ELFOSABI_STANDALONE OSABI = 255 /* Standalone (embedded) application */
 )
 
 var osabiStrings = []intName{
