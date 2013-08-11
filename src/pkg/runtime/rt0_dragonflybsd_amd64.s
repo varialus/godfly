@@ -11,3 +11,6 @@ TEXT _rt0_amd64_dragonflybsd(SB),7,$-8
 TEXT main(SB),7,$-8
 	MOVQ	$_rt0_go(SB), AX
 	JMP	AX
+
+DATA runtime·isdragonflybsd(SB)/4, $1
+GLOBL runtime·isdragonflybsd(SB), $4

@@ -54,6 +54,9 @@ needtls:
 	// skip runtime·ldt0setup(SB) and tls test on Plan 9 in all cases
 	CMPL	runtime·isplan9(SB), $1
 	JEQ	ok
+	// skip runtime·ldt0setup(SB) and tls test on DragonFly BSD in all cases
+	CMPL	runtime·isdragonflybsd(SB), $1
+	JEQ	ok
 
 	// set up %gs
 	CALL	runtime·ldt0setup(SB)

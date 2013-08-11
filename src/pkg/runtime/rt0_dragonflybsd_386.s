@@ -12,3 +12,6 @@ TEXT _rt0_386_dragonflybsd(SB),7,$8
 
 TEXT main(SB),7,$0
 	JMP	_rt0_go(SB)
+
+DATA  runtime·isdragonflybsd(SB)/4, $1
+GLOBL runtime·isdragonflybsd(SB), $4
