@@ -18,6 +18,30 @@ TEXT runtime·thr_new(SB),7,$-4
 	INT	$0x80
 	RET
 
+TEXT runtime·thr_start(SB),7,$0
+	MOVL	mm+0(FP), AX
+	MOVL	m_g0(AX), BX
+	LEAL	m_tls(AX), BP
+	MOVL	0(BP), DI
+	ADDL	$7, DI
+	PUSHAL
+	PUSHL	$32
+	PUSHL	BP
+	PUSHL	DI
+	CALL	runtime·setldt(SB)
+	POPL	AX
+	POPL	AX
+	POPL	AX
+	POPAL
+	get_tls(CX)
+	MOVL	BX, g(CX)
+
+	MOVL	AX, m(CX)
+	CALL	runtime·stackcheck(SB)		// smashes AX
+	CALL	runtime·mstart(SB)
+
+	MOVL	0, AX			// crash (not reached)
+
 // Exit the entire program (like C exit)
 TEXT runtime·exit(SB),7,$-4
 	MOVL	$1, AX
@@ -241,9 +265,38 @@ int i386_set_ldt(int, const union ldt_entry *, int);
 
 */
 
-// TODO: Implement this stubbed function.
 // setldt(int entry, int address, int limit)
 TEXT runtime·setldt(SB),7,$32
+	MOVL	address+4(FP), BX	// aka base
+	// see comment in sys_linux_386.s; dragonflybsd is similar
+	ADDL	$0x8, BX
+
+	// set up data_desc
+	LEAL	16(SP), AX	// struct data_desc
+	MOVL	$0, 0(AX)
+	MOVL	$0, 4(AX)
+
+	MOVW	BX, 2(AX)
+	SHRL	$16, BX
+	MOVB	BX, 4(AX)
+	SHRL	$8, BX
+	MOVB	BX, 7(AX)
+
+	MOVW	$0xffff, 0(AX)
+	MOVB	$0xCF, 6(AX)	// 32-bit operand, 4k limit unit, 4 more bits of limit
+
+	MOVB	$0xF2, 5(AX)	// r/w data descriptor, dpl=3, present
+
+	// call i386_set_ldt(entry, desc, 1)
+	MOVL	$0xffffffff, 0(SP)	// auto-allocate entry and return in AX
+	MOVL	AX, 4(SP)
+	MOVL	$1, 8(SP)
+	CALL	runtime·i386_set_ldt(SB)
+
+	// compute segment selector - (entry*8+7)
+	SHLL	$3, AX
+	ADDL	$7, AX
+	MOVW	AX, GS
 	RET
 
 TEXT runtime·i386_set_ldt(SB),7,$16
@@ -280,17 +333,6 @@ TEXT runtime·osyield(SB),7,$-4
 	MOVL	$331, AX		// sys_sched_yield
 	INT	$0x80
 	RET
-
-TEXT runtime·lwp_park(SB),7,$-4
-	MOVL	$434, AX		// sys__lwp_park
-	INT	$0x80
-	RET
-
-TEXT runtime·lwp_unpark(SB),7,$-4
-	MOVL	$321, AX		// sys__lwp_unpark
-	INT	$0x80
-	RET
-
 
 TEXT runtime·sigprocmask(SB),7,$16
 	MOVL	$0, 0(SP)		// syscall gap

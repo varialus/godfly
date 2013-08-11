@@ -9,6 +9,7 @@
 #include "stack.h"
 
 extern SigTab runtime·sigtab[];
+extern int32 runtime·sys_umtx_op(uint32*, int32, uint32, void*, void*);
 
 // From DragonFly BSD's <sys/sysctl.h>
 #define	CTL_HW	6
@@ -16,14 +17,6 @@ extern SigTab runtime·sigtab[];
 
 static Sigset sigset_none;
 static Sigset sigset_all = { ~(uint32)0, ~(uint32)0, ~(uint32)0, ~(uint32)0, };
-
-extern int32 runtime·lwp_park(Timespec *abstime, int32 unpark, void *hint, void *unparkhint);
-extern int32 runtime·lwp_unpark(int32 lwp, void *hint);
-
-enum
-{
-	ESRCH = 3
-};
 
 static int32
 getncpu(void)
@@ -45,95 +38,51 @@ getncpu(void)
 		return 1;
 }
 
-uintptr
-runtime·semacreate(void)
+// DragonFly BSD's umtx_op syscall is effectively the same as Linux's futex, and
+// thus the code is largely similar. See linux/thread.c and lock_futex.c for comments.
+
+#pragma textflag 7
+void
+runtime·futexsleep(uint32 *addr, uint32 val, int64 ns)
 {
-	return 1;
+	int32 ret;
+	Timespec ts;
+
+	if(ns < 0) {
+		ret = runtime·sys_umtx_op(addr, UMTX_OP_WAIT_UINT, val, nil, nil);
+		if(ret >= 0 || ret == -EINTR)
+			return;
+		goto fail;
+	}
+	// NOTE: tv_nsec is int64 on amd64, so this assumes a little-endian system.
+	ts.tv_nsec = 0;
+	ts.tv_sec = runtime·timediv(ns, 1000000000, (int32*)&ts.tv_nsec);
+	ret = runtime·sys_umtx_op(addr, UMTX_OP_WAIT_UINT, val, nil, &ts);
+	if(ret >= 0 || ret == -EINTR)
+		return;
+
+fail:
+	runtime·prints("umtx_wait addr=");
+	runtime·printpointer(addr);
+	runtime·prints(" val=");
+	runtime·printint(val);
+	runtime·prints(" ret=");
+	runtime·printint(ret);
+	runtime·prints("\n");
+	*(int32*)0x1005 = 0x1005;
 }
 
 void
-runtime·semawakeup(M *mp)
+runtime·futexwakeup(uint32 *addr, uint32 cnt)
 {
-	uint32 ret;
+	int32 ret;
 
-	// spin-mutex lock
-	while(runtime·xchg(&mp->waitsemalock, 1))
-		runtime·osyield();
-	mp->waitsemacount++;
-	// TODO(jsing) - potential deadlock, see semasleep() for details.
-	// Confirm that LWP is parked before unparking...
-	ret = runtime·lwp_unpark(mp->procid, &mp->waitsemacount);
-	if(ret != 0 && ret != ESRCH)
-		runtime·printf("thrwakeup addr=%p sem=%d ret=%d\n", &mp->waitsemacount, mp->waitsemacount, ret);
-	// spin-mutex unlock
-	runtime·atomicstore(&mp->waitsemalock, 0);
-}
+	ret = runtime·sys_umtx_op(addr, UMTX_OP_WAKE, cnt, nil, nil);
+	if(ret >= 0)
+		return;
 
-int32
-runtime·semasleep(int64 ns)
-{
-	Timespec ts;
-
-	// spin-mutex lock
-	while(runtime·xchg(&m->waitsemalock, 1))
-		runtime·osyield();
-
-	for(;;) {
-		// lock held
-		if(m->waitsemacount == 0) {
-			// sleep until semaphore != 0 or timeout.
-			// thrsleep unlocks m->waitsemalock.
-			if(ns < 0) {
-				// TODO(jsing) - potential deadlock!
-				//
-				// There is a potential deadlock here since we
-				// have to release the waitsemalock mutex
-				// before we call lwp_park() to suspend the
-				// thread. This allows another thread to
-				// release the lock and call lwp_unpark()
-				// before the thread is actually suspended.
-				// If this occurs the current thread will end
-				// up sleeping indefinitely. Unfortunately
-				// the NetBSD kernel does not appear to provide
-				// a mechanism for unlocking the userspace
-				// mutex once the thread is actually parked.
-				runtime·atomicstore(&m->waitsemalock, 0);
-				runtime·lwp_park(nil, 0, &m->waitsemacount, nil);
-			} else {
-				ns = ns + runtime·nanotime();
-				// NOTE: tv_nsec is int64 on amd64, so this assumes a little-endian system.
-				ts.tv_nsec = 0;
-				ts.tv_sec = runtime·timediv(ns, 1000000000, (int32*)&ts.tv_nsec);
-				// TODO(jsing) - potential deadlock!
-				// See above for details.
-				runtime·atomicstore(&m->waitsemalock, 0);
-				runtime·lwp_park(&ts, 0, &m->waitsemacount, nil);
-			}
-			// reacquire lock
-			while(runtime·xchg(&m->waitsemalock, 1))
-				runtime·osyield();
-		}
-
-		// lock held (again)
-		if(m->waitsemacount != 0) {
-			// semaphore is available.
-			m->waitsemacount--;
-			// spin-mutex unlock
-			runtime·atomicstore(&m->waitsemalock, 0);
-			return 0;  // semaphore acquired
-		}
-
-		// semaphore not available.
-		// if there is a timeout, stop now.
-		// otherwise keep trying.
-		if(ns >= 0)
-			break;
-	}
-
-	// lock held but giving up
-	// spin-mutex unlock
-	runtime·atomicstore(&m->waitsemalock, 0);
-	return -1;
+	runtime·printf("umtx_wake addr=%p ret=%d\n", addr, ret);
+	*(int32*)0x1006 = 0x1006;
 }
 
 void runtime·thr_start(void*);
@@ -152,14 +101,22 @@ runtime·newosproc(M *mp, void *stk)
 	runtime·sigprocmask(&sigset_all, &oset);
 	runtime·memclr((byte*)&param, sizeof param);
 
-	param.func = runtime·lwp_start;
+	param.start_func = runtime·thr_start;
 	param.arg = (byte*)mp;
-	param.stack = stk;
-	param.tid1 = (int32 *)&mp->procid;
 
-	mp->tls[0] = mp->id;    // so 386 asm can find it
+	// NOTE(rsc): This code is confused. stackbase is the top of the stack
+	// and is equal to stk. However, it's working, so I'm not changing it.
+	param.stack_base = (void*)mp->g0->stackbase;
+	param.stack_size = (byte*)stk - (byte*)mp->g0->stackbase;
 
-	runtime·lwp_create(&param, sizeof param);
+	param.child_tid = (intptr*)&mp->procid;
+	param.parent_tid = nil;
+	param.tls_base = (void*)&mp->tls[0];
+	param.tls_size = sizeof mp->tls;
+
+	mp->tls[0] = mp->id;	// so 386 asm can find it
+
+	runtime·thr_new(&param, sizeof param);
 	runtime·sigprocmask(&oset, nil);
 }
 

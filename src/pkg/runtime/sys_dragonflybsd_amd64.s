@@ -2,11 +2,21 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 //
-// System calls and other sys.stuff for AMD64, Dragonfly BSD
+// System calls and other sys.stuff for AMD64, DragonFly BSD
 // /usr/src/sys/kern/syscalls.master for syscall numbers.
 //
 
 #include "zasm_GOOS_GOARCH.h"
+
+TEXT runtime·sys_umtx_op(SB),7,$0
+	MOVQ 8(SP), DI
+	MOVL 16(SP), SI
+	MOVL 20(SP), DX
+	MOVQ 24(SP), R10
+	MOVQ 32(SP), R8
+	MOVL $454, AX
+	SYSCALL
+	RET
 
 TEXT runtime·thr_new(SB),7,$0
 	MOVQ 8(SP), DI
@@ -14,6 +24,24 @@ TEXT runtime·thr_new(SB),7,$0
 	MOVL $455, AX
 	SYSCALL
 	RET
+
+TEXT runtime·thr_start(SB),7,$0
+	MOVQ	DI, R13 // m
+
+	// set up FS to point at m->tls
+	LEAQ	m_tls(R13), DI
+	CALL	runtime·settls(SB)	// smashes DI
+
+	// set up m, g
+	get_tls(CX)
+	MOVQ	R13, m(CX)
+	MOVQ	m_g0(R13), DI
+	MOVQ	DI, g(CX)
+
+	CALL	runtime·stackcheck(SB)
+	CALL	runtime·mstart(SB)
+
+	MOVQ 0, AX			// crash (not reached)
 
 // Exit the entire program (like C exit)
 TEXT runtime·exit(SB),7,$-8
@@ -218,7 +246,7 @@ TEXT runtime·settls(SB),7,$8
 	MOVQ	DI, 0(SP)
 	MOVQ	SP, SI
 	MOVQ	$129, DI	// AMD64_SET_FSBASE
-	MOVL	$165, AX	// sysarch
+	MOVQ	$165, AX	// sysarch
 	SYSCALL
 	JCC	2(PC)
 	MOVL	$0xf1, 0xf1  // crash
@@ -241,22 +269,6 @@ TEXT runtime·sysctl(SB),7,$0
 
 TEXT runtime·osyield(SB),7,$-4
 	MOVL	$331, AX		// sys_sched_yield
-	SYSCALL
-	RET
-
-TEXT runtime·lwp_park(SB),7,$0
-	MOVQ	8(SP), DI		// arg 1 - abstime
-	MOVL	16(SP), SI		// arg 2 - unpark
-	MOVQ	24(SP), DX		// arg 3 - hint
-	MOVQ	32(SP), R10		// arg 4 - unparkhint
-	MOVL	$434, AX		// sys__lwp_park
-	SYSCALL
-	RET
-
-TEXT runtime·lwp_unpark(SB),7,$0
-	MOVQ	8(SP), DI		// arg 1 - lwp
-	MOVL	16(SP), SI		// arg 2 - hint
-	MOVL	$321, AX		// sys__lwp_unpark
 	SYSCALL
 	RET
 
