@@ -138,37 +138,10 @@ runtime·semasleep(int64 ns)
 
 void runtime·thr_start(void*);
 
+// TODO: Implement this stubbed function.
 void
 runtime·newosproc(M *mp, void *stk)
 {
-	ThrParam param;
-	Sigset oset;
-
-	if(0){
-		runtime·printf("newosproc stk=%p m=%p g=%p id=%d/%d ostk=%p\n",
-			stk, mp, mp->g0, mp->id, (int32)mp->tls[0], &mp);
-	}
-
-	runtime·sigprocmask(&sigset_all, &oset);
-	runtime·memclr((byte*)&param, sizeof param);
-
-	param.start_func = runtime·thr_start;
-	param.arg = (byte*)mp;
-
-	// NOTE(rsc): This code is confused. stackbase is the top of the stack
-	// and is equal to stk. However, it's working, so I'm not changing it.
-	param.stack_base = (void*)mp->g0->stackbase;
-	param.stack_size = (byte*)stk - (byte*)mp->g0->stackbase;
-
-	param.child_tid = (intptr*)&mp->procid;
-	param.parent_tid = nil;
-	param.tls_base = (void*)&mp->tls[0];
-	param.tls_size = sizeof mp->tls;
-
-	mp->tls[0] = mp->id;	// so 386 asm can find it
-
-	runtime·thr_new(&param, sizeof param);
-	runtime·sigprocmask(&oset, nil);
 }
 
 void
