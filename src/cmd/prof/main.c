@@ -16,7 +16,7 @@
 #define Ureg Ureg_x86
 	#include <ureg_x86.h>
 #undef Ureg
-#include "../../include/mach.h"
+#include <mach.h>
 
 char* file = "6.out";
 static Fhdr fhdr;
