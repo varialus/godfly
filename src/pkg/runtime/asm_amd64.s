@@ -52,9 +52,6 @@ needtls:
 	// skip TLS setup on Plan 9
 	CMPL	runtime·isplan9(SB), $1
 	JEQ ok
-	// skip TLS setup on DragonFly BSD
-	CMPL	runtime·isdragonflybsd(SB), $1
-	JEQ ok
 
 	LEAQ	runtime·tls0(SB), DI
 	CALL	runtime·settls(SB)
