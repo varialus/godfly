@@ -212,6 +212,11 @@ TEXT runtime·usleep(SB),7,$16
 	SYSCALL
 	RET
 
+// TODO: Implement this stubbed function.
+// set tls base to DI
+TEXT runtime·settls(SB),7,$8
+	RET
+
 TEXT runtime·sysctl(SB),7,$0
 	MOVQ	8(SP), DI		// arg 1 - name
 	MOVL	16(SP), SI		// arg 2 - namelen

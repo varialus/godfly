@@ -241,6 +241,11 @@ int i386_set_ldt(int, const union ldt_entry *, int);
 
 */
 
+// TODO: Implement this stubbed function.
+// setldt(int entry, int address, int limit)
+TEXT runtime·setldt(SB),7,$32
+	RET
+
 TEXT runtime·i386_set_ldt(SB),7,$16
 	LEAL	args+0(FP), AX	// 0(FP) == 4(SP) before SP got moved
 	MOVL	$0, 0(SP)	// syscall gap
