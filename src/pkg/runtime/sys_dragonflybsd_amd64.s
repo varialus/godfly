@@ -15,24 +15,6 @@ TEXT runtime·thr_new(SB),7,$0
 	SYSCALL
 	RET
 
-TEXT runtime·thr_start(SB),7,$0
-	MOVQ	DI, R13 // m
-
-	// set up FS to point at m->tls
-	LEAQ	m_tls(R13), DI
-	CALL	runtime·settls(SB)	// smashes DI
-
-	// set up m, g
-	get_tls(CX)
-	MOVQ	R13, m(CX)
-	MOVQ	m_g0(R13), DI
-	MOVQ	DI, g(CX)
-
-	CALL	runtime·stackcheck(SB)
-	CALL	runtime·mstart(SB)
-
-	MOVQ 0, AX			// crash (not reached)
-
 // Exit the entire program (like C exit)
 TEXT runtime·exit(SB),7,$-8
 	MOVL	8(SP), DI		// arg 1 exit status
@@ -228,18 +210,6 @@ TEXT runtime·usleep(SB),7,$16
 	MOVQ	$0, SI			// arg 2 - rmtp
 	MOVL	$240, AX		// sys_nanosleep
 	SYSCALL
-	RET
-
-// set tls base to DI
-TEXT runtime·settls(SB),7,$8
-	ADDQ	$16, DI	// adjust for ELF: wants to use -16(FS) and -8(FS) for g and m
-	MOVQ	DI, 0(SP)
-	MOVQ	SP, SI
-	MOVQ	$129, DI	// AMD64_SET_FSBASE
-	MOVQ	$165, AX	// sysarch
-	SYSCALL
-	JCC	2(PC)
-	MOVL	$0xf1, 0xf1  // crash
 	RET
 
 TEXT runtime·sysctl(SB),7,$0
