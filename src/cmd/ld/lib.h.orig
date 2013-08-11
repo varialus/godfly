@@ -329,7 +329,6 @@ enum {
 	Hdarwin,	// Apple Mach-O
 	Hlinux,		// Linux ELF
 	Hfreebsd,	// FreeBSD ELF
-	Hdragonfly,	// DragonFly ELF
 	Hwindows,	// MS Windows PE
 	Hopenbsd,	// OpenBSD ELF
 };
