@@ -3,19 +3,69 @@ godfly
 
 Golang on DragonFly BSD
 
+Recent Error
+-------------
+
+### High Level 64-bit
+
+\# Building C bootstrap tool.<br />
+cmd/dist<br />
+\# Building compilers and Go bootstrap tool for host, dragonflybsd/amd64<br />
+lib9<br />
+libbio<br />
+...<br />
+pkg/go/build<br />
+cmd/go<br />
+./make.bash: line 141: 16002 Segmentation fault: 11 (core dumped) "$GOTOOLDIR"/go_bootstrap clean -i std<br />
+bash-4.2# Aug  11 15:21:20  kernel: pid 16002 (go_bootstrap), uid 0: exited on signal 11 (core dumped)
+
+### Low Level 64-bit
+
+(gdb) run<br />
+Starting program: /root/go/pkg/tool/dragonflybsd_amd64/go_bootstrap<br />
+<br />
+Program received signal SIGSEGV, Segmentation fault.<br />
+_rt0_go () at /root/go/src/pkg/runtime/asm_amd64.s:73<br />
+73           MOVL    CX, g(BX)
+
+### High Level 32-bit
+
+\# Building C bootstrap tool.<br />
+cmd/dist<br />
+\# Building compilers and Go bootstrap tool for host, dragonflybsd/386<br />
+lib9<br />
+libbio<br />
+...<br />
+pkg/go/build<br />
+cmd/go<br />
+./make.bash: line 141: 31058 Bus error: 10           (core dumped) "$GOTOOLDIR"/go_bootstrap clean -i std<br />
+bash-4.2# Aug 11 15:21:10 df3 kernel: pid 31058 (go_bootstrap), uid 0: exited on signal 10 (core dumped)
+
+### Low Level 32-bit
+
+(gdb) run<br />
+Starting program: /root/go/pkg/tool/dragonflybsd_386/go_bootstrap<br />
+<br />
+Program received signal SIGBUS, Bus error.<br />
+_rt0_go (argc=void, argv=void) at /root/go/src/pkg/runtime/asm_386.s:75<br />
+75           MOVL    CX, g(BX)
+
 Implementations Needed
 ----------------------
 
 * Implement stubbed function newosproc within src/pkg/runtime/os_dragonflybsd.c
+* There are seven other implementations available for comparison within src/pkg/runtime/os_$GOOS.c
 
-### Plan A
+Implementations Wanted
+----------------------
 
-* Implement stubbed functions setldt and settls within src/pkg/runtime/sys_dragonflybsd_$GOARCH.s
+* Currently I'm skipping the call to setldt and settls as with windows and plan9 in /src/pkg/runtime/asm_$GOARCH.s
+* It would be better to implement stubbed functions setldt and settls within src/pkg/runtime/sys_dragonflybsd_$GOARCH.s
 * There are seven other implementations available for comparison within src/pkg/runtime/sys_$GOOS_$GOARCH.s
 
-### Plan B
+### Notes
 
-* Skip call to setldt and settls as with windows and plan9 in /src/pkg/runtime/asm_$GOARCH.s
+Conversation between Snert and dho at http://go-lang.cat-v.org/irc-logs/go-nuts/2009-11-19
 
 Go Linux Emulation on 32-bit DragonFly BSD
 ------------------------------------------
