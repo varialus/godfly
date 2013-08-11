@@ -138,10 +138,29 @@ runtime·semasleep(int64 ns)
 
 void runtime·thr_start(void*);
 
-// TODO: Implement this stubbed function.
 void
 runtime·newosproc(M *mp, void *stk)
 {
+	ThrParam param;
+	Sigset oset;
+
+	if(0){
+		runtime·printf("newosproc stk=%p m=%p g=%p id=%d/%d ostk=%p\n",
+			stk, mp, mp->g0, mp->id, (int32)mp->tls[0], &mp);
+	}
+
+	runtime·sigprocmask(&sigset_all, &oset);
+	runtime·memclr((byte*)&param, sizeof param);
+
+	param.func = runtime·lwp_start;
+	param.arg = (byte*)mp;
+	param.stack = stk;
+	param.tid1 = (int32 *)&mp->procid;
+
+	mp->tls[0] = mp->id;    // so 386 asm can find it
+
+	runtime·lwp_create(&param, sizeof param);
+	runtime·sigprocmask(&oset, nil);
 }
 
 void
