@@ -783,17 +783,6 @@ TEXT runtime·cputicks(SB),7,$0-4
 	MOVL	DX, 4(DI)
 	RET
 
-TEXT runtime·ldt0setup(SB),7,$16-0
-	// set up ldt 7 to point at tls0
-	// ldt 1 would be fine on Linux, but on OS X, 7 is as low as we can go.
-	// the entry number is just a hint.  setldt will set up GS with what it used.
-	MOVL	$7, 0(SP)
-	LEAL	runtime·tls0(SB), AX
-	MOVL	AX, 4(SP)
-	MOVL	$32, 8(SP)	// sizeof(tls array)
-	CALL	runtime·setldt(SB)
-	RET
-
 TEXT runtime·emptyfunc(SB),0,$0-0
 	RET
 
