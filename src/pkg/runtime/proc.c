@@ -2592,14 +2592,14 @@ runtime·topofstack(Func *f)
 		f->entry == (uintptr)runtime·mcall ||
 		f->entry == (uintptr)runtime·morestack ||
 		f->entry == (uintptr)runtime·lessstack ||
-#if defined(__DragonFly__)
+//#ifdef __DragonFly__
 		f->entry == (uintptr)_rt0_go_c;
-#else
-		f->entry == (uintptr)_rt0_go;
-#endif
+//#else
+//		f->entry == (uintptr)_rt0_go;
+//#endif
 }
 
-#if defined(__DragonFly__)
+//#ifdef __DragonFly__
 
 #ifdef GOARCH_386
 
@@ -2814,4 +2814,4 @@ _rt0_go_c(void)
 
 #endif
 
-#endif
+//#endif
