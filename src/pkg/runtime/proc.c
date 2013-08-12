@@ -2810,7 +2810,7 @@ runtime·topofstack(Func *f)
 		f->entry == (uintptr)runtime·morestack ||
 		f->entry == (uintptr)runtime·lessstack ||
 //#ifdef __DragonFly__
-		f->entry == (uintptr)_rt0_go_c;
+		//f->entry == (uintptr)_rt0_go_c;
 //#else
 //		f->entry == (uintptr)_rt0_go;
 //#endif
