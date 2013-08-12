@@ -18,30 +18,6 @@ TEXT runtime·thr_new(SB),7,$-4
 	INT	$0x80
 	RET
 
-TEXT runtime·thr_start(SB),7,$0
-	MOVL	mm+0(FP), AX
-	MOVL	m_g0(AX), BX
-	LEAL	m_tls(AX), BP
-	MOVL	0(BP), DI
-	ADDL	$7, DI
-	PUSHAL
-	PUSHL	$32
-	PUSHL	BP
-	PUSHL	DI
-	CALL	runtime·setldt(SB)
-	POPL	AX
-	POPL	AX
-	POPL	AX
-	POPAL
-	get_tls(CX)
-	MOVL	BX, g(CX)
-
-	MOVL	AX, m(CX)
-	CALL	runtime·stackcheck(SB)		// smashes AX
-	CALL	runtime·mstart(SB)
-
-	MOVL	0, AX			// crash (not reached)
-
 // Exit the entire program (like C exit)
 TEXT runtime·exit(SB),7,$-4
 	MOVL	$1, AX
