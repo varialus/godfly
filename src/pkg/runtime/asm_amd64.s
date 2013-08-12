@@ -13,7 +13,7 @@ TEXT _rt0_go(SB),7,$0
 	ANDQ	$~15, SP
 	MOVQ	AX, 16(SP)
 	MOVQ	BX, 24(SP)
-
+	
 	// create istack out of the given (operating system) stack.
 	// _cgo_init may update stackguard.
 	MOVQ	$runtime·g0(SB), DI
@@ -31,8 +31,8 @@ TEXT _rt0_go(SB),7,$0
 	CPUID
 	MOVL	CX, runtime·cpuid_ecx(SB)
 	MOVL	DX, runtime·cpuid_edx(SB)
-nocpuinfo:
-
+nocpuinfo:	
+	
 	// if there is an _cgo_init, call it.
 	MOVQ	_cgo_init(SB), AX
 	TESTQ	AX, AX

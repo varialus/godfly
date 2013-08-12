@@ -21,7 +21,7 @@ TEXT _rt0_go(SB),7,$0
 	MOVL	BX, g_stackguard(BP)
 	MOVL	BX, g_stackguard0(BP)
 	MOVL	SP, g_stackbase(BP)
-
+	
 	// find out information about the processor we're on
 	MOVL	$0, AX
 	CPUID
@@ -31,7 +31,7 @@ TEXT _rt0_go(SB),7,$0
 	CPUID
 	MOVL	CX, runtime·cpuid_ecx(SB)
 	MOVL	DX, runtime·cpuid_edx(SB)
-nocpuinfo:
+nocpuinfo:	
 
 	// if there is an _cgo_init, call it to let it
 	// initialize and to set up GS.  if not,

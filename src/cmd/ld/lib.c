@@ -88,16 +88,6 @@ Lflag(char *arg)
 	libdir[nlibdir++] = arg;
 }
 
-extern void
-rt0_386_dragonflybsd(void)
-{
-}
-
-extern void
-rt0_amd64_dragonflybsd(void)
-{
-}
-
 void
 libinit(void)
 {
@@ -130,15 +120,13 @@ libinit(void)
 
 	if(INITENTRY == nil) {
 		INITENTRY = mal(strlen(goarch)+strlen(goos)+10);
-		//sprint(INITENTRY, "_rt0_%s_%s", goarch, goos);
-		//sprint(INITENTRY, "rt0_%s_%s", goarch, "dragonflybsd");
+		sprint(INITENTRY, "_rt0_%s_%s", goarch, goos);
 	}
 	lookup(INITENTRY, 0)->type = SXREF;
 	if(flag_shared) {
 		if(LIBINITENTRY == nil) {
 			LIBINITENTRY = mal(strlen(goarch)+strlen(goos)+20);
-			//sprint(LIBINITENTRY, "_rt0_%s_%s_lib", goarch, goos);
-			//sprint(LIBINITENTRY, "rt0_%s_%s_lib", goarch, "dragonflybsd");
+			sprint(LIBINITENTRY, "_rt0_%s_%s_lib", goarch, goos);
 		}
 		lookup(LIBINITENTRY, 0)->type = SXREF;
 	}

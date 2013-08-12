@@ -25,6 +25,24 @@ TEXT runtime·thr_new(SB),7,$0
 	SYSCALL
 	RET
 
+TEXT runtime·thr_start(SB),7,$0
+	MOVQ	DI, R13 // m
+
+	// set up FS to point at m->tls
+	LEAQ	m_tls(R13), DI
+	CALL	runtime·settls(SB)	// smashes DI
+
+	// set up m, g
+	get_tls(CX)
+	MOVQ	R13, m(CX)
+	MOVQ	m_g0(R13), DI
+	MOVQ	DI, g(CX)
+
+	CALL	runtime·stackcheck(SB)
+	CALL	runtime·mstart(SB)
+
+	MOVQ 0, AX			// crash (not reached)
+
 // Exit the entire program (like C exit)
 TEXT runtime·exit(SB),7,$-8
 	MOVL	8(SP), DI		// arg 1 exit status

@@ -87,15 +87,6 @@ runtime·futexwakeup(uint32 *addr, uint32 cnt)
 
 void runtime·thr_start(void*);
 
-//#ifdef __DragonFly__
-
-void
-runtime·thr_start_c(void*)
-{
-}
-
-//#endif
-
 void
 runtime·newosproc(M *mp, void *stk)
 {
@@ -110,11 +101,7 @@ runtime·newosproc(M *mp, void *stk)
 	runtime·sigprocmask(&sigset_all, &oset);
 	runtime·memclr((byte*)&param, sizeof param);
 
-//#ifdef __DragonFly__
-	param.start_func = runtime·thr_start_c;
-//#else
-//	param.start_func = runtime·thr_start;
-//#endif
+	param.start_func = runtime·thr_start;
 	param.arg = (byte*)mp;
 
 	// NOTE(rsc): This code is confused. stackbase is the top of the stack
