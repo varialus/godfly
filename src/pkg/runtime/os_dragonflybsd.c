@@ -88,7 +88,7 @@ runtime·futexwakeup(uint32 *addr, uint32 cnt)
 void runtime·thr_start(void*);
 
 void
-runtime·thr_start(void)
+runtime·thr_start(void*)
 {
 }
 
