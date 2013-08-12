@@ -2583,22 +2583,6 @@ runtime·testSchedLocalQueueSteal(void)
 
 extern void runtime·morestack(void);
 
-// Does f mark the top of a goroutine stack?
-bool
-runtime·topofstack(Func *f)
-{
-	return f->entry == (uintptr)runtime·goexit ||
-		f->entry == (uintptr)runtime·mstart ||
-		f->entry == (uintptr)runtime·mcall ||
-		f->entry == (uintptr)runtime·morestack ||
-		f->entry == (uintptr)runtime·lessstack ||
-//#ifdef __DragonFly__
-		f->entry == (uintptr)_rt0_go_c;
-//#else
-//		f->entry == (uintptr)_rt0_go;
-//#endif
-}
-
 //#ifdef __DragonFly__
 
 #ifdef GOARCH_386
@@ -2815,3 +2799,19 @@ _rt0_go_c(void)
 #endif
 
 //#endif
+
+// Does f mark the top of a goroutine stack?
+bool
+runtime·topofstack(Func *f)
+{
+	return f->entry == (uintptr)runtime·goexit ||
+		f->entry == (uintptr)runtime·mstart ||
+		f->entry == (uintptr)runtime·mcall ||
+		f->entry == (uintptr)runtime·morestack ||
+		f->entry == (uintptr)runtime·lessstack ||
+//#ifdef __DragonFly__
+		f->entry == (uintptr)_rt0_go_c;
+//#else
+//		f->entry == (uintptr)_rt0_go;
+//#endif
+}
