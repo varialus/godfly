@@ -89,6 +89,16 @@ Lflag(char *arg)
 }
 
 void
+rt0_386_dragonflybsd(void)
+{
+}
+
+void
+rt0_amd64_dragonflybsd(void)
+{
+}
+
+void
 libinit(void)
 {
 	char *race;
@@ -132,16 +142,6 @@ libinit(void)
 		}
 		lookup(LIBINITENTRY, 0)->type = SXREF;
 	}
-}
-
-void
-rt0_386_dragonflybsd(void)
-{
-}
-
-void
-rt0_amd64_dragonflybsd(void)
-{
 }
 
 void
