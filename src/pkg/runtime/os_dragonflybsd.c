@@ -88,6 +88,11 @@ runtime·futexwakeup(uint32 *addr, uint32 cnt)
 void runtime·thr_start(void*);
 
 void
+runtime·thr_start(void)
+{
+}
+
+void
 runtime·newosproc(M *mp, void *stk)
 {
 	ThrParam param;
