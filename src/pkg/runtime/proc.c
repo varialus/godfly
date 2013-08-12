@@ -2588,7 +2588,7 @@ extern void runtime·morestack(void);
 #ifdef GOARCH_386
 
 void
-_rt0_go_c(void)
+rt0_go_c(void)
 {
 //TEXT _rt0_go(SB),7,$0
 //	// copy arguments forward on an even stack
@@ -2697,7 +2697,7 @@ _rt0_go_c(void)
 #else
 
 void
-_rt0_go_c(void)
+rt0_go_c(void)
 {
 //TEXT _rt0_go(SB),7,$0
 //	// copy arguments forward on an even stack
@@ -2810,7 +2810,7 @@ runtime·topofstack(Func *f)
 		f->entry == (uintptr)runtime·morestack ||
 		f->entry == (uintptr)runtime·lessstack ||
 //#ifdef __DragonFly__
-		f->entry == (uintptr)&_rt0_go_c;
+		f->entry == (uintptr)&rt0_go_c;
 //#else
 //		f->entry == (uintptr)_rt0_go;
 //#endif
