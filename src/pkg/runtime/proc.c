@@ -2584,7 +2584,7 @@ runtime·testSchedLocalQueueSteal(void)
 extern void runtime·morestack(void);
 
 void
-_rt0_go(int argc, char *argv[])
+_rt0_go(void)
 {
 }
 
