@@ -87,7 +87,7 @@ runtime·futexwakeup(uint32 *addr, uint32 cnt)
 
 void runtime·thr_start(void*);
 
-#ifdef __DragonFly__
+#if defined(__DragonFly__)
 
 void
 runtime·thr_start_c(void*)
@@ -110,7 +110,7 @@ runtime·newosproc(M *mp, void *stk)
 	runtime·sigprocmask(&sigset_all, &oset);
 	runtime·memclr((byte*)&param, sizeof param);
 
-#ifdef __DragonFly__
+#if defined(__DragonFly__)
 	param.start_func = runtime·thr_start_c;
 #else
 	param.start_func = runtime·thr_start;
