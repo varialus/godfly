@@ -88,12 +88,12 @@ Lflag(char *arg)
 	libdir[nlibdir++] = arg;
 }
 
-void
+extern void
 rt0_386_dragonflybsd(void)
 {
 }
 
-void
+extern void
 rt0_amd64_dragonflybsd(void)
 {
 }
