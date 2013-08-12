@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-TEXT _rt0_386_freebsd(SB),7,$8
+TEXT _rt0_386_dragonflybsd(SB),7,$8
 	MOVL	8(SP), AX
 	LEAL	12(SP), BX
 	MOVL	AX, 0(SP)
