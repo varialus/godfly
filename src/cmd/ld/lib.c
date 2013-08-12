@@ -120,16 +120,28 @@ libinit(void)
 
 	if(INITENTRY == nil) {
 		INITENTRY = mal(strlen(goarch)+strlen(goos)+10);
-		sprint(INITENTRY, "_rt0_%s_%s", goarch, goos);
+		//sprint(INITENTRY, "_rt0_%s_%s", goarch, goos);
+		sprint(INITENTRY, "rt0_%s_%s", goarch, "dragonflybsd");
 	}
 	lookup(INITENTRY, 0)->type = SXREF;
 	if(flag_shared) {
 		if(LIBINITENTRY == nil) {
 			LIBINITENTRY = mal(strlen(goarch)+strlen(goos)+20);
-			sprint(LIBINITENTRY, "_rt0_%s_%s_lib", goarch, goos);
+			//sprint(LIBINITENTRY, "_rt0_%s_%s_lib", goarch, goos);
+			sprint(LIBINITENTRY, "rt0_%s_%s_lib", goarch, "dragonflybsd");
 		}
 		lookup(LIBINITENTRY, 0)->type = SXREF;
 	}
+}
+
+void
+rt0_386_dragonflybsd(void)
+{
+}
+
+void
+rt0_amd64_dragonflybsd(void)
+{
 }
 
 void
