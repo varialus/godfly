@@ -241,6 +241,40 @@ int i386_set_ldt(int, const union ldt_entry *, int);
 
 */
 
+// setldt(int entry, int address, int limit)
+TEXT runtime·setldt(SB),7,$32
+	MOVL	address+4(FP), BX	// aka base
+	// see comment in sys_linux_386.s; dragonflybsd is similar
+	ADDL	$0x8, BX
+
+	// set up data_desc
+	LEAL	16(SP), AX	// struct data_desc
+	MOVL	$0, 0(AX)
+	MOVL	$0, 4(AX)
+
+	MOVW	BX, 2(AX)
+	SHRL	$16, BX
+	MOVB	BX, 4(AX)
+	SHRL	$8, BX
+	MOVB	BX, 7(AX)
+
+	MOVW	$0xffff, 0(AX)
+	MOVB	$0xCF, 6(AX)	// 32-bit operand, 4k limit unit, 4 more bits of limit
+
+	MOVB	$0xF2, 5(AX)	// r/w data descriptor, dpl=3, present
+
+	// call i386_set_ldt(entry, desc, 1)
+	MOVL	$0xffffffff, 0(SP)	// auto-allocate entry and return in AX
+	MOVL	AX, 4(SP)
+	MOVL	$1, 8(SP)
+	CALL	runtime·i386_set_ldt(SB)
+
+	// compute segment selector - (entry*8+7)
+	SHLL	$3, AX
+	ADDL	$7, AX
+	MOVW	AX, GS
+	RET
+
 TEXT runtime·i386_set_ldt(SB),7,$16
 	LEAL	args+0(FP), AX	// 0(FP) == 4(SP) before SP got moved
 	MOVL	$0, 0(SP)	// syscall gap

@@ -5,6 +5,109 @@
 #include "zasm_GOOS_GOARCH.h"
 #include "funcdata.h"
 
+TEXT _rt0_go(SB),7,$0
+	// copy arguments forward on an even stack
+	MOVL	argc+0(FP), AX
+	MOVL	argv+4(FP), BX
+	SUBL	$128, SP		// plenty of scratch
+	ANDL	$~15, SP
+	MOVL	AX, 120(SP)		// save argc, argv away
+	MOVL	BX, 124(SP)
+
+	// set default stack bounds.
+	// _cgo_init may update stackguard.
+	MOVL	$runtime·g0(SB), BP
+	LEAL	(-64*1024+104)(SP), BX
+	MOVL	BX, g_stackguard(BP)
+	MOVL	BX, g_stackguard0(BP)
+	MOVL	SP, g_stackbase(BP)
+
+	// find out information about the processor we're on
+	MOVL	$0, AX
+	CPUID
+	CMPL	AX, $0
+	JE	nocpuinfo
+	MOVL	$1, AX
+	CPUID
+	MOVL	CX, runtime·cpuid_ecx(SB)
+	MOVL	DX, runtime·cpuid_edx(SB)
+nocpuinfo:
+
+	// if there is an _cgo_init, call it to let it
+	// initialize and to set up GS.  if not,
+	// we set up GS ourselves.
+	MOVL	_cgo_init(SB), AX
+	TESTL	AX, AX
+	JZ	needtls
+	MOVL	$setmg_gcc<>(SB), BX
+	MOVL	BX, 4(SP)
+	MOVL	BP, 0(SP)
+	CALL	AX
+	// update stackguard after _cgo_init
+	MOVL	$runtime·g0(SB), CX
+	MOVL	g_stackguard0(CX), AX
+	MOVL	AX, g_stackguard(CX)
+	// skip runtime·ldt0setup(SB) and tls test after _cgo_init for non-windows
+	CMPL runtime·iswindows(SB), $0
+	JEQ ok
+needtls:
+	// skip runtime·ldt0setup(SB) and tls test on Plan 9 in all cases
+	CMPL	runtime·isplan9(SB), $1
+	JEQ	ok
+
+	// set up %gs
+	CALL	runtime·ldt0setup(SB)
+
+	// store through it, to make sure it works
+	get_tls(BX)
+	MOVL	$0x123, g(BX)
+	MOVL	runtime·tls0(SB), AX
+	CMPL	AX, $0x123
+	JEQ	ok
+	MOVL	AX, 0	// abort
+ok:
+	// set up m and g "registers"
+	get_tls(BX)
+	LEAL	runtime·g0(SB), CX
+	MOVL	CX, g(BX)
+	LEAL	runtime·m0(SB), AX
+	MOVL	AX, m(BX)
+
+	// save m->g0 = g0
+	MOVL	CX, m_g0(AX)
+
+	CALL	runtime·emptyfunc(SB)	// fault if stack check is wrong
+
+	// convention is D is always cleared
+	CLD
+
+	CALL	runtime·check(SB)
+
+	// saved argc, argv
+	MOVL	120(SP), AX
+	MOVL	AX, 0(SP)
+	MOVL	124(SP), AX
+	MOVL	AX, 4(SP)
+	CALL	runtime·args(SB)
+	CALL	runtime·osinit(SB)
+	CALL	runtime·hashinit(SB)
+	CALL	runtime·schedinit(SB)
+
+	// create a new goroutine to start program
+	PUSHL	$runtime·main·f(SB)	// entry
+	PUSHL	$0	// arg size
+	ARGSIZE(8)
+	CALL	runtime·newproc(SB)
+	ARGSIZE(-1)
+	POPL	AX
+	POPL	AX
+
+	// start this M
+	CALL	runtime·mstart(SB)
+
+	INT $3
+	RET
+
 DATA	runtime·main·f+0(SB)/4,$runtime·main(SB)
 GLOBL	runtime·main·f(SB),8,$4
 
@@ -678,6 +781,17 @@ TEXT runtime·cputicks(SB),7,$0-4
 	MOVL	ret+0(FP), DI
 	MOVL	AX, 0(DI)
 	MOVL	DX, 4(DI)
+	RET
+
+TEXT runtime·ldt0setup(SB),7,$16-0
+	// set up ldt 7 to point at tls0
+	// ldt 1 would be fine on Linux, but on OS X, 7 is as low as we can go.
+	// the entry number is just a hint.  setldt will set up GS with what it used.
+	MOVL	$7, 0(SP)
+	LEAL	runtime·tls0(SB), AX
+	MOVL	AX, 4(SP)
+	MOVL	$32, 8(SP)	// sizeof(tls array)
+	CALL	runtime·setldt(SB)
 	RET
 
 TEXT runtime·emptyfunc(SB),0,$0-0

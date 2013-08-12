@@ -222,6 +222,18 @@ TEXT runtime·usleep(SB),7,$16
 	SYSCALL
 	RET
 
+// set tls base to DI
+TEXT runtime·settls(SB),7,$8
+	ADDQ	$16, DI	// adjust for ELF: wants to use -16(FS) and -8(FS) for g and m
+	MOVQ	DI, 0(SP)
+	MOVQ	SP, SI
+	MOVQ	$129, DI	// AMD64_SET_FSBASE
+	MOVQ	$165, AX	// sysarch
+	SYSCALL
+	JCC	2(PC)
+	MOVL	$0xf1, 0xf1  // crash
+	RET
+
 TEXT runtime·sysctl(SB),7,$0
 	MOVQ	8(SP), DI		// arg 1 - name
 	MOVL	16(SP), SI		// arg 2 - namelen

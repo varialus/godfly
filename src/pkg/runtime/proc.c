@@ -2583,11 +2583,6 @@ runtime·testSchedLocalQueueSteal(void)
 
 extern void runtime·morestack(void);
 
-void
-_rt0_go(void)
-{
-}
-
 // Does f mark the top of a goroutine stack?
 bool
 runtime·topofstack(Func *f)
@@ -2597,5 +2592,226 @@ runtime·topofstack(Func *f)
 		f->entry == (uintptr)runtime·mcall ||
 		f->entry == (uintptr)runtime·morestack ||
 		f->entry == (uintptr)runtime·lessstack ||
+#ifdef __DragonFly__
+		f->entry == (uintptr)_rt0_go_c;
+#else
 		f->entry == (uintptr)_rt0_go;
+#endif
 }
+
+#ifdef __DragonFly__
+
+#ifdef GOARCH_386
+
+void
+_rt0_go_c(void)
+{
+//TEXT _rt0_go(SB),7,$0
+//	// copy arguments forward on an even stack
+//	MOVL	argc+0(FP), AX
+//	MOVL	argv+4(FP), BX
+//	SUBL	$128, SP		// plenty of scratch
+//	ANDL	$~15, SP
+//	MOVL	AX, 120(SP)		// save argc, argv away
+//	MOVL	BX, 124(SP)
+//
+//	// set default stack bounds.
+//	// _cgo_init may update stackguard.
+//	MOVL	$runtime·g0(SB), BP
+//	LEAL	(-64*1024+104)(SP), BX
+//	MOVL	BX, g_stackguard(BP)
+//	MOVL	BX, g_stackguard0(BP)
+//	MOVL	SP, g_stackbase(BP)
+//
+//	// find out information about the processor we're on
+//	MOVL	$0, AX
+//	CPUID
+//	CMPL	AX, $0
+//	JE	nocpuinfo
+//	MOVL	$1, AX
+//	CPUID
+//	MOVL	CX, runtime·cpuid_ecx(SB)
+//	MOVL	DX, runtime·cpuid_edx(SB)
+//nocpuinfo:
+//
+//	// if there is an _cgo_init, call it to let it
+//	// initialize and to set up GS.  if not,
+//	// we set up GS ourselves.
+//	MOVL	_cgo_init(SB), AX
+//	TESTL	AX, AX
+//	JZ	needtls
+//	MOVL	$setmg_gcc<>(SB), BX
+//	MOVL	BX, 4(SP)
+//	MOVL	BP, 0(SP)
+//	CALL	AX
+//	// update stackguard after _cgo_init
+//	MOVL	$runtime·g0(SB), CX
+//	MOVL	g_stackguard0(CX), AX
+//	MOVL	AX, g_stackguard(CX)
+//	// skip runtime·ldt0setup(SB) and tls test after _cgo_init for non-windows
+//	CMPL runtime·iswindows(SB), $0
+//	JEQ ok
+//needtls:
+//	// skip runtime·ldt0setup(SB) and tls test on Plan 9 in all cases
+//	CMPL	runtime·isplan9(SB), $1
+//	JEQ	ok
+//
+//	// set up %gs
+//	CALL	runtime·ldt0setup(SB)
+//
+//	// store through it, to make sure it works
+//	get_tls(BX)
+//	MOVL	$0x123, g(BX)
+//	MOVL	runtime·tls0(SB), AX
+//	CMPL	AX, $0x123
+//	JEQ	ok
+//	MOVL	AX, 0	// abort
+//ok:
+//	// set up m and g "registers"
+//	get_tls(BX)
+//	LEAL	runtime·g0(SB), CX
+//	MOVL	CX, g(BX)
+//	LEAL	runtime·m0(SB), AX
+//	MOVL	AX, m(BX)
+//
+//	// save m->g0 = g0
+//	MOVL	CX, m_g0(AX)
+//
+//	CALL	runtime·emptyfunc(SB)	// fault if stack check is wrong
+//
+//	// convention is D is always cleared
+//	CLD
+//
+//	CALL	runtime·check(SB)
+//
+//	// saved argc, argv
+//	MOVL	120(SP), AX
+//	MOVL	AX, 0(SP)
+//	MOVL	124(SP), AX
+//	MOVL	AX, 4(SP)
+//	CALL	runtime·args(SB)
+//	CALL	runtime·osinit(SB)
+//	CALL	runtime·hashinit(SB)
+//	CALL	runtime·schedinit(SB)
+//
+//	// create a new goroutine to start program
+//	PUSHL	$runtime·main·f(SB)	// entry
+//	PUSHL	$0	// arg size
+//	ARGSIZE(8)
+//	CALL	runtime·newproc(SB)
+//	ARGSIZE(-1)
+//	POPL	AX
+//	POPL	AX
+//
+//	// start this M
+//	CALL	runtime·mstart(SB)
+//
+//	INT $3
+//	RET
+}
+
+#else
+
+void
+_rt0_go_c(void)
+{
+//TEXT _rt0_go(SB),7,$0
+//	// copy arguments forward on an even stack
+//	MOVQ	DI, AX		// argc
+//	MOVQ	SI, BX		// argv
+//	SUBQ	$(4*8+7), SP		// 2args 2auto
+//	ANDQ	$~15, SP
+//	MOVQ	AX, 16(SP)
+//	MOVQ	BX, 24(SP)
+//
+//	// create istack out of the given (operating system) stack.
+//	// _cgo_init may update stackguard.
+//	MOVQ	$runtime·g0(SB), DI
+//	LEAQ	(-64*1024+104)(SP), BX
+//	MOVQ	BX, g_stackguard(DI)
+//	MOVQ	BX, g_stackguard0(DI)
+//	MOVQ	SP, g_stackbase(DI)
+//
+//	// find out information about the processor we're on
+//	MOVQ	$0, AX
+//	CPUID
+//	CMPQ	AX, $0
+//	JE	nocpuinfo
+//	MOVQ	$1, AX
+//	CPUID
+//	MOVL	CX, runtime·cpuid_ecx(SB)
+//	MOVL	DX, runtime·cpuid_edx(SB)
+//nocpuinfo:
+//
+//	// if there is an _cgo_init, call it.
+//	MOVQ	_cgo_init(SB), AX
+//	TESTQ	AX, AX
+//	JZ	needtls
+//	// g0 already in DI
+//	MOVQ	DI, CX	// Win64 uses CX for first parameter
+//	MOVQ	$setmg_gcc<>(SB), SI
+//	CALL	AX
+//	// update stackguard after _cgo_init
+//	MOVQ	$runtime·g0(SB), CX
+//	MOVQ	g_stackguard0(CX), AX
+//	MOVQ	AX, g_stackguard(CX)
+//	CMPL	runtime·iswindows(SB), $0
+//	JEQ ok
+//
+//needtls:
+//	// skip TLS setup on Plan 9
+//	CMPL	runtime·isplan9(SB), $1
+//	JEQ ok
+//
+//	LEAQ	runtime·tls0(SB), DI
+//	CALL	runtime·settls(SB)
+//
+//	// store through it, to make sure it works
+//	get_tls(BX)
+//	MOVQ	$0x123, g(BX)
+//	MOVQ	runtime·tls0(SB), AX
+//	CMPQ	AX, $0x123
+//	JEQ 2(PC)
+//	MOVL	AX, 0	// abort
+//ok:
+//	// set the per-goroutine and per-mach "registers"
+//	get_tls(BX)
+//	LEAQ	runtime·g0(SB), CX
+//	MOVQ	CX, g(BX)
+//	LEAQ	runtime·m0(SB), AX
+//	MOVQ	AX, m(BX)
+//
+//	// save m->g0 = g0
+//	MOVQ	CX, m_g0(AX)
+//
+//	CLD				// convention is D is always left cleared
+//	CALL	runtime·check(SB)
+//
+//	MOVL	16(SP), AX		// copy argc
+//	MOVL	AX, 0(SP)
+//	MOVQ	24(SP), AX		// copy argv
+//	MOVQ	AX, 8(SP)
+//	CALL	runtime·args(SB)
+//	CALL	runtime·osinit(SB)
+//	CALL	runtime·hashinit(SB)
+//	CALL	runtime·schedinit(SB)
+//
+//	// create a new goroutine to start program
+//	PUSHQ	$runtime·main·f(SB)		// entry
+//	PUSHQ	$0			// arg size
+//	ARGSIZE(16)
+//	CALL	runtime·newproc(SB)
+//	ARGSIZE(-1)
+//	POPQ	AX
+//	POPQ	AX
+//
+//	// start this M
+//	CALL	runtime·mstart(SB)
+//
+//	MOVL	$0xf1, 0xf1  // crash
+//	RET
+}
+
+#endif
+
+#endif
