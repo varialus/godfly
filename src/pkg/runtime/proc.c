@@ -2583,6 +2583,11 @@ runtime·testSchedLocalQueueSteal(void)
 
 extern void runtime·morestack(void);
 
+void
+_rt0_go(int argc, char *argv[])
+{
+}
+
 // Does f mark the top of a goroutine stack?
 bool
 runtime·topofstack(Func *f)
