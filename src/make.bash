@@ -95,6 +95,12 @@ if [ "$(uname -s)" == "GNU/kFreeBSD" ]; then
         export CGO_ENABLED=0
 fi
 
+# Test for DragonFly BSD.
+# Trying out build with cgo manually disabled.
+if [ "$(uname -s)" == "DragonFly" ]; then
+        export CGO_ENABLED=0
+fi
+
 # Clean old generated file that will cause problems in the build.
 rm -f ./pkg/runtime/runtime_defs.go
 
