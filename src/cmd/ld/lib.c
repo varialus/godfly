@@ -132,7 +132,7 @@ libinit(void)
 	lookup(INITENTRY, 0)->type = SXREF;
 	print("6\n");
 	if(flag_shared) {
-		print("7"\n);
+		print("7\n");
 		if(LIBINITENTRY == nil) {
 			print("8\n");
 			LIBINITENTRY = mal(strlen(goarch)+strlen(goos)+20);
