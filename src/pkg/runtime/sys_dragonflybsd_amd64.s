@@ -240,10 +240,31 @@ TEXT runtime·usleep(SB),7,$16
 	SYSCALL
 	RET
 
+// *.s File Extension == Not Preprocessed
+// *.S File Extension == Preprocessed
+// http://stackoverflow.com/questions/1321603/assembly-file-extension-s79-s82-s90-asm-s-etc-what-are-their-differe
+
+// PC == virtual Program Counter. PC counts instructions, not bytes of data.
+// SB == Static Base register. The pseudo-register SB refers to the beginning of the address space of the program.
+// TEXT == Defining a procedure. Entry points are defined by the pseudo-operation TEXT...
+// xxxL == Long word. As with the 386 instruction names, all new 64-bit integer instructions, and the MMX and XMM instructions uniformly use L for ‘long word’ (32 bits).
+// xxxQ == Quad word. As with the 386 instruction names, all new 64-bit integer instructions, and the MMX and XMM instructions uniformly use Q for ‘quad word’ (64 bits).
+// http://doc.cat-v.org/plan_9/4th_edition/papers/asm
+
+// $ == Literal value. The dollar sign designates a literal value.
+// http://en.wikibooks.org/wiki/X86_Assembly/GAS_Syntax
+
+// ADD == Adds src to dest. If you are using the NASM syntax, then the result is stored in the first argument, if you are using the GAS syntax, it is stored in the second argument.
+// http://en.wikibooks.org/wiki/X86_Assembly/Arithmetic
+
+// MOV == Move. Copy byte or word from specified source to specified destination.
+// http://en.wikibooks.org/wiki/X86_Assembly/Data_Transfer
+
 // AX == Accumulator register. Used in arithmetic operations.
 // DI == Destination Index register. Used as a pointer to a destination in stream operations.
 // SI == Source Index register. Used as a pointer to a source in stream operations.
 // SP == Stak Point regisiter. Pointer to the top of the stack.
+//  http://en.wikibooks.org/wiki/X86_Assembly/X86_Architecture#General-Purpose_Registers_.28GPR.29
 
 // set tls base to DI
 TEXT runtime·settls(SB),7,$8
