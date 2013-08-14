@@ -93,7 +93,7 @@ runtime·newosproc(M *mp, void *stk)
 	ThrParam param;
 	Sigset oset;
 
-	runtime·prints("testing 1 2 3")
+	runtime·prints("testing 1 2 3");
 
 	if(0){
 		runtime·printf("newosproc stk=%p m=%p g=%p id=%d/%d ostk=%p\n",
