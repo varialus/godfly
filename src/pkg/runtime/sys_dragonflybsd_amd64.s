@@ -240,6 +240,11 @@ TEXT runtime·usleep(SB),7,$16
 	SYSCALL
 	RET
 
+// AX == Accumulator register. Used in arithmetic operations.
+// DI == Destination Index register. Used as a pointer to a destination in stream operations.
+// SI == Source Index register. Used as a pointer to a source in stream operations.
+// SP == Stak Point regisiter. Pointer to the top of the stack.
+
 // set tls base to DI
 TEXT runtime·settls(SB),7,$8
 	ADDQ	$16, DI	// adjust for ELF: wants to use -16(FS) and -8(FS) for g and m
