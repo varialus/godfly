@@ -91,6 +91,7 @@ Lflag(char *arg)
 void
 libinit(void)
 {
+	print("14\n");
 	char *race;
 
 	fmtinstall('i', iconv);
@@ -144,6 +145,7 @@ libinit(void)
 		lookup(LIBINITENTRY, 0)->type = SXREF;
 		print("12\n");
 	}
+	print("13\n");
 }
 
 void

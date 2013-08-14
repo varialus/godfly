@@ -165,7 +165,9 @@ main(int argc, char *argv[])
 			outfile = "6.out";
 	}
 
+	print("14\n");
 	libinit();
+	print("15\n");
 
 	switch(HEADTYPE) {
 	default:
