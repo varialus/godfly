@@ -91,7 +91,7 @@ Lflag(char *arg)
 void
 libinit(void)
 {
-	print("14\n");
+	print("0\n");
 	char *race;
 
 	fmtinstall('i', iconv);
