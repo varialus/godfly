@@ -118,6 +118,7 @@ libinit(void)
 		errorexit();
 	}
 
+	print("Testing 1 2 3")
 	if(INITENTRY == nil) {
 		INITENTRY = mal(strlen(goarch)+strlen(goos)+10);
 		sprint(INITENTRY, "_rt0_%s_%s", goarch, goos);
