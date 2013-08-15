@@ -37,6 +37,8 @@ Options new in this version:
 		Write Linux ELF binaries (default when $GOOS is linux)
 	-H freebsd
 		Write FreeBSD ELF binaries (default when $GOOS is freebsd)
+	-H dragonflybsd
+		Write DragonFly BSD ELF binaries (default when $GOOS is dragonflybsd)
 	-H netbsd
 		Write NetBSD ELF binaries (default when $GOOS is netbsd)
 	-H openbsd    (only in 6l/8l)
