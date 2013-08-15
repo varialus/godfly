@@ -43,7 +43,6 @@ char linuxdynld[] = "/lib64/ld-linux-x86-64.so.2";
 char freebsddynld[] = "/libexec/ld-elf.so.1";
 char openbsddynld[] = "/usr/libexec/ld.so";
 char netbsddynld[] = "/libexec/ld.elf_so";
-char dragonflybsddynld[] = "/usr/libexec/ld-elf.so.2";
 
 char	zeroes[32];
 
@@ -675,7 +674,6 @@ asmb(void)
 	case Hlinux:
 	case Hfreebsd:
 	case Hnetbsd:
-	case Hdragonflybsd:
 	case Hopenbsd:
 		debug['8'] = 1;	/* 64-bit addresses */
 		break;
@@ -704,7 +702,6 @@ asmb(void)
 		case Hlinux:
 		case Hfreebsd:
 		case Hnetbsd:
-		case Hdragonflybsd:
 		case Hopenbsd:
 			symo = rnd(HEADR+segtext.len, INITRND)+rnd(segrodata.len, INITRND)+segdata.filelen;
 			symo = rnd(symo, INITRND);
@@ -795,7 +792,6 @@ asmb(void)
 	case Hlinux:
 	case Hfreebsd:
 	case Hnetbsd:
-	case Hdragonflybsd:
 	case Hopenbsd:
 		asmbelf(symo);
 		break;

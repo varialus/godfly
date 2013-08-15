@@ -16,7 +16,6 @@ package cgo
 #cgo linux LDFLAGS: -lpthread
 #cgo netbsd LDFLAGS: -lpthread
 #cgo openbsd LDFLAGS: -lpthread
-#cgo dragonflybsd LDFLAGS: -lpthread
 #cgo windows LDFLAGS: -lm -mthreads
 
 #cgo CFLAGS: -Wall -Werror
