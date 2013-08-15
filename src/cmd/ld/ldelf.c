@@ -75,6 +75,7 @@ enum
 	ElfMachAmd64 = 62,
 	/* and the list goes on... */
 
+	ElfAbiDragonFlyBSD = 0,
 	ElfAbiNone = 0,
 	ElfAbiSystemV = 0,	/* [sic] */
 	ElfAbiHPUX,
