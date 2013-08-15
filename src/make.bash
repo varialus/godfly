@@ -138,7 +138,7 @@ fi
 ./cmd/dist/dist bootstrap $buildall -v # builds go_bootstrap
 # Delay move of dist tool to now, because bootstrap may clear tool directory.
 mv cmd/dist/dist "$GOTOOLDIR"/dist
-"$GOTOOLDIR"/go_bootstrap clean -i -v std
+"$GOTOOLDIR"/go_bootstrap clean -i std
 echo
 
 if [ "$GOHOSTARCH" != "$GOARCH" -o "$GOHOSTOS" != "$GOOS" ]; then
