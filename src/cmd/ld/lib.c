@@ -91,6 +91,7 @@ Lflag(char *arg)
 void
 libinit(void)
 {
+	print("0\n");
 	char *race;
 
 	fmtinstall('i', iconv);
@@ -118,18 +119,33 @@ libinit(void)
 		errorexit();
 	}
 
+	print("1\n");
 	if(INITENTRY == nil) {
+		print("INITENTRY == nil\n");
 		INITENTRY = mal(strlen(goarch)+strlen(goos)+10);
+		print("2\n");
 		sprint(INITENTRY, "_rt0_%s_%s", goarch, goos);
+		print("3\n");
 	}
+	print("4\n");
+	diag("INITENTRY == %s\n", INITENTRY);
+	print("5\n");
 	lookup(INITENTRY, 0)->type = SXREF;
+	print("6\n");
 	if(flag_shared) {
+		print("7\n");
 		if(LIBINITENTRY == nil) {
+			print("8\n");
 			LIBINITENTRY = mal(strlen(goarch)+strlen(goos)+20);
+			print("9\n");
 			sprint(LIBINITENTRY, "_rt0_%s_%s_lib", goarch, goos);
+			print("10\n");
 		}
+		print("11\n");
 		lookup(LIBINITENTRY, 0)->type = SXREF;
+		print("12\n");
 	}
+	print("13\n");
 }
 
 void

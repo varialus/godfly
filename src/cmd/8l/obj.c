@@ -56,6 +56,7 @@ Header headers[] = {
 	"linux", Hlinux,
 	"freebsd", Hfreebsd,
 	"netbsd", Hnetbsd,
+	"dragonflybsd", Hdragonflybsd,
 	"openbsd", Hopenbsd,
 	"windows", Hwindows,
 	"windowsgui", Hwindows,
@@ -72,6 +73,7 @@ Header headers[] = {
  *	-Hlinux -Tx -Rx				is Linux ELF32
  *	-Hfreebsd -Tx -Rx			is FreeBSD ELF32
  *	-Hnetbsd -Tx -Rx			is NetBSD ELF32
+ *	-Hdragonflybsd -Tx -Rx			is DragonFly BSD ELF32
  *	-Hopenbsd -Tx -Rx			is OpenBSD ELF32
  *	-Hwindows -Tx -Rx			is MS Windows PE32
  */
@@ -157,6 +159,7 @@ main(int argc, char *argv[])
 	case Hfreebsd:
 	case Hlinux:
 	case Hnetbsd:
+	case Hdragonflybsd:
 	case Hopenbsd:
 		break;
 	}
@@ -242,6 +245,7 @@ main(int argc, char *argv[])
 	case Hlinux:	/* elf32 executable */
 	case Hfreebsd:
 	case Hnetbsd:
+	case Hdragonflybsd:
 	case Hopenbsd:
 		/*
 		 * ELF uses TLS offsets negative from %gs.

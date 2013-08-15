@@ -292,4 +292,3 @@ import "unsafe"
 $text
 EOF
 exit 0;
-

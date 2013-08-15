@@ -52,6 +52,7 @@ static char *okgoos[] = {
 	"freebsd",
 	"netbsd",
 	"openbsd",
+	"dragonflybsd",
 	"plan9",
 	"windows",
 };
