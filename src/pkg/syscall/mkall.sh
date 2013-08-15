@@ -139,13 +139,13 @@ freebsd_arm)
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 dragonflybsd_386)
-	mkerrors="$mkerrors -m32"
+	mkerrors="$mkerrors -m32 -dragonflybsd"
 	mksyscall="./mksyscall.pl -l32"
 	mksysnum="curl -s 'http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/kern/syscalls.master' | ./mksysnum_dragonflybsd.pl"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 dragonflybsd_amd64)
-	mkerrors="$mkerrors -m64"
+	mkerrors="$mkerrors -m64 -dragonflybsd"
 	mksysnum="curl -s 'http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/kern/syscalls.master' | ./mksysnum_dragonfly.pl"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
