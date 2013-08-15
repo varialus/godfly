@@ -44,8 +44,9 @@ static char *okgoarch[] = {
 // The known operating systems.
 static char *okgoos[] = {
 	"darwin",
-	"linux",
+	"dragonfly",
 	"freebsd",
+	"linux",
 	"netbsd",
 	"openbsd",
 	"plan9",
