@@ -173,7 +173,7 @@ func Version() string {
 }
 
 // GOOS is the running program's operating system target:
-// one of darwin, freebsd, linux, and so on.
+// one of darwin, freebsd, dragonflybsd, linux, and so on.
 const GOOS string = theGoos
 
 // GOARCH is the running program's architecture target:
