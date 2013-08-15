@@ -142,10 +142,6 @@ main(int argc, char *argv[])
 	if(linkmode == LinkAuto && strcmp(getgoextlinkenabled(), "0") == 0)
 		linkmode = LinkInternal;
 
-	if(debug['v'])
-		Bprint(&bso, "HEADER = -H%d -T0x%llux -D0x%llux -R0x%ux\n",
-			HEADTYPE, INITTEXT, INITDAT, INITRND);
-
 	switch(HEADTYPE) {
 	default:
 		if(linkmode == LinkAuto)
