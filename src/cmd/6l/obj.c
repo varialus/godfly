@@ -310,7 +310,9 @@ main(int argc, char *argv[])
 	}
 	Bflush(&bso);
 
+	print("src/cmd/6l/obj.c in main() before errorexit()")
 	errorexit();
+	print("src/cmd/6l/obj.c in main() after errorexit()")
 }
 
 static Sym*
