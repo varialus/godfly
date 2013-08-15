@@ -8,6 +8,7 @@
 Input to cgo.
 
 GOARCH=amd64 go tool cgo -cdefs defs_dragonflybsd.go >defs_dragonflybsd_amd64.h
+GOARCH=386 go tool cgo -cdefs defs_dragonflybsd.go >defs_dragonflybsd_386.h
 */
 
 package runtime
