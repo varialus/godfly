@@ -165,20 +165,13 @@ main(int argc, char *argv[])
 			outfile = "6.out";
 	}
 
-	print("-1\n");
 	libinit();
-	print("14\n");
 
-	print("15\n");
 	switch(HEADTYPE) {
 	default:
-		print("16\n");
 		diag("unknown -H option");
-		print("17\n");
 		errorexit();
-		print("18\n");
 	case Hplan9x32:	/* plan 9 */
-		print("19\n");
 		HEADR = 32L;
 		if(INITTEXT == -1)
 			INITTEXT = 4096+HEADR;
@@ -188,7 +181,6 @@ main(int argc, char *argv[])
 			INITRND = 4096;
 		break;
 	case Hplan9x64:	/* plan 9 */
-		print("20\n");
 		HEADR = 32L + 8L;
 		if(INITTEXT == -1)
 			INITTEXT = 0x200000+HEADR;
@@ -198,7 +190,6 @@ main(int argc, char *argv[])
 			INITRND = 0x200000;
 		break;
 	case Helf:	/* elf32 executable */
-		print("20\n");
 		HEADR = rnd(52L+3*32L, 16);
 		if(INITTEXT == -1)
 			INITTEXT = 0x80110000L;
@@ -208,7 +199,6 @@ main(int argc, char *argv[])
 			INITRND = 4096;
 		break;
 	case Hdarwin:	/* apple MACH */
-		print("22\n");
 		/*
 		 * OS X system constant - offset from 0(GS) to our TLS.
 		 * Explained in ../../pkg/runtime/cgo/gcc_darwin_amd64.c.
@@ -225,13 +215,9 @@ main(int argc, char *argv[])
 		break;
 	case Hlinux:	/* elf64 executable */
 	case Hfreebsd:	/* freebsd */
-		print("23\n");
 	case Hnetbsd:	/* netbsd */
-		print("24\n");
 	case Hdragonflybsd:	/* dragonflybsd */
-		print("25\n");
 	case Hopenbsd:	/* openbsd */
-		print("26\n");
 		/*
 		 * ELF uses TLS offset negative from FS.
 		 * Translate 0(FS) and 8(FS) into -16(FS) and -8(FS).
@@ -249,7 +235,6 @@ main(int argc, char *argv[])
 			INITRND = 4096;
 		break;
 	case Hwindows: /* PE executable */
-		print("27\n");
 		peinit();
 		HEADR = PEFILEHEADR;
 		if(INITTEXT == -1)
@@ -260,7 +245,6 @@ main(int argc, char *argv[])
 			INITRND = PESECTALIGN;
 		break;
 	}
-	print("28\n");
 	if(INITDAT != 0 && INITRND != 0)
 		print("warning: -D0x%llux is ignored because of -R0x%ux\n",
 			INITDAT, INITRND);
@@ -269,7 +253,6 @@ main(int argc, char *argv[])
 			HEADTYPE, INITTEXT, INITDAT, INITRND);
 	Bflush(&bso);
 	instinit();
-	print("29\n");
 
 	zprg.link = P;
 	zprg.pcond = P;
@@ -280,7 +263,6 @@ main(int argc, char *argv[])
 	zprg.from.scale = 1;
 	zprg.to = zprg.from;
 	zprg.mode = 64;
-	print("30\n");
 
 	pcstr = "%.6llux ";
 	histgen = 0;
@@ -289,7 +271,6 @@ main(int argc, char *argv[])
 	version = 0;
 	cbp = buf.cbuf;
 	cbc = sizeof(buf.cbuf);
-	print("31\n");
 
 	addlibpath("command line", "command line", argv[0], "main");
 	loadlib();
@@ -314,7 +295,6 @@ main(int argc, char *argv[])
 	textaddress();
 	pclntab();
 	symtab();
-	print("32\n");
 	dodata();
 	address();
 	doweak();
@@ -329,10 +309,8 @@ main(int argc, char *argv[])
 		Bprint(&bso, "%d sizeof prog\n", sizeof(Prog));
 	}
 	Bflush(&bso);
-	print("33\n");
 
 	errorexit();
-	print("34\n");
 }
 
 static Sym*
