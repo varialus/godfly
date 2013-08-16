@@ -44,28 +44,30 @@ char*	thestring 	= "amd64";
 char*	paramspace	= "FP";
 
 Header headers[] = {
-	"plan9x32", Hplan9x32,
-	"plan9", Hplan9x64,
-	"elf", Helf,
 	"darwin", Hdarwin,
-	"linux", Hlinux,
+	"dragonfly", Hdragonfly,
+	"elf", Helf,
 	"freebsd", Hfreebsd,
+	"linux", Hlinux,
 	"netbsd", Hnetbsd,
 	"openbsd", Hopenbsd,
+	"plan9", Hplan9x64,
+	"plan9x32", Hplan9x32,
 	"windows", Hwindows,
 	"windowsgui", Hwindows,
 	0, 0
 };
 
 /*
- *	-Hplan9x32 -T4136 -R4096	is plan9 64-bit format
- *	-Hplan9 -T4128 -R4096		is plan9 32-bit format
- *	-Helf -T0x80110000 -R4096	is ELF32
  *	-Hdarwin -Tx -Rx		is apple MH-exec
- *	-Hlinux -Tx -Rx			is linux elf-exec
+ *	-Hdragonfly -Tx -Rx		is DragonFly BSD elf-exec
+ *	-Helf -T0x80110000 -R4096	is ELF32
  *	-Hfreebsd -Tx -Rx		is FreeBSD elf-exec
+ *	-Hlinux -Tx -Rx			is linux elf-exec
  *	-Hnetbsd -Tx -Rx		is NetBSD elf-exec
  *	-Hopenbsd -Tx -Rx		is OpenBSD elf-exec
+ *	-Hplan9 -T4128 -R4096		is plan9 32-bit format
+ *	-Hplan9x32 -T4136 -R4096	is plan9 64-bit format
  *	-Hwindows -Tx -Rx		is MS Windows PE32+
  *
  *	options used: 189BLQSWabcjlnpsvz
@@ -204,8 +206,9 @@ main(int argc, char *argv[])
 		if(INITDAT == -1)
 			INITDAT = 0;
 		break;
-	case Hlinux:	/* elf64 executable */
 	case Hfreebsd:	/* freebsd */
+	case Hdragonfly:/* dragonfly */
+	case Hlinux:	/* elf64 executable */
 	case Hnetbsd:	/* netbsd */
 	case Hopenbsd:	/* openbsd */
 		/*

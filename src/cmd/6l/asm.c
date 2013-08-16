@@ -39,10 +39,11 @@
 
 #define PADDR(a)	((uint32)(a) & ~0x80000000)
 
-char linuxdynld[] = "/lib64/ld-linux-x86-64.so.2";
+char dragonflydynld[] = "/libexec/ld-elf.so.1";
 char freebsddynld[] = "/libexec/ld-elf.so.1";
-char openbsddynld[] = "/usr/libexec/ld.so";
+char linuxdynld[] = "/lib64/ld-linux-x86-64.so.2";
 char netbsddynld[] = "/libexec/ld.elf_so";
+char openbsddynld[] = "/usr/libexec/ld.so";
 
 char	zeroes[32];
 
@@ -561,7 +562,7 @@ doelf(void)
 {
 	Sym *s, *shstrtab, *dynstr;
 
-	if(HEADTYPE != Hlinux && HEADTYPE != Hfreebsd && HEADTYPE != Hopenbsd && HEADTYPE != Hnetbsd)
+	if(HEADTYPE != Hlinux && HEADTYPE != Hdragonfly && HEADTYPE != Hfreebsd && HEADTYPE != Hopenbsd && HEADTYPE != Hnetbsd)
 		return;
 
 	/* predefine strings we need for section headers */
@@ -768,8 +769,9 @@ asmb(void)
 	case Hdarwin:
 		debug['8'] = 1;	/* 64-bit addresses */
 		break;
-	case Hlinux:
+	case Hdragonfly:
 	case Hfreebsd:
+	case Hlinux:
 	case Hnetbsd:
 	case Hopenbsd:
 		debug['8'] = 1;	/* 64-bit addresses */
@@ -806,8 +808,9 @@ asmb(void)
 		case Hdarwin:
 			symo = rnd(HEADR+segtext.len, INITRND)+rnd(segdata.filelen, INITRND)+machlink;
 			break;
-		case Hlinux:
+		case Hdragonfly:
 		case Hfreebsd:
+		case Hlinux:
 		case Hnetbsd:
 		case Hopenbsd:
 			symo = rnd(HEADR+segtext.len, INITRND)+segdata.filelen;
@@ -876,8 +879,9 @@ asmb(void)
 	case Hdarwin:
 		asmbmacho();
 		break;
-	case Hlinux:
+	case Hdragonfly:
 	case Hfreebsd:
+	case Hlinux:
 	case Hnetbsd:
 	case Hopenbsd:
 		/* elf amd-64 */
@@ -917,11 +921,14 @@ asmb(void)
 			sh->addralign = 1;
 			if(interpreter == nil) {
 				switch(HEADTYPE) {
-				case Hlinux:
-					interpreter = linuxdynld;
+				case Hdragonfly:
+					interpreter = dragonflydynld;
 					break;
 				case Hfreebsd:
 					interpreter = freebsddynld;
+					break;
+				case Hlinux:
+					interpreter = linuxdynld;
 					break;
 				case Hnetbsd:
 					interpreter = netbsddynld;
@@ -1103,7 +1110,9 @@ asmb(void)
 		eh->ident[EI_MAG1] = 'E';
 		eh->ident[EI_MAG2] = 'L';
 		eh->ident[EI_MAG3] = 'F';
-		if(HEADTYPE == Hfreebsd)
+		if(HEADTYPE == Hdragonfly)
+			eh->ident[EI_OSABI] = ELFOSABI_DRAGONFLY;
+		else if(HEADTYPE == Hfreebsd)
 			eh->ident[EI_OSABI] = ELFOSABI_FREEBSD;
 		else if(HEADTYPE == Hnetbsd)
 			eh->ident[EI_OSABI] = ELFOSABI_NETBSD;

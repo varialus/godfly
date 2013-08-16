@@ -47,32 +47,34 @@ char	*noname		= "<none>";
 char	*thestring 	= "386";
 
 Header headers[] = {
+	"darwin", Hdarwin,
+	"dragonfly", Hdragonfly,
+	"freebsd", Hfreebsd,
 	"garbunix", Hgarbunix,
-	"unixcoff", Hunixcoff,
-	"plan9", Hplan9x32,
+	"linux", Hlinux,
 	"msdoscom", Hmsdoscom,
 	"msdosexe", Hmsdosexe,
-	"darwin", Hdarwin,
-	"linux", Hlinux,
-	"freebsd", Hfreebsd,
 	"netbsd", Hnetbsd,
 	"openbsd", Hopenbsd,
+	"plan9", Hplan9x32,
+	"unixcoff", Hunixcoff,
 	"windows", Hwindows,
 	"windowsgui", Hwindows,
 	0, 0
 };
 
 /*
+ *	-Hdarwin -Tx -Rx			is Apple Mach-O
+ *	-Hdragonfly -Tx -Dx			is DragonFly BSD ELF32
+ *	-Hfreebsd -Tx -Rx			is FreeBSD ELF32
  *	-Hgarbunix -T0x40004C -D0x10000000	is garbage unix
- *	-Hunixcoff -T0xd0 -R4			is unix coff
- *	-Hplan9 -T4128 -R4096			is plan9 format
+ *	-Hlinux -Tx -Rx				is Linux ELF32
  *	-Hmsdoscom -Tx -Rx			is MS-DOS .COM
  *	-Hmsdosexe -Tx -Rx			is fake MS-DOS .EXE
- *	-Hdarwin -Tx -Rx			is Apple Mach-O
- *	-Hlinux -Tx -Rx				is Linux ELF32
- *	-Hfreebsd -Tx -Rx			is FreeBSD ELF32
  *	-Hnetbsd -Tx -Rx			is NetBSD ELF32
  *	-Hopenbsd -Tx -Rx			is OpenBSD ELF32
+ *	-Hplan9 -T4128 -R4096			is plan9 format
+ *	-Hunixcoff -T0xd0 -R4			is unix coff
  *	-Hwindows -Tx -Rx			is MS Windows PE32
  */
 
@@ -232,10 +234,11 @@ main(int argc, char *argv[])
 		if(INITRND == -1)
 			INITRND = 4096;
 		break;
+	case Hdragonfly:/* dragonfly */
+	case Hfreebsd:	/* freebsd */
 	case Hlinux:	/* elf32 executable */
-	case Hfreebsd:
-	case Hnetbsd:
-	case Hopenbsd:
+	case Hnetbsd:	/* netbsd */
+	case Hopenbsd:	/* openbsd */
 		/*
 		 * ELF uses TLS offsets negative from %gs.
 		 * Translate 0(GS) and 4(GS) into -8(GS) and -4(GS).
