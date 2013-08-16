@@ -220,7 +220,6 @@ extern void main·main(void);
 void
 runtime·main(void)
 {
-	printf("%s!", "hi");
 	/*// Lock the main goroutine onto this, the main OS thread,
 	// during initialization.  Most programs won't care, but a few
 	// do require certain calls to be made by the main thread.
