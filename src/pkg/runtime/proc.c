@@ -220,7 +220,7 @@ extern void main·main(void);
 void
 runtime·main(void)
 {
-	/*// Lock the main goroutine onto this, the main OS thread,
+	// Lock the main goroutine onto this, the main OS thread,
 	// during initialization.  Most programs won't care, but a few
 	// do require certain calls to be made by the main thread.
 	// Those can arrange for main.main to run in the main thread
@@ -244,7 +244,7 @@ runtime·main(void)
 	main·main();
 	runtime·exit(0);
 	for(;;)
-		*(int32*)runtime·main = 0;*/
+		*(int32*)runtime·main = 0;
 }
 
 // Lock the scheduler.
