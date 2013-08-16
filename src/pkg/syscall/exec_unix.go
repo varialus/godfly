@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build darwin freebsd linux netbsd openbsd
+// +build darwin dragonfly freebsd linux netbsd openbsd
 
 // Fork, exec, wait, etc.
 
@@ -133,6 +133,10 @@ func forkExec(argv0 string, argv []string, attr *ProcAttr) (pid int, err error) 
 	envvp := StringSlicePtr(attr.Env)
 
 	if runtime.GOOS == "freebsd" && len(argv[0]) > len(argv0) {
+		argvp[0] = argv0p
+	}
+
+	if runtime.GOOS == "dragonfly" && len(argv[0]) > len(argv0) {
 		argvp[0] = argv0p
 	}
 
