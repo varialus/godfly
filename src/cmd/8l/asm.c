@@ -37,7 +37,7 @@
 #include	"../ld/macho.h"
 #include	"../ld/pe.h"
 
-char dragonflydynld[] = "/usr/libexec/ld-elf.so.2";
+char dragonfly32dynld[] = "/usr/libexec/ld-elf.so.2";
 char freebsddynld[] = "/usr/libexec/ld-elf.so.1";
 char linuxdynld[] = "/lib/ld-linux.so.2";
 char netbsddynld[] = "/usr/libexec/ld.elf_so";
@@ -974,8 +974,8 @@ asmb(void)
 			sh->addralign = 1;
 			if(interpreter == nil) {
 				switch(HEADTYPE) {
-				case Hdragonfly:
-					interpreter = dragonflydynld;
+				case Hdragonfly32:
+					interpreter = dragonfly32dynld;
 					break;
 				case Hfreebsd:
 					interpreter = freebsddynld;
@@ -1170,8 +1170,8 @@ asmb(void)
 		eh->ident[EI_DATA] = ELFDATA2LSB;
 		eh->ident[EI_VERSION] = EV_CURRENT;
 		switch(HEADTYPE) {
-		case Hdragonfly:
-			eh->ident[EI_OSABI] = ELFOSABI_DRAGONFLY;
+		case Hdragonfly32:
+			eh->ident[EI_OSABI] = ELFOSABI_DRAGONFLY32;
 			break;
 		case Hfreebsd:
 			eh->ident[EI_OSABI] = ELFOSABI_FREEBSD;

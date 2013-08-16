@@ -39,7 +39,7 @@
 
 #define PADDR(a)	((uint32)(a) & ~0x80000000)
 
-char dragonflydynld[] = "/libexec/ld-elf.so.1";
+char dragonfly64dynld[] = "/usr/libexec/ld-elf.so.2";
 char freebsddynld[] = "/libexec/ld-elf.so.1";
 char linuxdynld[] = "/lib64/ld-linux-x86-64.so.2";
 char netbsddynld[] = "/libexec/ld.elf_so";
@@ -562,7 +562,7 @@ doelf(void)
 {
 	Sym *s, *shstrtab, *dynstr;
 
-	if(HEADTYPE != Hlinux && HEADTYPE != Hdragonfly && HEADTYPE != Hfreebsd && HEADTYPE != Hopenbsd && HEADTYPE != Hnetbsd)
+	if(HEADTYPE != Hlinux && HEADTYPE != Hfreebsd && HEADTYPE != Hopenbsd && HEADTYPE != Hnetbsd)
 		return;
 
 	/* predefine strings we need for section headers */
@@ -763,13 +763,14 @@ asmb(void)
 	switch(HEADTYPE) {
 	default:
 		diag("unknown header type %d", HEADTYPE);
+	case Hdragonfly64:
+		break;
 	case Hplan9x32:
 	case Helf:
 		break;
 	case Hdarwin:
 		debug['8'] = 1;	/* 64-bit addresses */
 		break;
-	case Hdragonfly:
 	case Hfreebsd:
 	case Hlinux:
 	case Hnetbsd:
@@ -808,7 +809,7 @@ asmb(void)
 		case Hdarwin:
 			symo = rnd(HEADR+segtext.len, INITRND)+rnd(segdata.filelen, INITRND)+machlink;
 			break;
-		case Hdragonfly:
+		case Hdragonfly64:
 		case Hfreebsd:
 		case Hlinux:
 		case Hnetbsd:
@@ -879,7 +880,7 @@ asmb(void)
 	case Hdarwin:
 		asmbmacho();
 		break;
-	case Hdragonfly:
+	case Hdragonfly64:
 	case Hfreebsd:
 	case Hlinux:
 	case Hnetbsd:
@@ -921,8 +922,8 @@ asmb(void)
 			sh->addralign = 1;
 			if(interpreter == nil) {
 				switch(HEADTYPE) {
-				case Hdragonfly:
-					interpreter = dragonflydynld;
+				case Hdragonfly64:
+					interpreter = dragonfly64dynld;
 					break;
 				case Hfreebsd:
 					interpreter = freebsddynld;
@@ -1110,8 +1111,8 @@ asmb(void)
 		eh->ident[EI_MAG1] = 'E';
 		eh->ident[EI_MAG2] = 'L';
 		eh->ident[EI_MAG3] = 'F';
-		if(HEADTYPE == Hdragonfly)
-			eh->ident[EI_OSABI] = ELFOSABI_DRAGONFLY;
+		if(HEADTYPE == Hdragonfly64)
+			eh->ident[EI_OSABI] = ELFOSABI_DRAGONFLY64;
 		else if(HEADTYPE == Hfreebsd)
 			eh->ident[EI_OSABI] = ELFOSABI_FREEBSD;
 		else if(HEADTYPE == Hnetbsd)

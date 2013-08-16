@@ -45,7 +45,8 @@ char*	paramspace	= "FP";
 
 Header headers[] = {
 	"darwin", Hdarwin,
-	"dragonfly", Hdragonfly,
+	"dragonfly32", Hdragonfly32,
+	"dragonfly64", Hdragonfly64,
 	"elf", Helf,
 	"freebsd", Hfreebsd,
 	"linux", Hlinux,
@@ -60,7 +61,8 @@ Header headers[] = {
 
 /*
  *	-Hdarwin -Tx -Rx		is apple MH-exec
- *	-Hdragonfly -Tx -Rx		is DragonFly BSD elf-exec
+ *	-Hdragonfly32 -Tx -Rx		is DragonFly BSD 32-bit elf-exec
+ *	-Hdragonfly64 -Tx -Rx		is DragonFly BSD 64-bit elf-exec
  *	-Helf -T0x80110000 -R4096	is ELF32
  *	-Hfreebsd -Tx -Rx		is FreeBSD elf-exec
  *	-Hlinux -Tx -Rx			is linux elf-exec
@@ -207,7 +209,6 @@ main(int argc, char *argv[])
 			INITDAT = 0;
 		break;
 	case Hfreebsd:	/* freebsd */
-	case Hdragonfly:/* dragonfly */
 	case Hlinux:	/* elf64 executable */
 	case Hnetbsd:	/* netbsd */
 	case Hopenbsd:	/* openbsd */

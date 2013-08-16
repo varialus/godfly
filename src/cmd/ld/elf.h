@@ -112,7 +112,8 @@ typedef struct {
 #define ELFOSABI_ARM		97	/* ARM */
 #define ELFOSABI_STANDALONE	255	/* Standalone (embedded) application */
 
-#define ELFOSABI_DRAGONFLY	ELFOSABI_NONE	/* DragonFly BSD */
+#define ELFOSABI_DRAGONFLY32	ELFOSABI_FREEBSD/* FreeBSD on DragonFly */
+#define ELFOSABI_DRAGONFLY64	ELFOSABI_NONE	/* DragonFly ELF64 */
 #define ELFOSABI_SYSV		ELFOSABI_NONE	/* symbol used in old spec */
 #define ELFOSABI_MONTEREY	ELFOSABI_AIX	/* Monterey */
 
