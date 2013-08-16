@@ -253,23 +253,24 @@ enum {
 
 /* executable header types */
 enum {
-	Hgarbunix = 0,	// garbage unix
+	Hdarwin = 0,	// Apple Mach-O
+	Hdragonfly,	// DragonFly BSD ELF
+	Helf,		// ELF32
+	Hfreebsd,	// FreeBSD ELF
+	Hgarbunix,	// garbage unix
+	Hipaq,		// ipaq
+	Hixp1200,	// IXP1200 (raw)
+	Hlinux,		// Linux ELF
+	Hmsdoscom,	// MS-DOS .COM
+	Hmsdosexe,	// fake MS-DOS .EXE
+	Hnetbsd,	// NetBSD
 	Hnoheader,	// no header
-	Hunixcoff,	// unix coff
-	Hrisc,		// aif for risc os
+	Hopenbsd,	// OpenBSD ELF
 	Hplan9x32,	// plan 9 32-bit format
 	Hplan9x64,	// plan 9 64-bit format
-	Hmsdoscom,	// MS-DOS .COM
-	Hnetbsd,	// NetBSD
-	Hmsdosexe,	// fake MS-DOS .EXE
-	Hixp1200,	// IXP1200 (raw)
-	Helf,		// ELF32
-	Hipaq,		// ipaq
-	Hdarwin,	// Apple Mach-O
-	Hlinux,		// Linux ELF
-	Hfreebsd,	// FreeBSD ELF
+	Hrisc,		// aif for risc os
+	Hunixcoff,	// unix coff
 	Hwindows,	// MS Windows PE
-	Hopenbsd,	// OpenBSD ELF
 };
 
 typedef struct Header Header;
