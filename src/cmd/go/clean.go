@@ -61,6 +61,7 @@ var cleanR bool // clean -r flag
 var cleanX bool // clean -x flag
 
 func init() {
+	print("hi!")
 	// break init cycle
 	cmdClean.Run = runClean
 
