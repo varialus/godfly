@@ -108,6 +108,7 @@ func setExitStatus(n int) {
 }
 
 func main() {
+	fmt.Print("hi!")
 	flag.Usage = usage
 	flag.Parse()
 	log.SetFlags(0)
