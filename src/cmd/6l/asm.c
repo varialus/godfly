@@ -705,6 +705,7 @@ asmb(void)
 		case Hfreebsd:
 		case Hnetbsd:
 		case Hopenbsd:
+		case Hdragonfly:
 			symo = rnd(HEADR+segtext.len, INITRND)+rnd(segrodata.len, INITRND)+segdata.filelen;
 			symo = rnd(symo, INITRND);
 			break;
