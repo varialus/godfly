@@ -21,8 +21,11 @@ bash-4.2# Aug  11 16:32:21  kernel: pid 19396 (go_bootstrap), uid 0: exited on s
 
 ### gdb
 
-(gdb) run \[clean -i std\]<br />
-Starting program: /root/go/pkg/tool/dragonflybsd_amd64/go_bootstrap<br />
+gdb --args ../pkg/tool/dragonfly_amd64/go_bootstrap clean -i std<br />
+...
+Reading symbols from /root/go/pkg/tool/dragonfly_amd64/go_bootstrap...done.
+(gdb) r<br />
+Starting program: /root/go/pkg/tool/dragonflybsd_amd64/go_bootstrap clean -i std<br />
 <br />
 Program received signal SIGSEGV, Segmentation fault.<br />
 runtime.settls () at /root/go/src/pkg/runtime/sys_dragonflybsd.s:260<br />
@@ -32,6 +35,20 @@ runtime.settls () at /root/go/src/pkg/runtime/sys_dragonflybsd.s:260<br />
 \#1  0x000000000044b006 in _rt0_go ()<br />
     at /root/go/src/pkg/runtime/asm_amd64.s:58<br />
 \#2  0x0000000000000000 in ?? ()<br />
+(gdb) disass<br />
+Dump of assembler code for function runtime.settls:
+   0x0000000000465b30 <+0>:     sub    $0x8,%rsp<br />
+   0x0000000000464b34 <+4>:     add    $0x10,%rdi<br />
+   0x0000000000464b38 <+8>:     mov    %rdi,(%rsp)<br />
+   0x0000000000465b3c <+12>:    mov    %rsp,%rsi<br />
+   0x0000000000465b3f <+15>:    mov    $0x81,%rdi<br />
+   0x0000000000465b46 <+22>:    mov    $0xa5,%eax<br />
+   0x0000000000465b4b <+27>:    syscall<br />
+   0x0000000000465b4d <+29>:    jae    0x465b5a <runtime.settls+42>
+=> 0x0000000000465b4f <+31>:    movl   $0xf1,0xf1<br />
+   0x0000000000465b5a <+42>:    add    $0x8,%rsp<br />
+   0x0000000000465b5e <+46>:    retq<br />
+End of assembler dump
 (gdb)
 
 ### truss
