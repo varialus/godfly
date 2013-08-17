@@ -206,38 +206,38 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 // */
 //
 ///* command values */
-//#define	F_DUPFD		0		/* duplicate file descriptor */
-//#define	F_GETFD		1		/* get file descriptor flags */
-//#define	F_SETFD		2		/* set file descriptor flags */
-//#define	F_GETFL		3		/* get file status flags */
-//#define	F_SETFL		4		/* set file status flags */
+	F_DUPFD		= 0		/* duplicate file descriptor */
+	F_GETFD		= 1		/* get file descriptor flags */
+	F_SETFD		= 2		/* set file descriptor flags */
+	F_GETFL		= 3		/* get file status flags */
+	F_SETFL		= 4		/* set file status flags */
 //#ifndef _POSIX_SOURCE
-//#define	F_GETOWN	5		/* get SIGIO/SIGURG proc/pgrp */
-//#define	F_SETOWN	6		/* set SIGIO/SIGURG proc/pgrp */
+	F_GETOWN	= 5		/* get SIGIO/SIGURG proc/pgrp */
+	F_SETOWN	= 6		/* set SIGIO/SIGURG proc/pgrp */
 //#endif
-//#define	F_GETLK		7		/* get record locking information */
-//#define	F_SETLK		8		/* set record locking information */
-//#define	F_SETLKW	9		/* F_SETLK; wait if blocked */
-//#define	F_DUP2FD	10		/* duplicate file descriptor to arg */
+	F_GETLK		= 7		/* get record locking information */
+	F_SETLK		= 8		/* set record locking information */
+	F_SETLKW	= 9		/* F_SETLK; wait if blocked */
+	F_DUP2FD	= 10		/* duplicate file descriptor to arg */
 //#if __BSD_VISIBLE || __POSIX_VISIBLE >= 200809
-//#define	F_DUPFD_CLOEXEC	17		/* Like F_DUPFD with FD_CLOEXEC set */
+	F_DUPFD_CLOEXEC	= 17		/* Like F_DUPFD with FD_CLOEXEC set */
 //#endif
 //#if __BSD_VISIBLE
-//#define	F_DUP2FD_CLOEXEC 18		/* Like F_DUP2FD with FD_CLOEXEC set */
+	F_DUP2FD_CLOEXEC = 18		/* Like F_DUP2FD with FD_CLOEXEC set */
 //#endif
 //
 ///* file descriptor flags (F_GETFD, F_SETFD) */
-//#define	FD_CLOEXEC	1		/* close-on-exec flag */
+	FD_CLOEXEC	= 1		/* close-on-exec flag */
 //
 ///* record locking flags (F_GETLK, F_SETLK, F_SETLKW) */
-//#define	F_RDLCK		1		/* shared or read lock */
-//#define	F_UNLCK		2		/* unlock */
-//#define	F_WRLCK		3		/* exclusive or write lock */
+	F_RDLCK		= 1		/* shared or read lock */
+	F_UNLCK		= 2		/* unlock */
+	F_WRLCK		= 3		/* exclusive or write lock */
 //#if defined(_KERNEL) || defined(_KERNEL_STRUCTURES)
-//#define	F_WAIT		0x010		/* Wait until lock is granted */
-//#define	F_UNUSED020	0x020
-//#define	F_POSIX		0x040	 	/* Use POSIX semantics for lock */
-//#define	F_NOEND		0x080		/* l_len = 0, internally used */
+	F_WAIT		= 0x010		/* Wait until lock is granted */
+	F_UNUSED020	= 0x020
+	F_POSIX		= 0x040	 	/* Use POSIX semantics for lock */
+	F_NOEND		= 0x080		/* l_len = 0, internally used */
 //#endif
 //
 //
