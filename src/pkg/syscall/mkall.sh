@@ -121,6 +121,9 @@ darwin_amd64)
 	mksysnum="./mksysnum_darwin.pl /usr/include/sys/syscall.h"
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
+dragonfly_amd64)
+	mksysnum="curl -s 'http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/kern/syscalls.master' | ./mksysnum_freebsd.pl"
+	;;
 freebsd_386)
 	mkerrors="$mkerrors -m32"
 	mksyscall="./mksyscall.pl -l32"
