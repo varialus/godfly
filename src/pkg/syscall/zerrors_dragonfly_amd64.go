@@ -996,7 +996,9 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 //#define		TIOCM_DSR	0400		/* data set ready */
 //						/* 8-10 compat */
 //#define	TIOCEXCL	 _IO('t', 13)		/* set exclusive use of tty */
+//TIOCEXCL = 
 //#define	TIOCNXCL	 _IO('t', 14)		/* reset exclusive use of tty */
+//TIOCNXCL = 
 //						/* 15 unused */
 //#define	TIOCFLUSH	_IOW('t', 16, int)	/* flush buffers */
 //						/* 17-18 compat */
@@ -1008,6 +1010,7 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 //#define	TIOCSETD	_IOW('t', 27, int)	/* set line discipline */
 //						/* 127-124 compat */
 //#define	TIOCSBRK	 _IO('t', 123)		/* set break bit */
+//TIOCSBRK = 
 //#define	TIOCCBRK	 _IO('t', 122)		/* clear break bit */
 //#define	TIOCSDTR	 _IO('t', 121)		/* set data terminal ready */
 //#define	TIOCCDTR	 _IO('t', 120)		/* clear data terminal ready */
@@ -1126,7 +1129,7 @@ TIOCISPTMASTER = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) 
 	IOCPARM_MASK	= 0x1fff		/* parameter length, at most 13 bits */
 //#define	IOCPARM_LEN(x)	= (((x) >> 16) & IOCPARM_MASK)
 //#define	IOCBASECMD(x)	= ((x) & ~(IOCPARM_MASK << 16))
-	IOCGROUP(x)	= (((x) >> 8) & 0xff)
+	//IOCGROUP(x)	= (((x) >> 8) & 0xff)
 //
 //#define	IOCPARM_MAX	PAGE_SIZE		/* max size of ioctl, mult. of PAGE_SIZE */
 	IOC_VOID	= 0x20000000	/* no parameters */
