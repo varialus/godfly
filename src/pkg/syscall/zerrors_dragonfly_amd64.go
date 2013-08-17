@@ -151,14 +151,14 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 //
 //#ifdef _KERNEL
 ///* convert from open() flags to/from fflags; convert O_RD/WR to FREAD/FWRITE */
-//#define	FFLAGS(oflags)	((oflags) + 1)
-//#define	OFLAGS(fflags)	((fflags) - 1)
+//#define	= FFLAGS(oflags)	((oflags) + 1)
+//#define	= OFLAGS(fflags)	((fflags) - 1)
 //
 ///* bits to save after open */
-//#define	FMASK		(FREAD|FWRITE|FAPPEND|FASYNC|FFSYNC|FNONBLOCK|\
+//#define	FMASK		= (FREAD|FWRITE|FAPPEND|FASYNC|FFSYNC|FNONBLOCK|\
 //			 FAPPENDONLY|FREVOKED|O_DIRECT|O_MAPONREAD)
 ///* bits settable by fcntl(F_SETFL, ...) */
-//#define	FCNTLFLAGS	(FAPPEND|FASYNC|FFSYNC|FNONBLOCK|FPOSIXSHM|\
+//#define	FCNTLFLAGS	= (FAPPEND|FASYNC|FFSYNC|FNONBLOCK|FPOSIXSHM|\
 //			 O_DIRECT|O_MAPONREAD)
 //#endif
 //
@@ -168,12 +168,12 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 // * and for backward compatibility for fcntl.
 // */
 //#ifndef _POSIX_SOURCE
-//#define	FAPPEND		O_APPEND	/* kernel/compat */
-//#define	FASYNC		O_ASYNC		/* kernel/compat */
-//#define	FFSYNC		O_FSYNC		/* kernel */
-//#define	FNONBLOCK	O_NONBLOCK	/* kernel */
-//#define	FNDELAY		O_NONBLOCK	/* compat */
-//#define	O_NDELAY	O_NONBLOCK	/* compat */
+	FAPPEND		= O_APPEND	/* kernel/compat */
+	FASYNC		= O_ASYNC		/* kernel/compat */
+	FFSYNC		= O_FSYNC		/* kernel */
+	FNONBLOCK	= O_NONBLOCK	/* kernel */
+	FNDELAY		= O_NONBLOCK	/* compat */
+	O_NDELAY	= O_NONBLOCK	/* compat */
 //#endif
 //
 ///*
