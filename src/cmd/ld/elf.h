@@ -113,6 +113,8 @@ typedef struct {
 #define ELFOSABI_STANDALONE	255	/* Standalone (embedded) application */
 
 #define ELFOSABI_SYSV		ELFOSABI_NONE	/* symbol used in old spec */
+#define ELFOSABI_DRAGONFLY32	ELFOSABI_FREEBSD/* symbol used in old spec */
+#define ELFOSABI_DRAGONFLY64	ELFOSABI_NONE	/* symbol used in old spec */
 #define ELFOSABI_MONTEREY	ELFOSABI_AIX	/* Monterey */
 
 /* e_ident */

@@ -39,6 +39,7 @@
 
 char linuxdynld[] = "/lib/ld-linux.so.2";
 char freebsddynld[] = "/usr/libexec/ld-elf.so.1";
+char dragonflydynld[] = "/usr/libexec/ld-elf.so.2";
 char openbsddynld[] = "/usr/libexec/ld.so";
 char netbsddynld[] = "/usr/libexec/ld.elf_so";
 
@@ -848,6 +849,7 @@ asmb(void)
 		break;
 	case Hlinux:
 	case Hfreebsd:
+	case Hdragonfly32:
 	case Hnetbsd:
 	case Hopenbsd:
 		asmbelf(symo);

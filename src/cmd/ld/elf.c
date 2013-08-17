@@ -1190,7 +1190,10 @@ asmbelf(vlong symo)
 			case Hopenbsd:
 				interpreter = openbsddynld;
 				break;
-			case Hdragonfly:
+			case Hdragonfly32:
+				interpreter = dragonflydynld;
+				break;
+			case Hdragonfly64:
 				interpreter = dragonflydynld;
 				break;
 			}
@@ -1465,8 +1468,10 @@ elfobj:
 		eh->ident[EI_OSABI] = ELFOSABI_NETBSD;
 	else if(HEADTYPE == Hopenbsd)
 		eh->ident[EI_OSABI] = ELFOSABI_OPENBSD;
-	else if(HEADTYPE == Hdragonfly)
-		eh->ident[EI_OSABI] = ELFOSABI_NONE;
+	else if(HEADTYPE == Hdragonfly32)
+		eh->ident[EI_OSABI] = ELFOSABI_DRAGONFLY32;
+	else if(HEADTYPE == Hdragonfly64)
+		eh->ident[EI_OSABI] = ELFOSABI_DRAGONFLY64;
 	if(PtrSize == 8)
 		eh->ident[EI_CLASS] = ELFCLASS64;
 	else
