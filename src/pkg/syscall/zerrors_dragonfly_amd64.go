@@ -116,23 +116,23 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 //#endif
 //
 ///* Defined by POSIX 1003.1; BSD default, but must be distinct from O_RDONLY. */
-//#define	O_NOCTTY	0x8000		/* don't assign controlling terminal */
+	O_NOCTTY	= 0x8000		/* don't assign controlling terminal */
 //
 ///* Attempt to bypass the buffer cache */
-//#define O_DIRECT	0x00010000
+	O_DIRECT	= 0x00010000
 //
 //#if __BSD_VISIBLE || __POSIX_VISIBLE >= 200809
-//#define O_CLOEXEC	0x00020000	/* atomically set FD_CLOEXEC */
+	O_CLOEXEC	= 0x00020000	/* atomically set FD_CLOEXEC */
 //#endif
-//#define O_FBLOCKING	0x00040000	/* force blocking I/O */
-//#define O_FNONBLOCKING	0x00080000	/* force non-blocking I/O */
-//#define O_FAPPEND	0x00100000	/* force append mode for write */
-//#define O_FOFFSET	0x00200000	/* force specific offset */
-//#define O_FSYNCWRITE	0x00400000	/* force synchronous write */
-//#define O_FASYNCWRITE	0x00800000	/* force asynchronous write */
-//#define O_FUNBUFFERED	0x01000000	/* force unbuffered (direct) I/O */
-//#define O_FBUFFERED	0x02000000	/* force buffered I/O */
-//#define O_MAPONREAD	0x04000000	/* memory map read buffer */
+	O_FBLOCKING	= 0x00040000	/* force blocking I/O */
+	O_FNONBLOCKING	= 0x00080000	/* force non-blocking I/O */
+	O_FAPPEND	= 0x00100000	/* force append mode for write */
+//#define O_FOFFSET	= 0x00200000	/* force specific offset */
+//#define O_FSYNCWRITE	= 0x00400000	/* force synchronous write */
+//#define O_FASYNCWRITE	= 0x00800000	/* force asynchronous write */
+//#define O_FUNBUFFERED	= 0x01000000	/* force unbuffered (direct) I/O */
+//#define O_FBUFFERED	= 0x02000000	/* force buffered I/O */
+//#define O_MAPONREAD	= 0x04000000	/* memory map read buffer */
 //
 //#if __BSD_VISIBLE || __POSIX_VISIBLE >= 200809
 //#define O_DIRECTORY	0x08000000	/* error if not a directory */
