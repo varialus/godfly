@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build darwin freebsd linux netbsd openbsd
+// +build darwin dragonfly freebsd linux netbsd openbsd
 
 #include "runtime.h"
 #include "defs_GOOS_GOARCH.h"
@@ -35,8 +35,18 @@ runtime·dumpregs(Siginfo *info, void *ctxt)
 	runtime·printf("rip     %X\n", SIG_RIP(info, ctxt));
 	runtime·printf("rflags  %X\n", SIG_RFLAGS(info, ctxt));
 	runtime·printf("cs      %X\n", SIG_CS(info, ctxt));
+#ifndef GOOS_dragonfly
 	runtime·printf("fs      %X\n", SIG_FS(info, ctxt));
 	runtime·printf("gs      %X\n", SIG_GS(info, ctxt));
+#else
+	runtime·printf("xflags	%X\n", SIG_XFLAGS(info, ctxt));
+	runtime·printf("trapno	%X\n", SIG_TRAPNO(info, ctxt));
+	runtime·printf("addr	%X\n", SIG_ADDR(info, ctxt));
+	runtime·printf("flags	%X\n", SIG_FLAGS(info, ctxt));
+	runtime·printf("err	%X\n", SIG_ERR(info, ctxt));
+	runtime·printf("rflags	%X\n", SIG_RFLAGS(info, ctxt));
+	runtime·printf("ss	%X\n", SIG_SS(info, ctxt));
+#endif
 }
 
 void
