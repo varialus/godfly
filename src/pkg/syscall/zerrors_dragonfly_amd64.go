@@ -6,8 +6,8 @@
 
 package syscall
 
-// http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/socket.h
 const (
+	// http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/socket.h
 	AF_UNSPEC	= 0		/* unspecified */
 	AF_LOCAL	= 1		/* local to host (pipes, portals) */
 	AF_UNIX		= AF_LOCAL	/* backward compatibility */
@@ -49,8 +49,27 @@ const (
 	AF_BLUETOOTH	= 33		/* Bluetooth */
 	AF_MPLS		= 34		/* Multi-Protocol Label Switching */
 	AF_IEEE80211	= 35		/* IEEE 802.11 protocol */
-
 	AF_MAX		= 36
+	// http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/sysctl.h
+	CTL_MAXNAME	= 12		/* largest number of components supported */
+	CTLTYPE		= 0xf	/* Mask for the type */
+	CTLTYPE_NODE	= 1	/* name is a node */
+	CTLTYPE_INT	= 2	/* name describes an integer */
+	CTLTYPE_STRING	= 3	/* name describes a string */
+	CTLTYPE_QUAD	= 4	/* name describes a 64-bit number */
+	CTLTYPE_OPAQUE	= 5	/* name describes a structure */
+	CTLTYPE_STRUCT	= CTLTYPE_OPAQUE	/* name describes a structure */
+	CTLTYPE_UINT	= 6	/* name describes an unsigned integer */
+	CTLTYPE_LONG	= 7	/* name describes a long */
+	CTLTYPE_ULONG	= 8	/* name describes an unsigned long */
+	CTLTYPE_UQUAD	= 9	/* name describes an unsigned 64-bit number */
+	CTLFLAG_RD	= 0x80000000	/* Allow reads of variable */
+	CTLFLAG_WR	= 0x40000000	/* Allow writes to the variable */
+	CTLFLAG_RW	= CTLFLAG_RD | CTLFLAG_WR
+	CTLFLAG_ANYBODY	= 0x10000000	/* All users can set this var */
+	CTLFLAG_SECURE	= 0x08000000	/* Permit set only if securelevel<=0 */
+	CTLFLAG_PRISON	= 0x04000000	/* Prisoned roots can fiddle */
+	CTLFLAG_DYN	= 0x02000000	/* Dynamic oid - can be freed */
 )
 
 
