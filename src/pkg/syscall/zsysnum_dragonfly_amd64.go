@@ -184,8 +184,9 @@ const (
 	SYS_SEMSYS	= 169
 	SYS_MSGSYS	= 170
 	SYS_SHMSYS	= 171
-	SYS_EXTPREAD	= 173
-	SYS_EXTPWRITE	= 174
+	// http://comments.gmane.org/gmane.os.dragonfly-bsd.kernel/9280
+	SYS_PREAD	= 173
+	SYS_PWRITE	= 174
 	SYS_NTP_ADJTIME	= 176
 	SYS_SETGID	= 181
 	SYS_SETEGID	= 182
@@ -238,8 +239,9 @@ const (
 				/* 278 IS OBSOLETE { */
 				/* 279 IS OBSOLETE { */
 				/* 280 IS OBSOLETE { */
-	SYS_EXTPREADV	= 289
-	SYS_EXTPWRITEV	= 290
+	// http://comments.gmane.org/gmane.os.dragonfly-bsd.kernel/9280
+	SYS_PREADV	= 289
+	SYS_PWRITEV	= 290
 	SYS_FHSTATFS	= 297
 	SYS_FHOPEN	= 298
 				/* 299 IS OLD FHSTAT */
@@ -340,7 +342,8 @@ const (
 	SYS_GETDIRENTRIES	= 479
 	SYS_GETDENTS	= 480
 	SYS_USCHED_SET	= 481
-	SYS_EXTACCEPT	= 482
+	// http://comments.gmane.org/gmane.os.dragonfly-bsd.kernel/9280
+	SYS_EXTACCEPT	= 482 // was going to remove the ext, but SYS_ACCEPT is already defined above
 	SYS_EXTCONNECT	= 483
 				/* 484 IS OBSOLETE SYSLINK */
 	SYS_MCONTROL	= 485
