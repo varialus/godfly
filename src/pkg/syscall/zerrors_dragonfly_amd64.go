@@ -102,17 +102,17 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 	O_SHLOCK	= 0x0010		/* open with shared file lock */
 	O_EXLOCK	= 0x0020		/* open with exclusive file lock */
 	O_ASYNC		= 0x0040		/* signal pgrp when data ready */
-//#define	O_FSYNC		0x0080		/* synchronous writes */
-//#define	O_NOFOLLOW	0x0100		/* don't follow symlinks */
+	O_FSYNC		= 0x0080		/* synchronous writes */
+	O_NOFOLLOW	= 0x0100		/* don't follow symlinks */
 //#endif
-//#define	O_SYNC		0x0080		/* Same as O_FSYNC, but POSIX */
-//#define	O_CREAT		0x0200		/* create if nonexistent */
-//#define	O_TRUNC		0x0400		/* truncate to zero length */
-//#define	O_EXCL		0x0800		/* error if already exists */
+	O_SYNC		= 0x0080		/* Same as O_FSYNC, but POSIX */
+	O_CREAT		= 0x0200		/* create if nonexistent */
+	O_TRUNC		= 0x0400		/* truncate to zero length */
+	O_EXCL		= 0x0800		/* error if already exists */
 //#if defined(_KERNEL) || defined(_KERNEL_STRUCTURES)
-//#define	FMARK		0x1000		/* mark during gc() */
-//#define	FDEFER		0x2000		/* defer for next gc pass */
-//#define	FHASLOCK	0x4000		/* descriptor holds advisory lock */
+	FMARK		= 0x1000		/* mark during gc() */
+	FDEFER		= 0x2000		/* defer for next gc pass */
+	FHASLOCK	= 0x4000		/* descriptor holds advisory lock */
 //#endif
 //
 ///* Defined by POSIX 1003.1; BSD default, but must be distinct from O_RDONLY. */
