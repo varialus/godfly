@@ -1012,14 +1012,18 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 //#define	TIOCSBRK	 _IO('t', 123)		/* set break bit */
 //TIOCSBRK = 
 //#define	TIOCCBRK	 _IO('t', 122)		/* clear break bit */
+//TIOCCBRK = 
 //#define	TIOCSDTR	 _IO('t', 121)		/* set data terminal ready */
+//TIOCSDTR = 
 //#define	TIOCCDTR	 _IO('t', 120)		/* clear data terminal ready */
+//TIOCCDTR = 
 //#define	TIOCGPGRP	_IOR('t', 119, int)	/* get pgrp of tty */
 //#define	TIOCSPGRP	_IOW('t', 118, int)	/* set pgrp of tty */
 //						/* 117-116 compat */
 //#define	TIOCOUTQ	_IOR('t', 115, int)	/* output queue size */
 //#define	TIOCSTI		_IOW('t', 114, char)	/* simulate terminal input */
 //#define	TIOCNOTTY	 _IO('t', 113)		/* void tty association */
+//TIOCNOTTY = 
 
 //_IOC(IOC_VOID,  ('t'), (113), 0)
 
