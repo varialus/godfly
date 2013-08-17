@@ -57,10 +57,6 @@ type Rlimit struct {
 type _Gid_t uint32
 
 const (
-	O_CLOEXEC = 0
-)
-
-const (
 	S_IFMT   = 0xf000
 	S_IFIFO  = 0x1000
 	S_IFCHR  = 0x2000

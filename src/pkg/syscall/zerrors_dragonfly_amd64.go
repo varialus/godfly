@@ -127,22 +127,22 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 	O_FBLOCKING	= 0x00040000	/* force blocking I/O */
 	O_FNONBLOCKING	= 0x00080000	/* force non-blocking I/O */
 	O_FAPPEND	= 0x00100000	/* force append mode for write */
-//#define O_FOFFSET	= 0x00200000	/* force specific offset */
-//#define O_FSYNCWRITE	= 0x00400000	/* force synchronous write */
-//#define O_FASYNCWRITE	= 0x00800000	/* force asynchronous write */
-//#define O_FUNBUFFERED	= 0x01000000	/* force unbuffered (direct) I/O */
-//#define O_FBUFFERED	= 0x02000000	/* force buffered I/O */
-//#define O_MAPONREAD	= 0x04000000	/* memory map read buffer */
+	O_FOFFSET	= 0x00200000	/* force specific offset */
+	O_FSYNCWRITE	= 0x00400000	/* force synchronous write */
+	O_FASYNCWRITE	= 0x00800000	/* force asynchronous write */
+	O_FUNBUFFERED	= 0x01000000	/* force unbuffered (direct) I/O */
+	O_FBUFFERED	= 0x02000000	/* force buffered I/O */
+	O_MAPONREAD	= 0x04000000	/* memory map read buffer */
 //
 //#if __BSD_VISIBLE || __POSIX_VISIBLE >= 200809
-//#define O_DIRECTORY	0x08000000	/* error if not a directory */
+//#define O_DIRECTORY	= 0x08000000	/* error if not a directory */
 //#endif
 //
 //#if defined(_KERNEL) || defined(_KERNEL_STRUCTURES)
-//#define FREVOKED	0x10000000	/* revoked by fdrevoke() */
-//#define FAPPENDONLY	0x20000000	/* O_APPEND cannot be changed */
-//#define FOFFSETLOCK	0x40000000	/* f_offset locked */
-//#define FOFFSETWAKE	0x80000000	/* f_offset wakeup */
+	FREVOKED	= 0x10000000	/* revoked by fdrevoke() */
+	FAPPENDONLY	= 0x20000000	/* O_APPEND cannot be changed */
+	FOFFSETLOCK	= 0x40000000	/* f_offset locked */
+	FOFFSETWAKE	= 0x80000000	/* f_offset wakeup */
 //#endif
 //
 //#define O_FMASK		(O_FBLOCKING|O_FNONBLOCKING|O_FAPPEND|O_FOFFSET|\
