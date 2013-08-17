@@ -7,7 +7,7 @@
 /*
 Input to cgo.
 
-GOARCH=amd64 go tool cgo -cdefs defs_.dragonfly.go >defs_dragonfly_amd64.h
+GOARCH=amd64 go tool cgo -cdefs defs_dragonfly.go >defs_dragonfly_amd64.h
 */
 
 package runtime

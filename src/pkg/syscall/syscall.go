@@ -19,10 +19,6 @@
 // On most systems, that error has type syscall.Errno.
 package syscall
 
-import (
-	"runtime"
-)
-
 // StringByteSlice is deprecated. Use ByteSliceFromString instead.
 // If s contains a NUL byte this function panics instead of
 // returning an error.
@@ -68,18 +64,18 @@ func BytePtrFromString(s string) (*byte, error) {
 // See mksyscall.pl.
 var _zero uintptr
 
-func (ts *runtime.Timespec) Unix() (sec int64, nsec int64) {
+func (ts *Timespec) Unix() (sec int64, nsec int64) {
 	return int64(ts.Sec), int64(ts.Nsec)
 }
 
-func (tv *runtime.Timeval) Unix() (sec int64, nsec int64) {
+func (tv *Timeval) Unix() (sec int64, nsec int64) {
 	return int64(tv.Sec), int64(tv.Usec) * 1000
 }
 
-func (ts *runtime.Timespec) Nano() int64 {
+func (ts *Timespec) Nano() int64 {
 	return int64(ts.Sec)*1e9 + int64(ts.Nsec)
 }
 
-func (tv *runtime.Timeval) Nano() int64 {
+func (tv *Timeval) Nano() int64 {
 	return int64(tv.Sec)*1e9 + int64(tv.Usec)*1000
 }
