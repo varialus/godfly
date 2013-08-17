@@ -6,6 +6,54 @@
 
 package syscall
 
+// http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/socket.h
+const (
+	AF_UNSPEC	= 0		/* unspecified */
+	AF_LOCAL	= 1		/* local to host (pipes, portals) */
+	AF_UNIX		= AF_LOCAL	/* backward compatibility */
+	AF_INET		= 2		/* internetwork: UDP, TCP, etc. */
+	AF_IMPLINK	= 3		/* arpanet imp addresses */
+	AF_PUP		= 4		/* pup protocols: e.g. BSP */
+	AF_CHAOS	= 5		/* mit CHAOS protocols */
+	AF_NS		= 6		/* XEROX NS protocols */
+	AF_ISO		= 7		/* ISO protocols */
+	AF_OSI		= AF_ISO
+	AF_ECMA		= 8		/* European computer manufacturers */
+	AF_DATAKIT	= 9		/* datakit protocols */
+	AF_CCITT	= 10		/* CCITT protocols, X.25 etc */
+	AF_SNA		= 11		/* IBM SNA */
+	AF_DECnet	= 12		/* DECnet */
+	AF_DLI		= 13		/* DEC Direct data link interface */
+	AF_LAT		= 14		/* LAT */
+	AF_HYLINK	= 15		/* NSC Hyperchannel */
+	AF_APPLETALK	= 16		/* Apple Talk */
+	AF_ROUTE	= 17		/* Internal Routing Protocol */
+	AF_LINK		= 18		/* Link layer interface */
+	pseudo_AF_XTP	= 19		/* eXpress Transfer Protocol (no AF) */
+	AF_COIP		= 20		/* connection-oriented IP, aka ST II */
+	AF_CNT		= 21		/* Computer Network Technology */
+	pseudo_AF_RTIP	= 22		/* Help Identify RTIP packets */
+	AF_IPX		= 23		/* Novell Internet Protocol */
+	AF_SIP		= 24		/* Simple Internet Protocol */
+	pseudo_AF_PIP	= 25		/* Help Identify PIP packets */
+	AF_ISDN		= 26		/* Integrated Services Digital Network*/
+	AF_E164		= AF_ISDN		/* CCITT E.164 recommendation */
+	pseudo_AF_KEY	= 27		/* Internal key-management function */
+	AF_INET6	= 28		/* IPv6 */
+	AF_NATM		= 29		/* native ATM access */
+	AF_ATM		= 30		/* ATM */
+	pseudo_AF_HDRCMPLT = 31		/* Used by BPF to not rewrite headers
+					 * in interface output routine
+					 */
+	AF_NETGRAPH	= 32		/* Netgraph sockets */
+	AF_BLUETOOTH	= 33		/* Bluetooth */
+	AF_MPLS		= 34		/* Multi-Protocol Label Switching */
+	AF_IEEE80211	= 35		/* IEEE 802.11 protocol */
+
+	AF_MAX		= 36
+)
+
+
 // Errors
 // http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/errno.h
 const (
