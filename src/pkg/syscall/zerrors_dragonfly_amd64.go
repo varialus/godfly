@@ -100,41 +100,41 @@ const (
 // Signals
 http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/signal.h
 const (
-	SIGHUP		Signal(1)	/* hangup */
-	SIGINT		Signal(2)	/* interrupt */
-	SIGQUIT		Signal(3)	/* quit */
-	SIGILL		Signal(4)	/* illegal instr. (not reset when caught) */
-	SIGTRAP		Signal(5)	/* trace trap (not reset when caught) */
-	SIGABRT		Signal(6)	/* abort() */
-	SIGIOT		Signal(SIGABRT)	/* compatibility */
-	SIGEMT		Signal(7)	/* EMT instruction */
-	SIGFPE		Signal(8)	/* floating point exception */
-	SIGKILL		Signal(9)	/* kill (cannot be caught or ignored) */
-	SIGBUS		Signal(10)	/* bus error */
-	SIGSEGV		Signal(11)	/* segmentation violation */
-	SIGSYS		Signal(12)	/* non-existent system call invoked */
-	SIGPIPE		Signal(13)	/* write on a pipe with no one to read it */
-	SIGALRM		Signal(14)	/* alarm clock */
-	SIGTERM		Signal(15)	/* software termination signal from kill */
-	SIGURG		Signal(16)	/* urgent condition on IO channel */
-	SIGSTOP		Signal(17)	/* sendable stop signal not from tty */
-	SIGTSTP		Signal(18)	/* stop signal from tty */
-	SIGCONT		Signal(19)	/* continue a stopped process */
-	SIGCHLD		Signal(20)	/* to parent on child stop or exit */
-	SIGTTIN		Signal(21)	/* to readers pgrp upon background tty read */
-	SIGTTOU		Signal(22)	/* like TTIN if (tp->t_local&LTOSTOP) */
-	SIGIO		Signal(23)	/* input/output possible signal */
-	SIGXCPU		Signal(24)	/* exceeded CPU time limit */
-	SIGXFSZ		Signal(25)	/* exceeded file size limit */
-	SIGVTALRM	Signal(26)	/* virtual time alarm */
-	SIGPROF		Signal(27)	/* profiling time alarm */
-	SIGWINCH	Signal(28)	/* window size changes */
-	SIGINFO		Signal(29)	/* information request */
-	SIGUSR1		Signal(30)	/* user defined signal 1 */
-	SIGUSR2		Signal(31)	/* user defined signal 2 */
-	SIGTHR          Signal(32)      /* Thread interrupt (FreeBSD-5 reserved) */
-	SIGCKPT         Signal(33)      /* checkpoint and continue */
-	SIGCKPTEXIT     Signal(34)      /* checkpoint and exit */
+	SIGHUP		= Signal(1)	/* hangup */
+	SIGINT		= Signal(2)	/* interrupt */
+	SIGQUIT		= Signal(3)	/* quit */
+	SIGILL		= Signal(4)	/* illegal instr. (not reset when caught) */
+	SIGTRAP		= Signal(5)	/* trace trap (not reset when caught) */
+	SIGABRT		= Signal(6)	/* abort() */
+	SIGIOT		= Signal(SIGABRT)	/* compatibility */
+	SIGEMT		= Signal(7)	/* EMT instruction */
+	SIGFPE		= Signal(8)	/* floating point exception */
+	SIGKILL		= Signal(9)	/* kill (cannot be caught or ignored) */
+	SIGBUS		= Signal(10)	/* bus error */
+	SIGSEGV		= Signal(11)	/* segmentation violation */
+	SIGSYS		= Signal(12)	/* non-existent system call invoked */
+	SIGPIPE		= Signal(13)	/* write on a pipe with no one to read it */
+	SIGALRM		= Signal(14)	/* alarm clock */
+	SIGTERM		= Signal(15)	/* software termination signal from kill */
+	SIGURG		= Signal(16)	/* urgent condition on IO channel */
+	SIGSTOP		= Signal(17)	/* sendable stop signal not from tty */
+	SIGTSTP		= Signal(18)	/* stop signal from tty */
+	SIGCONT		= Signal(19)	/* continue a stopped process */
+	SIGCHLD		= Signal(20)	/* to parent on child stop or exit */
+	SIGTTIN		= Signal(21)	/* to readers pgrp upon background tty read */
+	SIGTTOU		= Signal(22)	/* like TTIN if (tp->t_local&LTOSTOP) */
+	SIGIO		= Signal(23)	/* input/output possible signal */
+	SIGXCPU		= Signal(24)	/* exceeded CPU time limit */
+	SIGXFSZ		= Signal(25)	/* exceeded file size limit */
+	SIGVTALRM	= Signal(26)	/* virtual time alarm */
+	SIGPROF		= Signal(27)	/* profiling time alarm */
+	SIGWINCH	= Signal(28)	/* window size changes */
+	SIGINFO		= Signal(29)	/* information request */
+	SIGUSR1		= Signal(30)	/* user defined signal 1 */
+	SIGUSR2		= Signal(31)	/* user defined signal 2 */
+	SIGTHR          = Signal(32)      /* Thread interrupt (FreeBSD-5 reserved) */
+	SIGCKPT         = Signal(33)      /* checkpoint and continue */
+	SIGCKPTEXIT     = Signal(34)      /* checkpoint and exit */
 )
 
 // Error table
