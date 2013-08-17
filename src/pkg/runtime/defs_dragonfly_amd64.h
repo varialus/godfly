@@ -71,6 +71,32 @@ enum {
 	ITIMER_REAL	= 0x0,
 	ITIMER_VIRTUAL	= 0x1,
 	ITIMER_PROF	= 0x2,
+// http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/event.h
+	EVFILT_READ	= (-1),
+	EVFILT_WRITE	= (-2),
+	EVFILT_AIO	= (-3),	/* attached to aio requests */
+	EVFILT_VNODE	= (-4),	/* attached to vnodes */
+	EVFILT_PROC	= (-5),	/* attached to struct proc */
+	EVFILT_SIGNAL	= (-6),	/* attached to struct proc */
+	EVFILT_TIMER	= (-7),	/* timers */
+	EVFILT_EXCEPT	= (-8),	/* exceptional conditions */
+///* actions */
+	EV_ADD		= 0x0001,		/* add event to kq (implies enable) */
+	EV_DELETE	= 0x0002,		/* delete event from kq */
+	EV_ENABLE	= 0x0004,		/* enable event */
+	EV_DISABLE	= 0x0008,		/* disable event (not reported) */
+//
+///* flags */
+	EV_ONESHOT	= 0x0010,		/* only report one occurrence */
+	EV_CLEAR	= 0x0020,		/* clear event state after reporting */
+//
+	EV_SYSFLAGS	= 0xF000,		/* reserved by system */
+	EV_FLAG1	= 0x2000,		/* filter-specific flag */
+//
+///* returned values */
+	EV_EOF		= 0x8000,		/* EOF detected */
+	EV_ERROR	= 0x4000,		/* error, data contains errno */
+	EV_NODATA	= 0x1000,		/* EOF and no more data */
 };
 
 typedef struct Rtprio Rtprio;
