@@ -8,65 +8,71 @@ Recent Error
 
 ### Build Error
 
-\# Building C bootstrap tool.<br />
-cmd/dist<br />
-\# Building compilers and Go bootstrap tool for host, dragonflybsd/amd64<br />
-lib9<br />
-libbio<br />
-...<br />
-pkg/go/build<br />
-cmd/go<br />
-./make.bash: line 141: 19396 Segmentation fault: 11 (core dumped) "$GOTOOLDIR"/go_bootstrap clean -i std<br />
+```
+# Building C bootstrap tool.
+cmd/dist
+# Building compilers and Go bootstrap tool for host, dragonflybsd/amd64
+lib9
+libbio
+...
+pkg/go/build
+cmd/go
+./make.bash: line 141: 19396 Segmentation fault: 11 (core dumped) "$GOTOOLDIR"/go_bootstrap clean -i std
 bash-4.2# Aug  11 16:32:21  kernel: pid 19396 (go_bootstrap), uid 0: exited on signal 11 (core dumped)
+```
 
 ### gdb
 
-gdb --args ../pkg/tool/dragonfly_amd64/go_bootstrap clean -i std<br />
+```
+gdb --args ../pkg/tool/dragonfly_amd64/go_bootstrap clean -i std
 ...
 Reading symbols from /root/go/pkg/tool/dragonfly_amd64/go_bootstrap...done.
-(gdb) r<br />
-Starting program: /root/go/pkg/tool/dragonflybsd_amd64/go_bootstrap clean -i std<br />
-<br />
-Program received signal SIGSEGV, Segmentation fault.<br />
-runtime.settls () at /root/go/src/pkg/runtime/sys_dragonflybsd.s:260<br />
-260             MOVL    $0xf1, 0xf1  // crash<br />
-(gdb) bt<br />
-\#0  runtime.settls () at /root/go/src/pkg/runtime/sys_dragonfly_amd64.s:260<br />
-\#1  0x000000000044b006 in _rt0_go ()<br />
-    at /root/go/src/pkg/runtime/asm_amd64.s:58<br />
-\#2  0x0000000000000000 in ?? ()<br />
-(gdb) disass<br />
+(gdb) r
+Starting program: /root/go/pkg/tool/dragonflybsd_amd64/go_bootstrap clean -i std
+
+Program received signal SIGSEGV, Segmentation fault.
+runtime.settls () at /root/go/src/pkg/runtime/sys_dragonflybsd.s:260
+260             MOVL    $0xf1, 0xf1  // crash
+(gdb) bt
+#0  runtime.settls () at /root/go/src/pkg/runtime/sys_dragonfly_amd64.s:260
+#1  0x000000000044b006 in _rt0_go ()
+    at /root/go/src/pkg/runtime/asm_amd64.s:58
+#2  0x0000000000000000 in ?? ()
+(gdb) disass
 Dump of assembler code for function runtime.settls:
-   0x0000000000465b30 <+0>:     sub    $0x8,%rsp<br />
-   0x0000000000464b34 <+4>:     add    $0x10,%rdi<br />
-   0x0000000000464b38 <+8>:     mov    %rdi,(%rsp)<br />
-   0x0000000000465b3c <+12>:    mov    %rsp,%rsi<br />
-   0x0000000000465b3f <+15>:    mov    $0x81,%rdi<br />
-   0x0000000000465b46 <+22>:    mov    $0xa5,%eax<br />
-   0x0000000000465b4b <+27>:    syscall<br />
+   0x0000000000465b30 <+0>:     sub    $0x8,%rsp
+   0x0000000000464b34 <+4>:     add    $0x10,%rdi
+   0x0000000000464b38 <+8>:     mov    %rdi,(%rsp)
+   0x0000000000465b3c <+12>:    mov    %rsp,%rsi
+   0x0000000000465b3f <+15>:    mov    $0x81,%rdi
+   0x0000000000465b46 <+22>:    mov    $0xa5,%eax
+   0x0000000000465b4b <+27>:    syscall
    0x0000000000465b4d <+29>:    jae    0x465b5a <runtime.settls+42>
-=> 0x0000000000465b4f <+31>:    movl   $0xf1,0xf1<br />
-   0x0000000000465b5a <+42>:    add    $0x8,%rsp<br />
-   0x0000000000465b5e <+46>:    retq<br />
-End of assembler dump<br />
-(gdb) p /x $rax<br />
+=> 0x0000000000465b4f <+31>:    movl   $0xf1,0xf1
+   0x0000000000465b5a <+42>:    add    $0x8,%rsp
+   0x0000000000465b5e <+46>:    retq
+End of assembler dump
+(gdb) p /x $rax
 $1 = 0x2d
+```
 
 ### truss
 
-bash-4.2# truss ../pkg/tool/dragonfly_amd64/go_bootstrap clean -i std<br />
-open("/proc/curproc/mem",0x1,0400032600400)      = 3 (0x3)<br />
-fcntl(0x3,0x2,0x1)                               = 0 (0x0)<br />
-ioctl(3,PIOCBIS,0x21)                            = 0 (0x0)<br />
-ioctl(3,PIOCSFL,0x1)                             = 0 (0x0)<br />
-execve(<missing argument>,<missing argument>,<missing argument>)sysarch(0x81,0x7ffffffff640)<br />
-SIGNAL 11<br />
-SIGNAL 11<br />
-Process stopped because of:  16<br />
-process exit, rval = 139<br />
-Segmentation fault: 11<br />
-bash-4.2# Aug 17 07:37:51  kernel: pid 22655 (go_bootstrap), uid 0: exited on signal 11 (core dumped)<br />
+```
+bash-4.2# truss ../pkg/tool/dragonfly_amd64/go_bootstrap clean -i std
+open("/proc/curproc/mem",0x1,0400032600400)      = 3 (0x3)
+fcntl(0x3,0x2,0x1)                               = 0 (0x0)
+ioctl(3,PIOCBIS,0x21)                            = 0 (0x0)
+ioctl(3,PIOCSFL,0x1)                             = 0 (0x0)
+execve(<missing argument>,<missing argument>,<missing argument>)sysarch(0x81,0x7ffffffff640)
+SIGNAL 11
+SIGNAL 11
+Process stopped because of:  16
+process exit, rval = 139
+Segmentation fault: 11
+bash-4.2# Aug 17 07:37:51  kernel: pid 22655 (go_bootstrap), uid 0: exited on signal 11 (core dumped)
 Aug 17 07:37:51  kernel: pid 22654 (truss), uid 0: exited on signal 11
+```
 
 ### Notes
 
