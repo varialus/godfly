@@ -195,11 +195,11 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 ///*
 // * Constants used by "at" family of system calls.
 // */
-//#define AT_FDCWD		0xFFFAFDCD	/* invalid file descriptor */
-//#define AT_SYMLINK_NOFOLLOW	1
-//#define AT_REMOVEDIR		2
-//#define AT_EACCESS		4
-//#define AT_SYMLINK_FOLLOW	8
+	AT_FDCWD		= 0xFFFAFDCD	/* invalid file descriptor */
+	AT_SYMLINK_NOFOLLOW	= 1
+	AT_REMOVEDIR		= 2
+	AT_EACCESS		= 4
+	AT_SYMLINK_FOLLOW	= 8
 //
 ///*
 // * Constants used for fcntl(2)
