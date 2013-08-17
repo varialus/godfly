@@ -996,9 +996,9 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 //#define		TIOCM_DSR	0400		/* data set ready */
 //						/* 8-10 compat */
 //#define	TIOCEXCL	 _IO('t', 13)		/* set exclusive use of tty */
-//TIOCEXCL = 
+TIOCEXCL = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((13))))
 //#define	TIOCNXCL	 _IO('t', 14)		/* reset exclusive use of tty */
-//TIOCNXCL = 
+TIOCNXCL = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((14))))
 //						/* 15 unused */
 //#define	TIOCFLUSH	_IOW('t', 16, int)	/* flush buffers */
 //						/* 17-18 compat */
@@ -1010,34 +1010,30 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 //#define	TIOCSETD	_IOW('t', 27, int)	/* set line discipline */
 //						/* 127-124 compat */
 //#define	TIOCSBRK	 _IO('t', 123)		/* set break bit */
-//TIOCSBRK = 
+TIOCSBRK = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((123))))
 //#define	TIOCCBRK	 _IO('t', 122)		/* clear break bit */
-//TIOCCBRK = 
+TIOCCBRK = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((122))))
 //#define	TIOCSDTR	 _IO('t', 121)		/* set data terminal ready */
-//TIOCSDTR = 
+TIOCSDTR = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((121))))
 //#define	TIOCCDTR	 _IO('t', 120)		/* clear data terminal ready */
-//TIOCCDTR = 
+TIOCCDTR = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((120))))
 //#define	TIOCGPGRP	_IOR('t', 119, int)	/* get pgrp of tty */
 //#define	TIOCSPGRP	_IOW('t', 118, int)	/* set pgrp of tty */
 //						/* 117-116 compat */
 //#define	TIOCOUTQ	_IOR('t', 115, int)	/* output queue size */
 //#define	TIOCSTI		_IOW('t', 114, char)	/* simulate terminal input */
 //#define	TIOCNOTTY	 _IO('t', 113)		/* void tty association */
-//TIOCNOTTY = 
-
-//_IOC(IOC_VOID,  ('t'), (113), 0)
-
 TIOCNOTTY = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((113))))
 
 //#define	TIOCPKT		_IOW('t', 112, int)	/* pty: set/clear packet mode */
-//#define		TIOCPKT_DATA		0x00	/* data packet */
-//#define		TIOCPKT_FLUSHREAD	0x01	/* flush packet */
-//#define		TIOCPKT_FLUSHWRITE	0x02	/* flush packet */
-//#define		TIOCPKT_STOP		0x04	/* stop output */
-//#define		TIOCPKT_START		0x08	/* start output */
-//#define		TIOCPKT_NOSTOP		0x10	/* no more ^S, ^Q */
-//#define		TIOCPKT_DOSTOP		0x20	/* now do ^S ^Q */
-//#define		TIOCPKT_IOCTL		0x40	/* state change of pty driver */
+		TIOCPKT_DATA		= 0x00	/* data packet */
+		TIOCPKT_FLUSHREAD	= 0x01	/* flush packet */
+		TIOCPKT_FLUSHWRITE	= 0x02	/* flush packet */
+		TIOCPKT_STOP		= 0x04	/* stop output */
+		TIOCPKT_START		= 0x08	/* start output */
+		TIOCPKT_NOSTOP		= 0x10	/* no more ^S, ^Q */
+		TIOCPKT_DOSTOP		= 0x20	/* now do ^S ^Q */
+		TIOCPKT_IOCTL		= 0x40	/* state change of pty driver */
 //#define	TIOCSTOP	 _IO('t', 111)		/* stop output, like ^S */
 TIOCSTOP = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((111))))
 //#define	TIOCSTART	 _IO('t', 110)		/* start output, like ^Q */
