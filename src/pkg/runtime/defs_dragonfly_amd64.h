@@ -84,6 +84,9 @@ typedef struct Ucontext Ucontext;
 typedef struct Timespec Timespec;
 typedef struct Timeval Timeval;
 typedef struct Itimerval Itimerval;
+// Copied from defs_freebsd_amd64.h
+typedef struct Kevent Kevent;
+
 
 #pragma pack on
 
