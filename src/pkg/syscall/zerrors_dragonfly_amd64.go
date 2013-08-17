@@ -189,7 +189,7 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 // * for POSIX shared memory objects (which are otherwise
 // * implemented as plain files).
 // */
-//#define	FPOSIXSHM	O_NOFOLLOW
+	FPOSIXSHM	= O_NOFOLLOW
 //#endif
 //
 ///*
@@ -266,10 +266,10 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 //
 //#ifndef _POSIX_SOURCE
 ///* lock operations for flock(2) */
-//#define	LOCK_SH		0x01		/* shared file lock */
-//#define	LOCK_EX		0x02		/* exclusive file lock */
-//#define	LOCK_NB		0x04		/* don't block when locking */
-//#define	LOCK_UN		0x08		/* unlock file */
+	LOCK_SH		= 0x01		/* shared file lock */
+	LOCK_EX		= 0x02		/* exclusive file lock */
+	LOCK_NB		= 0x04		/* don't block when locking */
+	LOCK_UN		= 0x08		/* unlock file */
 //#endif
 //
 //#if !defined(_KERNEL) || defined(_KERNEL_VIRTUAL)
