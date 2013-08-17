@@ -122,7 +122,8 @@ darwin_amd64)
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 dragonfly_amd64)
-	mksysnum="curl -s 'http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/kern/syscalls.master' | ./mksysnum_freebsd.pl"
+	# syscalls.master on dfly is formatted differently than on freebsd
+	mksysnum="curl -s 'http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/kern/syscalls.master' | ./mksysnum_dragonfly.pl"
 	;;
 freebsd_386)
 	mkerrors="$mkerrors -m32"
