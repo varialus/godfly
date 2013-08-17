@@ -1047,6 +1047,7 @@ TIOCSTART = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((1
 //#define	TIOCSWINSZ	_IOW('t', 103, struct winsize)	/* set window size */
 //#define	TIOCUCNTL	_IOW('t', 102, int)	/* pty: set/clr usr cntl mode */
 //#define	TIOCSTAT	 _IO('t', 101)		/* simulate ^T status message */
+TIOCSTAT = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((101))))
 //#define		UIOCCMD(n)	_IO('u', n)	/* usr cntl op "n" */
 //#define	TIOCGSID	_IOR('t', 99, int)	/* get session id */
 //#define	TIOCCONS	_IOW('t', 98, int)	/* become virtual console */
