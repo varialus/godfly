@@ -290,6 +290,18 @@ TEXT runtime·sigprocmask(SB),7,$0
 	MOVL	$0xf1, 0xf1  // crash
 	RET
 
+// Copied from sys_freebsd_amd64.s
+// int32 runtime·kqueue(void);
+TEXT runtime·kqueue(SB),NOSPLIT,$0
+	MOVQ	$0, DI
+	MOVQ	$0, SI
+	MOVQ	$0, DX
+	MOVL	$362, AX
+	SYSCALL
+	JCC	2(PC)
+	NEGQ	AX
+	RET
+
 // http://leaf.dragonflybsd.org/cgi/web-man/?command=kqueue&section=ANY
 // Copied from sys_freebsd_amd64.s
 // int32 runtime·kevent(int kq, Kevent *changelist, int nchanges, Kevent *eventlist, int nevents, Timespec *timeout);
@@ -304,4 +316,14 @@ TEXT runtime·kevent(SB),NOSPLIT,$0
 	SYSCALL
 	JCC	2(PC)
 	NEGQ	AX
+	RET
+
+// Copied from sys_freebsd_amd64.s
+// void runtime·closeonexec(int32 fd);
+TEXT runtime·closeonexec(SB),NOSPLIT,$0
+	MOVL	8(SP), DI	// fd
+	MOVQ	$2, SI		// F_SETFD
+	MOVQ	$1, DX		// FD_CLOEXEC
+	MOVL	$92, AX		// fcntl
+	SYSCALL
 	RET
