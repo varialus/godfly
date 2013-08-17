@@ -48,8 +48,9 @@ Dump of assembler code for function runtime.settls:
 => 0x0000000000465b4f <+31>:    movl   $0xf1,0xf1<br />
    0x0000000000465b5a <+42>:    add    $0x8,%rsp<br />
    0x0000000000465b5e <+46>:    retq<br />
-End of assembler dump
-(gdb)
+End of assembler dump<br />
+(gdb) p /x $rax<br />
+$1 = 0x2d
 
 ### truss
 
