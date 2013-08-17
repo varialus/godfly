@@ -1020,7 +1020,7 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 
 //_IOC(IOC_VOID,  ('t'), (113), 0)
 
-TIOCNOTTY = (uint32(IOC_VOID | ((len & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((113))))
+TIOCNOTTY = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((113))))
 
 //#define	TIOCPKT		_IOW('t', 112, int)	/* pty: set/clear packet mode */
 //#define		TIOCPKT_DATA		0x00	/* data packet */
@@ -1032,9 +1032,9 @@ TIOCNOTTY = (uint32(IOC_VOID | ((len & IOCPARM_MASK) << 16) | ((('t')) << 8) | (
 //#define		TIOCPKT_DOSTOP		0x20	/* now do ^S ^Q */
 //#define		TIOCPKT_IOCTL		0x40	/* state change of pty driver */
 //#define	TIOCSTOP	 _IO('t', 111)		/* stop output, like ^S */
-TIOCSTOP = (uint32(IOC_VOID | ((len & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((111))))
+TIOCSTOP = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((111))))
 //#define	TIOCSTART	 _IO('t', 110)		/* start output, like ^Q */
-TIOCSTART = (uint32(IOC_VOID | ((len & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((110))))
+TIOCSTART = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((110))))
 //#define	TIOCMSET	_IOW('t', 109, int)	/* set all modem bits */
 //#define	TIOCMBIS	_IOW('t', 108, int)	/* bis modem bits */
 //#define	TIOCMBIC	_IOW('t', 107, int)	/* bic modem bits */
@@ -1049,11 +1049,13 @@ TIOCSTART = (uint32(IOC_VOID | ((len & IOCPARM_MASK) << 16) | ((('t')) << 8) | (
 //#define	TIOCCONS	_IOW('t', 98, int)	/* become virtual console */
 //#define	TIOCSCTTY	 _IO('t', 97)		/* become controlling tty */
 
-TIOCSCTTY = (uint32(IOC_VOID | ((len & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((97))))
+TIOCSCTTY = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((97))))
 
 //#define	TIOCEXT		_IOW('t', 96, int)	/* pty: external processing */
 //#define	TIOCSIG		 _IO('t', 95)		/* pty: generate signal */
+TIOCSIG = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((95))))
 //#define	TIOCDRAIN	 _IO('t', 94)		/* wait till output drained */
+TIOCDRAIN = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((94))))
 //#define	TIOCMSDTRWAIT	_IOW('t', 91, int)	/* modem: set wait on close */
 //#define	TIOCMGDTRWAIT	_IOR('t', 90, int)	/* modem: get wait on close */
 //#define	TIOCTIMESTAMP	_IOR('t', 89, struct timeval)	/* enable/get timestamp
@@ -1063,6 +1065,7 @@ TIOCSCTTY = (uint32(IOC_VOID | ((len & IOCPARM_MASK) << 16) | ((('t')) << 8) | (
 //#define	TIOCSDRAINWAIT	_IOW('t', 87, int)	/* set ttywait timeout */
 //#define	TIOCGDRAINWAIT	_IOR('t', 86, int)	/* get ttywait timeout */
 //#define	TIOCISPTMASTER	_IO('t', 85)	/* is pty master */
+TIOCISPTMASTER = (uint32(IOC_VOID | ((0 & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((85))))
 //
 //#define	TTYDISC		0		/* termios tty line discipline */
 //#define	SLIPDISC	4		/* serial IP discipline */
