@@ -165,7 +165,7 @@ const (
 )
 
 // Signals
-http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/signal.h
+// http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/signal.h
 const (
 	SIGHUP		= Signal(1)	/* hangup */
 	SIGINT		= Signal(2)	/* interrupt */
