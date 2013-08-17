@@ -20,7 +20,7 @@ const (
 	EBADF		= Errno(9)		/* Bad file descriptor */
 	ECHILD		= Errno(10)		/* No child processes */
 	EDEADLK		= Errno(11)		/* Resource deadlock avoided */
-					/* 11 was EAGAIN */
+						/* 11 was EAGAIN */
 	ENOMEM		= Errno(12)		/* Cannot allocate memory */
 	EACCES		= Errno(13)		/* Permission denied */
 	EFAULT		= Errno(14)		/* Bad address */
@@ -47,6 +47,40 @@ const (
 
 	/* non-blocking and interrupt i/o */
 	EAGAIN		= Errno(35)		/* Resource temporarily unavailable */
+	EWOULDBLOCK	= Errno(EAGAIN)		/* Operation would block */
+	EINPROGRESS	= Errno(36)		/* Operation now in progress */
+	EALREADY	= Errno(37)		/* Operation already in progress */
+
+	/* ipc/network software -- argument errors */
+	ENOTSOCK	= Errno(38)		/* Socket operation on non-socket */
+	EDESTADDRREQ	= Errno(39)		/* Destination address required */
+	EMSGSIZE	= Errno(40)		/* Message too long */
+	EPROTOTYPE	= Errno(41)		/* Protocol wrong type for socket */
+	ENOPROTOOPT	= Errno(42)		/* Protocol not available */
+	EPROTONOSUPPORT	= Errno(43)		/* Protocol not supported */
+	ESOCKTNOSUPPORT	= Errno(44)		/* Socket type not supported */
+	EOPNOTSUPP	= Errno(45)		/* Operation not supported */
+	ENOTSUP		= Errno(EOPNOTSUPP)	/* Operation not supported */
+	EPFNOSUPPORT	= Errno(46)		/* Protocol family not supported */
+	EAFNOSUPPORT	= Errno(47)		/* Address family not supported by protocol family */
+	EADDRINUSE	= Errno(48)		/* Address already in use */
+	EADDRNOTAVAIL	= Errno(49)		/* Can't assign requested address */
+
+	/* ipc/network software -- operational errors */
+	ENETDOWN	= Errno(50)		/* Network is down */
+	ENETUNREACH	= Errno(51)		/* Network is unreachable */
+	ENETRESET	= Errno(52)		/* Network dropped connection on reset */
+	ECONNABORTED	= Errno(53)		/* Software caused connection abort */
+	ECONNRESET	= Errno(54)		/* Connection reset by peer */
+	ENOBUFS		= Errno(55)		/* No buffer space available */
+	EISCONN		= Errno(56)		/* Socket is already connected */
+	ENOTCONN	= Errno(57)		/* Socket is not connected */
+	ESHUTDOWN	= Errno(58)		/* Can't send after socket shutdown */
+	ETOOMANYREFS	= Errno(59)		/* Too many references: can't splice */
+	ETIMEDOUT	= Errno(60)		/* Operation timed out */
+	ECONNREFUSED	= Errno(61)		/* Connection refused */
+
+	ELOOP		= Errno(62)		/* Too many levels of symbolic links */
 	ENAMETOOLONG	= Errno(63)		/* File name too long */
 
 	/* should be rearranged */
