@@ -286,3 +286,19 @@ TEXT runtime·sigprocmask(SB),7,$0
 	JAE	2(PC)
 	MOVL	$0xf1, 0xf1  // crash
 	RET
+
+// http://leaf.dragonflybsd.org/cgi/web-man/?command=kqueue&section=ANY
+// Copied from sys_freebsd_amd64.s
+// int32 runtime·kevent(int kq, Kevent *changelist, int nchanges, Kevent *eventlist, int nevents, Timespec *timeout);
+TEXT runtime·kevent(SB),NOSPLIT,$0
+	MOVL	8(SP), DI
+	MOVQ	16(SP), SI
+	MOVL	24(SP), DX
+	MOVQ	32(SP), R10
+	MOVL	40(SP), R8
+	MOVQ	48(SP), R9
+	MOVL	$363, AX
+	SYSCALL
+	JCC	2(PC)
+	NEGQ	AX
+	RET
