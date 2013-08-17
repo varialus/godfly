@@ -93,15 +93,15 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 // * which was documented to use FREAD/FWRITE, continues to work.
 // */
 //#ifndef _POSIX_SOURCE
-//#define	FREAD		0x0001
-//#define	FWRITE		0x0002
+	FREAD		= 0x0001
+	FWRITE		= 0x0002
 //#endif
-//#define	O_NONBLOCK	0x0004		/* no delay */
-//#define	O_APPEND	0x0008		/* set append mode */
+	O_NONBLOCK	= 0x0004		/* no delay */
+	O_APPEND	= 0x0008		/* set append mode */
 //#ifndef _POSIX_SOURCE
-//#define	O_SHLOCK	0x0010		/* open with shared file lock */
-//#define	O_EXLOCK	0x0020		/* open with exclusive file lock */
-//#define	O_ASYNC		0x0040		/* signal pgrp when data ready */
+	O_SHLOCK	= 0x0010		/* open with shared file lock */
+	O_EXLOCK	= 0x0020		/* open with exclusive file lock */
+	O_ASYNC		= 0x0040		/* signal pgrp when data ready */
 //#define	O_FSYNC		0x0080		/* synchronous writes */
 //#define	O_NOFOLLOW	0x0100		/* don't follow symlinks */
 //#endif
