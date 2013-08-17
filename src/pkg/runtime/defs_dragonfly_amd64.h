@@ -184,5 +184,16 @@ struct Itimerval {
 	Timeval	it_value;
 };
 
+// Copied from defs_freebsd_amd64.h
+struct Kevent {
+	uint64	ident;
+	int16	filter;
+	uint16	flags;
+	uint32	fflags;
+	int64	data;
+	byte	*udata;
+};
+
+
 
 #pragma pack off
