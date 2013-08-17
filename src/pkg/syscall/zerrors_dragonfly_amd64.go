@@ -6,6 +6,9 @@
 
 package syscall
 
+
+
+
 const (
 	// http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/socket.h
 	AF_UNSPEC	= 0		/* unspecified */
@@ -51,69 +54,7 @@ const (
 	AF_IEEE80211	= 35		/* IEEE 802.11 protocol */
 	AF_MAX		= 36
 	// http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/sysctl.h
-	CTL_MAXNAME	= 12		/* largest number of components supported */
-	CTLTYPE		= 0xf	/* Mask for the type */
-	CTLTYPE_NODE	= 1	/* name is a node */
-	CTLTYPE_INT	= 2	/* name describes an integer */
-	CTLTYPE_STRING	= 3	/* name describes a string */
-	CTLTYPE_QUAD	= 4	/* name describes a 64-bit number */
-	CTLTYPE_OPAQUE	= 5	/* name describes a structure */
-	CTLTYPE_STRUCT	= CTLTYPE_OPAQUE	/* name describes a structure */
-	CTLTYPE_UINT	= 6	/* name describes an unsigned integer */
-	CTLTYPE_LONG	= 7	/* name describes a long */
-	CTLTYPE_ULONG	= 8	/* name describes an unsigned long */
-	CTLTYPE_UQUAD	= 9	/* name describes an unsigned 64-bit number */
-	CTLFLAG_RD	= 0x80000000	/* Allow reads of variable */
-	CTLFLAG_WR	= 0x40000000	/* Allow writes to the variable */
-	CTLFLAG_RW	= CTLFLAG_RD | CTLFLAG_WR
-	CTLFLAG_ANYBODY	= 0x10000000	/* All users can set this var */
-	CTLFLAG_SECURE	= 0x08000000	/* Permit set only if securelevel<=0 */
-	CTLFLAG_PRISON	= 0x04000000	/* Prisoned roots can fiddle */
-	CTLFLAG_DYN	= 0x02000000	/* Dynamic oid - can be freed */
 
-
-
-
-///*
-// * Copyright (c) 1989, 1993
-// *	The Regents of the University of California.  All rights reserved.
-// *
-// * This code is derived from software contributed to Berkeley by
-// * Mike Karels at Berkeley Software Design, Inc.
-// *
-// * Redistribution and use in source and binary forms, with or without
-// * modification, are permitted provided that the following conditions
-// * are met:
-// * 1. Redistributions of source code must retain the above copyright
-// *    notice, this list of conditions and the following disclaimer.
-// * 2. Redistributions in binary form must reproduce the above copyright
-// *    notice, this list of conditions and the following disclaimer in the
-// *    documentation and/or other materials provided with the distribution.
-// * 3. All advertising materials mentioning features or use of this software
-// *    must display the following acknowledgement:
-// *	This product includes software developed by the University of
-// *	California, Berkeley and its contributors.
-// * 4. Neither the name of the University nor the names of its contributors
-// *    may be used to endorse or promote products derived from this software
-// *    without specific prior written permission.
-// *
-// * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
-// * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-// * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-// * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
-// * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-// * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-// * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-// * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-// * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-// * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-// * SUCH DAMAGE.
-// *
-// *	@(#)sysctl.h	8.1 (Berkeley) 6/2/93
-// * $FreeBSD: src/sys/sys/sysctl.h,v 1.81.2.10 2003/05/01 22:48:09 trhodes Exp $
-// * $DragonFly: src/sys/sys/sysctl.h,v 1.29 2008/09/30 12:20:29 hasso Exp $
-// */
-//
 //#ifndef _SYS_SYSCTL_H_
 //#define	_SYS_SYSCTL_H_
 //
@@ -136,7 +77,7 @@ const (
 // * respective subsystem header files.
 // */
 //
-//#define CTL_MAXNAME	12	/* largest number of components supported */
+	CTL_MAXNAME	= 12		/* largest number of components supported */
 //
 ///*
 // * Each subsystem defined by sysctl defines a list of variables
@@ -150,25 +91,27 @@ const (
 //	int	ctl_type;	/* type of name */
 //};
 //
-//#define CTLTYPE		0xf	/* Mask for the type */
-//#define	CTLTYPE_NODE	1	/* name is a node */
-//#define	CTLTYPE_INT	2	/* name describes an integer */
-//#define	CTLTYPE_STRING	3	/* name describes a string */
-//#define	CTLTYPE_QUAD	4	/* name describes a 64-bit number */
-//#define	CTLTYPE_OPAQUE	5	/* name describes a structure */
-//#define	CTLTYPE_STRUCT	CTLTYPE_OPAQUE	/* name describes a structure */
-//#define	CTLTYPE_UINT	6	/* name describes an unsigned integer */
-//#define	CTLTYPE_LONG	7	/* name describes a long */
-//#define	CTLTYPE_ULONG	8	/* name describes an unsigned long */
-//#define	CTLTYPE_UQUAD	9	/* name describes an unsigned 64-bit number */
+
+	CTLTYPE		= 0xf	/* Mask for the type */
+	CTLTYPE_NODE	= 1	/* name is a node */
+	CTLTYPE_INT	= 2	/* name describes an integer */
+	CTLTYPE_STRING	= 3	/* name describes a string */
+	CTLTYPE_QUAD	= 4	/* name describes a 64-bit number */
+	CTLTYPE_OPAQUE	= 5	/* name describes a structure */
+	CTLTYPE_STRUCT	= CTLTYPE_OPAQUE	/* name describes a structure */
+	CTLTYPE_UINT	= 6	/* name describes an unsigned integer */
+	CTLTYPE_LONG	= 7	/* name describes a long */
+	CTLTYPE_ULONG	= 8	/* name describes an unsigned long */
+	CTLTYPE_UQUAD	= 9	/* name describes an unsigned 64-bit number */
+	CTLFLAG_RD	= 0x80000000	/* Allow reads of variable */
+	CTLFLAG_WR	= 0x40000000	/* Allow writes to the variable */
+	CTLFLAG_RW	= CTLFLAG_RD | CTLFLAG_WR
+	CTLFLAG_ANYBODY	= 0x10000000	/* All users can set this var */
+	CTLFLAG_SECURE	= 0x08000000	/* Permit set only if securelevel<=0 */
+	CTLFLAG_PRISON	= 0x04000000	/* Prisoned roots can fiddle */
+	CTLFLAG_DYN	= 0x02000000	/* Dynamic oid - can be freed */
+
 //
-//#define CTLFLAG_RD	0x80000000	/* Allow reads of variable */
-//#define CTLFLAG_WR	0x40000000	/* Allow writes to the variable */
-//#define CTLFLAG_RW	(CTLFLAG_RD|CTLFLAG_WR)
-//#define CTLFLAG_ANYBODY	0x10000000	/* All users can set this var */
-//#define CTLFLAG_SECURE	0x08000000	/* Permit set only if securelevel<=0 */
-//#define CTLFLAG_PRISON	0x04000000	/* Prisoned roots can fiddle */
-//#define CTLFLAG_DYN	0x02000000	/* Dynamic oid - can be freed */
 //
 ///*
 // * USE THIS instead of a hardwired number from the categories below
@@ -968,6 +911,244 @@ O_ACCMODE	= 0x0003		/* mask for above modes */
 //
 //#endif /* !_SYS_FCNTL_H_ */
 
+
+
+// http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/ttycom.h
+///*-
+// * Copyright (c) 1982, 1986, 1990, 1993, 1994
+// *	The Regents of the University of California.  All rights reserved.
+// * (c) UNIX System Laboratories, Inc.
+// * All or some portions of this file are derived from material licensed
+// * to the University of California by American Telephone and Telegraph
+// * Co. or Unix System Laboratories, Inc. and are reproduced herein with
+// * the permission of UNIX System Laboratories, Inc.
+// *
+// * Redistribution and use in source and binary forms, with or without
+// * modification, are permitted provided that the following conditions
+// * are met:
+// * 1. Redistributions of source code must retain the above copyright
+// *    notice, this list of conditions and the following disclaimer.
+// * 2. Redistributions in binary form must reproduce the above copyright
+// *    notice, this list of conditions and the following disclaimer in the
+// *    documentation and/or other materials provided with the distribution.
+// * 3. All advertising materials mentioning features or use of this software
+// *    must display the following acknowledgement:
+// *	This product includes software developed by the University of
+// *	California, Berkeley and its contributors.
+// * 4. Neither the name of the University nor the names of its contributors
+// *    may be used to endorse or promote products derived from this software
+// *    without specific prior written permission.
+// *
+// * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+// * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+// * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+// * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+// * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+// * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+// * SUCH DAMAGE.
+// *
+// *	@(#)ttycom.h	8.1 (Berkeley) 3/28/94
+// * $FreeBSD: src/sys/sys/ttycom.h,v 1.16 2000/01/29 16:47:35 peter Exp $
+// * $DragonFly: src/sys/sys/ttycom.h,v 1.3 2007/12/30 20:02:57 hasso Exp $
+// */
+//
+//#ifndef	_SYS_TTYCOM_H_
+//#define	_SYS_TTYCOM_H_
+//
+//#include <sys/ioccom.h>
+//
+///*
+// * Tty ioctl's except for those supported only for backwards compatibility
+// * with the old tty driver.
+// */
+//
+///*
+// * Window/terminal size structure.  This information is stored by the kernel
+// * in order to provide a consistent interface, but is not used by the kernel.
+// */
+//struct winsize {
+//	unsigned short	ws_row;		/* rows, in characters */
+//	unsigned short	ws_col;		/* columns, in characters */
+//	unsigned short	ws_xpixel;	/* horizontal size, pixels */
+//	unsigned short	ws_ypixel;	/* vertical size, pixels */
+//};
+//
+
+// Macros defined in http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/ioccom.h
+//#define _IO(g,n)        _IOC(IOC_VOID,  (g), (n), 0)
+
+//#define	TIOCMODG	_IOR('t', 3, int)	/* get modem control state */
+//#define	TIOCMODS	_IOW('t', 4, int)	/* set modem control state */
+//#define		TIOCM_LE	0001		/* line enable */
+//#define		TIOCM_DTR	0002		/* data terminal ready */
+//#define		TIOCM_RTS	0004		/* request to send */
+//#define		TIOCM_ST	0010		/* secondary transmit */
+//#define		TIOCM_SR	0020		/* secondary receive */
+//#define		TIOCM_CTS	0040		/* clear to send */
+//#define		TIOCM_CAR	0100		/* carrier detect */
+//#define		TIOCM_CD	TIOCM_CAR
+//#define		TIOCM_RNG	0200		/* ring */
+//#define		TIOCM_RI	TIOCM_RNG
+//#define		TIOCM_DSR	0400		/* data set ready */
+//						/* 8-10 compat */
+//#define	TIOCEXCL	 _IO('t', 13)		/* set exclusive use of tty */
+//#define	TIOCNXCL	 _IO('t', 14)		/* reset exclusive use of tty */
+//						/* 15 unused */
+//#define	TIOCFLUSH	_IOW('t', 16, int)	/* flush buffers */
+//						/* 17-18 compat */
+//#define	TIOCGETA	_IOR('t', 19, struct termios) /* get termios struct */
+//#define	TIOCSETA	_IOW('t', 20, struct termios) /* set termios struct */
+//#define	TIOCSETAW	_IOW('t', 21, struct termios) /* drain output, set */
+//#define	TIOCSETAF	_IOW('t', 22, struct termios) /* drn out, fls in, set */
+//#define	TIOCGETD	_IOR('t', 26, int)	/* get line discipline */
+//#define	TIOCSETD	_IOW('t', 27, int)	/* set line discipline */
+//						/* 127-124 compat */
+//#define	TIOCSBRK	 _IO('t', 123)		/* set break bit */
+//#define	TIOCCBRK	 _IO('t', 122)		/* clear break bit */
+//#define	TIOCSDTR	 _IO('t', 121)		/* set data terminal ready */
+//#define	TIOCCDTR	 _IO('t', 120)		/* clear data terminal ready */
+//#define	TIOCGPGRP	_IOR('t', 119, int)	/* get pgrp of tty */
+//#define	TIOCSPGRP	_IOW('t', 118, int)	/* set pgrp of tty */
+//						/* 117-116 compat */
+//#define	TIOCOUTQ	_IOR('t', 115, int)	/* output queue size */
+//#define	TIOCSTI		_IOW('t', 114, char)	/* simulate terminal input */
+//#define	TIOCNOTTY	 _IO('t', 113)		/* void tty association */
+
+//_IOC(IOC_VOID,  ('t'), (113), 0)
+
+TIOCNOTTY = ((unsigned long)(IOC_VOID | ((len & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((113))))
+
+//#define	TIOCPKT		_IOW('t', 112, int)	/* pty: set/clear packet mode */
+//#define		TIOCPKT_DATA		0x00	/* data packet */
+//#define		TIOCPKT_FLUSHREAD	0x01	/* flush packet */
+//#define		TIOCPKT_FLUSHWRITE	0x02	/* flush packet */
+//#define		TIOCPKT_STOP		0x04	/* stop output */
+//#define		TIOCPKT_START		0x08	/* start output */
+//#define		TIOCPKT_NOSTOP		0x10	/* no more ^S, ^Q */
+//#define		TIOCPKT_DOSTOP		0x20	/* now do ^S ^Q */
+//#define		TIOCPKT_IOCTL		0x40	/* state change of pty driver */
+//#define	TIOCSTOP	 _IO('t', 111)		/* stop output, like ^S */
+//#define	TIOCSTART	 _IO('t', 110)		/* start output, like ^Q */
+//#define	TIOCMSET	_IOW('t', 109, int)	/* set all modem bits */
+//#define	TIOCMBIS	_IOW('t', 108, int)	/* bis modem bits */
+//#define	TIOCMBIC	_IOW('t', 107, int)	/* bic modem bits */
+//#define	TIOCMGET	_IOR('t', 106, int)	/* get all modem bits */
+//#define	TIOCREMOTE	_IOW('t', 105, int)	/* remote input editing */
+//#define	TIOCGWINSZ	_IOR('t', 104, struct winsize)	/* get window size */
+//#define	TIOCSWINSZ	_IOW('t', 103, struct winsize)	/* set window size */
+//#define	TIOCUCNTL	_IOW('t', 102, int)	/* pty: set/clr usr cntl mode */
+//#define	TIOCSTAT	 _IO('t', 101)		/* simulate ^T status message */
+//#define		UIOCCMD(n)	_IO('u', n)	/* usr cntl op "n" */
+//#define	TIOCGSID	_IOR('t', 99, int)	/* get session id */
+//#define	TIOCCONS	_IOW('t', 98, int)	/* become virtual console */
+//#define	TIOCSCTTY	 _IO('t', 97)		/* become controlling tty */
+
+TIOCSCTTY = ((unsigned long)(IOC_VOID | ((len & IOCPARM_MASK) << 16) | ((('t')) << 8) | ((97))))
+
+//#define	TIOCEXT		_IOW('t', 96, int)	/* pty: external processing */
+//#define	TIOCSIG		 _IO('t', 95)		/* pty: generate signal */
+//#define	TIOCDRAIN	 _IO('t', 94)		/* wait till output drained */
+//#define	TIOCMSDTRWAIT	_IOW('t', 91, int)	/* modem: set wait on close */
+//#define	TIOCMGDTRWAIT	_IOR('t', 90, int)	/* modem: get wait on close */
+//#define	TIOCTIMESTAMP	_IOR('t', 89, struct timeval)	/* enable/get timestamp
+//						 * of last input event */
+//#define	TIOCDCDTIMESTAMP _IOR('t', 88, struct timeval)	/* enable/get timestamp
+//						 * of last DCd rise */
+//#define	TIOCSDRAINWAIT	_IOW('t', 87, int)	/* set ttywait timeout */
+//#define	TIOCGDRAINWAIT	_IOR('t', 86, int)	/* get ttywait timeout */
+//#define	TIOCISPTMASTER	_IO('t', 85)	/* is pty master */
+//
+//#define	TTYDISC		0		/* termios tty line discipline */
+//#define	SLIPDISC	4		/* serial IP discipline */
+//#define	PPPDISC		5		/* PPP discipline */
+//#define	NETGRAPHDISC	6		/* Netgraph tty node discipline */
+//#define	BTUARTDISC	7		/* Bluetooth btuart discipline */
+//
+//#endif /* !_SYS_TTYCOM_H_ */
+
+
+// http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/ioccom.h
+
+///*-
+// * Copyright (c) 1982, 1986, 1990, 1993, 1994
+// *	The Regents of the University of California.  All rights reserved.
+// *
+// * Redistribution and use in source and binary forms, with or without
+// * modification, are permitted provided that the following conditions
+// * are met:
+// * 1. Redistributions of source code must retain the above copyright
+// *    notice, this list of conditions and the following disclaimer.
+// * 2. Redistributions in binary form must reproduce the above copyright
+// *    notice, this list of conditions and the following disclaimer in the
+// *    documentation and/or other materials provided with the distribution.
+// * 3. All advertising materials mentioning features or use of this software
+// *    must display the following acknowledgement:
+// *	This product includes software developed by the University of
+// *	California, Berkeley and its contributors.
+// * 4. Neither the name of the University nor the names of its contributors
+// *    may be used to endorse or promote products derived from this software
+// *    without specific prior written permission.
+// *
+// * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+// * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+// * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+// * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+// * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+// * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+// * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+// * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+// * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+// * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+// * SUCH DAMAGE.
+// *
+// *	@(#)ioccom.h	8.2 (Berkeley) 3/28/94
+// * $FreeBSD: src/sys/sys/ioccom.h,v 1.9 1999/12/29 04:24:42 peter Exp $
+// * $DragonFly: src/sys/sys/ioccom.h,v 1.4 2007/01/10 13:33:22 swildner Exp $
+// */
+//
+//#ifndef	_SYS_IOCCOM_H_
+//#define	_SYS_IOCCOM_H_
+//
+///*
+// * Ioctl's have the command encoded in the lower word, and the size of
+// * any in or out parameters in the upper word.  The high 3 bits of the
+// * upper word are used to encode the in/out status of the parameter.
+// */
+	IOCPARM_MASK	= 0x1fff		/* parameter length, at most 13 bits */
+//#define	IOCPARM_LEN(x)	= (((x) >> 16) & IOCPARM_MASK)
+//#define	IOCBASECMD(x)	= ((x) & ~(IOCPARM_MASK << 16))
+	IOCGROUP(x)	= (((x) >> 8) & 0xff)
+//
+//#define	IOCPARM_MAX	PAGE_SIZE		/* max size of ioctl, mult. of PAGE_SIZE */
+	IOC_VOID	= 0x20000000	/* no parameters */
+	IOC_OUT		= 0x40000000	/* copy out parameters */
+	IOC_IN		= 0x80000000	/* copy in parameters */
+	IOC_INOUT	= (IOC_IN|IOC_OUT)
+	IOC_DIRMASK	= 0xe0000000	/* mask for IN/OUT/VOID */
+//
+//#define	_IOC(inout,group,num,len) \
+//	((unsigned long)(inout | ((len & IOCPARM_MASK) << 16) | ((group) << 8) | (num)))
+//#define	_IO(g,n)	_IOC(IOC_VOID,	(g), (n), 0)
+//#define	_IOR(g,n,t)	_IOC(IOC_OUT,	(g), (n), sizeof(t))
+//#define	_IOW(g,n,t)	_IOC(IOC_IN,	(g), (n), sizeof(t))
+///* this should be _IORW, but stdio got there first */
+//#define	_IOWR(g,n,t)	_IOC(IOC_INOUT,	(g), (n), sizeof(t))
+//
+//#if !defined(_KERNEL) || defined(_KERNEL_VIRTUAL)
+//
+//#include <sys/cdefs.h>
+//
+//__BEGIN_DECLS
+//int	ioctl (int, unsigned long, ...);
+//__END_DECLS
+//
+//#endif
+//
+//#endif /* !_SYS_IOCCOM_H_ */
 
 )
 
