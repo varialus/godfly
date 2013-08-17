@@ -9,7 +9,21 @@ package syscall
 // Errors
 // http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/sys/errno.h
 const (
-
+	EPERM		= Errno(1)		/* Operation not permitted */
+	ENOENT		= Errno(2)		/* No such file or directory */
+	ESRCH		= Errno(3)		/* No such process */
+	EINTR		= Errno(4)		/* Interrupted system call */
+	EIO		= Errno(5)		/* Input/output error */
+	ENXIO		= Errno(6)		/* Device not configured */
+	E2BIG		= Errno(7)		/* Argument list too long */
+	ENOEXEC		= Errno(8)		/* Exec format error */
+	EBADF		= Errno(9)		/* Bad file descriptor */
+	ECHILD		= Errno(10)		/* No child processes */
+	EDEADLK		= Errno(11)		/* Resource deadlock avoided */
+					/* 11 was EAGAIN */
+	ENOMEM		= Errno(12)		/* Cannot allocate memory */
+	EACCES		= Errno(13)		/* Permission denied */
+	EFAULT		= Errno(14)		/* Bad address */
 	EBUSY		= Errno(16)		/* Device busy */
 	EEXIST		= Errno(17)		/* File exists */
 	EXDEV		= Errno(18)		/* Cross-device link */
