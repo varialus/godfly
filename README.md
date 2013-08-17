@@ -82,11 +82,10 @@ Aug 17 07:37:51  kernel: pid 22654 (truss), uid 0: exited on signal 11
 * Conversation between Snert and dho at http://go-lang.cat-v.org/irc-logs/go-nuts/2009-11-19
 * http://www.dragonflybsd.org/docs/user/GlossaryOfTerms/
 * http://www.dragonflybsd.org/features/
-* http://gitweb.dragonflybsd.org/dragonfly.git/blob/HEAD:/sys/cpu/i386/include/tls.h
-* http://gitweb.dragonflybsd.org/dragonfly.git/blob/HEAD:/sys/cpu/x86_64/include/tls.h
-* http://gitweb.dragonflybsd.org/dragonfly.git/blob/HEAD:/sys/sys/tls.h
-* http://gitweb.dragonflybsd.org/dragonfly.git/blob/HEAD:/sys/platform/pc64/x86_64/tls.c
-* http://gitweb.dragonflybsd.org/dragonfly.git/blob/HEAD:/sys/platform/pc32/i386/tls.c
+* set_tls_area() at http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/kern/syscalls.master
+* tls_set_tcb(), tls_set_gs and tls_set_fs at http://gitweb.dragonflybsd.org/dragonfly.git/blob/HEAD:/sys/cpu/x86_64/include/tls.h
+* set_tls_area() at http://gitweb.dragonflybsd.org/dragonfly.git/blob/HEAD:/sys/sys/tls.h
+* sys_set_tls_area() at http://gitweb.dragonflybsd.org/dragonfly.git/blob/HEAD:/sys/platform/pc64/x86_64/tls.c
 * http://www.dragonflybsd.org/docs/developer/Locking_and_Synchronization/
 
 Go Linux Emulation on 32-bit DragonFly BSD
