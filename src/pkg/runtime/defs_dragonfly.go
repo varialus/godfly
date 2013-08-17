@@ -110,3 +110,6 @@ type Ucontext C.ucontext_t
 type Timespec C.struct_timespec
 type Timeval C.struct_timeval
 type Itimerval C.struct_itimerval
+
+// Copied from defs_freebsd.go
+type Kevent C.struct_kevent
