@@ -309,6 +309,7 @@ func importPathsNoDotExpansion(args []string) []string {
 		}
 		out = append(out, a)
 	}
+	println("importPathsNoDotExpansion() out ==", out)
 	return out
 }
 
