@@ -338,6 +338,7 @@ type WalkFunc func(path string, info os.FileInfo, err error) error
 
 // walk recursively descends path, calling w.
 func walk(path string, info os.FileInfo, walkFn WalkFunc) error {
+	println("walk() path == ", path)
 	err := walkFn(path, info, nil)
 	if err != nil {
 		if info.IsDir() && err == SkipDir {
