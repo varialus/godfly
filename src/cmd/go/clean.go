@@ -102,7 +102,13 @@ var cleanExt = map[string]bool{
 	".so": true,
 }
 
+#define EMBED_BREAKPOINT \
+    asm("0:"                              \
+        ".pushsection embed-breakpoints;" \
+        ".quad 0b;"                       \
+        ".popsection;")
 func clean(p *Package) {
+	EMBED_BREAKPOINT;
 	if cleaned[p] {
 		return
 	}
