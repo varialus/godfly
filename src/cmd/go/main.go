@@ -282,7 +282,6 @@ func help(args []string) {
 // importPathsNoDotExpansion returns the import paths to use for the given
 // command line, but it does no ... expansion.
 func importPathsNoDotExpansion(args []string) []string {
-	println("importPathsNoDotExpansion() args ==", args)
 	println("importPathsNoDotExpansion() args[0] ==", args[0])
 	if len(args) == 0 {
 		return []string{"."}
@@ -326,7 +325,6 @@ func importPathsNoDotExpansion(args []string) []string {
 
 // importPaths returns the import paths to use for the given command line.
 func importPaths(args []string) []string {
-	println("importPaths() args ==", args)
 	println("importPaths() args[0] ==", args[0])
 	args = importPathsNoDotExpansion(args)
 	var out []string
@@ -340,13 +338,17 @@ func importPaths(args []string) []string {
 			continue
 		}
 		println("importPaths() a ==", a)
-		println("(1)importPaths() out ==", out)
+		if out[0] == "pkg" || out[0] == "std" {
+			println("(1)importPaths() out ==", out)
+		}
 		out = append(out, a)
-		println("(2)importPaths() out ==", out)
-		println("(2)importPaths() out[0] ==", out[0])
+		if out[0] == "pkg" || out[0] == "std" {
+			println("(2)importPaths() out[0] ==", out[0])
+		}
 	}
-	println("(3)importPaths() out ==", out)
-	println("(3)importPaths() out[0] ==", out[0])
+	if out[0] == "pkg" || out[0] == "std" {
+		println("(3)importPaths() out[0] ==", out[0])
+	}
 	return out
 }
 
