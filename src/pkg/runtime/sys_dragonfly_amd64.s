@@ -7,9 +7,6 @@
 //
 
 #include "zasm_GOOS_GOARCH.h"
-// Copied from sys_freebsd_amd64.s
-#include "../../cmd/ld/textflag.h"
-
 	
 TEXT runtime·sys_umtx_sleep(SB),7,$0
 	MOVQ 8(SP), DI
