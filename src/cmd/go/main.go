@@ -492,6 +492,7 @@ func matchPackages(pattern string) []string {
 	cmd := filepath.Join(goroot, "src/cmd") + string(filepath.Separator)
 	println("matchPackages() cmd ==", cmd)
 	filepath.Walk(cmd, func(path string, fi os.FileInfo, err error) error {
+		println("matchPackages() filepath.Walk() func() path == ", path)
 		if err != nil || !fi.IsDir() || path == cmd {
 			print("1 walk() nil")
 			return nil
