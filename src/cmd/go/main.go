@@ -282,6 +282,8 @@ func help(args []string) {
 // importPathsNoDotExpansion returns the import paths to use for the given
 // command line, but it does no ... expansion.
 func importPathsNoDotExpansion(args []string) []string {
+	println("importPathsNoDotExpansion() args ==", args)
+	println("importPathsNoDotExpansion() args[0] ==", args[0])
 	if len(args) == 0 {
 		return []string{"."}
 	}
@@ -301,16 +303,20 @@ func importPathsNoDotExpansion(args []string) []string {
 				a = "."
 			}
 		} else {
+			println("(1)importPathsNoDotExpansion() a ==", a)
 			a = path.Clean(a)
+			println("(2)importPathsNoDotExpansion() a ==", a)
 		}
 		if a == "all" || a == "std" {
+			println("(3)importPathsNoDotExpansion() a ==", a)
 			out = append(out, allPackages(a)...)
+			println("(4)importPathsNoDotExpansion() a ==", a)
 			continue
 		}
 		out = append(out, a)
 	}
 	println("importPathsNoDotExpansion() out ==", out)
-	println("importPathsNoDotExpansion() out[] ==", out[0])
+	println("importPathsNoDotExpansion() out[0] ==", out[0])
 	return out
 }
 
