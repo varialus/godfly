@@ -74,10 +74,11 @@ const (
 )
 
 type Stat_t struct {
+	Ino           uint64
+	Nlink         uint32
 	Dev           uint32
-	Ino           uint32
 	Mode          uint16
-	Nlink         uint16
+	Padding1      uint16
 	Uid           uint32
 	Gid           uint32
 	Rdev          uint32
@@ -90,7 +91,8 @@ type Stat_t struct {
 	Flags         uint32
 	Gen           uint32
 	Lspare        int32
-	Birthtimespec Timespec
+	Qspare1	      int64
+	Qspare2	      int64
 }
 
 type Statfs_t struct {

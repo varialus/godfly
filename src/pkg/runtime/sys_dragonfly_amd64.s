@@ -105,14 +105,14 @@ TEXT runtime·getrlimit(SB),7,$-8
 	RET
 
 TEXT runtime·raise(SB),7,$16
-	// thr_self(&8(SP))
-	LEAQ	8(SP), DI	// arg 1 &8(SP)
-	MOVL	$432, AX
+	// lwp_gettid()
+	MOVL	$496, AX
 	SYSCALL
 	// thr_kill(self, SIGPIPE)
+	MOVQ	$-1, DI		// pid; -1 is current process
 	MOVQ	8(SP), DI	// arg 1 id
 	MOVL	sig+0(FP), SI	// arg 2
-	MOVL	$433, AX
+	MOVL	$497, AX
 	SYSCALL
 	RET
 
@@ -156,7 +156,7 @@ TEXT runtime·sigaction(SB),7,$-8
 	MOVL	8(SP), DI		// arg 1 sig
 	MOVQ	16(SP), SI		// arg 2 act
 	MOVQ	24(SP), DX		// arg 3 oact
-	MOVL	$416, AX
+	MOVL	$342, AX
 	SYSCALL
 	JCC	2(PC)
 	MOVL	$0xf1, 0xf1  // crash
@@ -200,8 +200,10 @@ TEXT runtime·mmap(SB),7,$0
 	MOVL	24(SP), DX		// arg 3 prot
 	MOVL	28(SP), R10		// arg 4 flags
 	MOVL	32(SP), R8		// arg 5 fid
-	MOVL	36(SP), R9		// arg 6 offset
-	MOVL	$477, AX
+	MOVL	$0, R9			// arg 6 -- unused
+	MOVL	36(SP), AX		// arg 7 offset
+	MOVQ	AX, 8(SP)		// "
+	MOVL	$197, AX
 	SYSCALL
 	RET
 
@@ -249,12 +251,14 @@ TEXT runtime·usleep(SB),7,$16
 	RET
 
 // set tls base to DI
-TEXT runtime·settls(SB),7,$8
+TEXT runtime·settls(SB),7,$16
 	ADDQ	$16, DI	// adjust for ELF: wants to use -16(FS) and -8(FS) for g and m
 	MOVQ	DI, 0(SP)
+	MOVQ	$16, 8(SP)
 	MOVQ	SP, SI
-	MOVQ	$129, DI	// AMD64_SET_FSBASE
-	MOVL	$165, AX	// sysarch
+	MOVQ	$0, DI
+	MOVQ	$16, DX
+	MOVL	$472, AX	// set_tls_area(which, tls_info, infosize)
 	SYSCALL
 	JCC	2(PC)
 	MOVL	$0xf1, 0xf1  // crash
