@@ -201,7 +201,6 @@ TEXT runtime·mmap(SB),7,$0
 	MOVL	28(SP), R10		// arg 4 flags
 	MOVL	32(SP), R8		// arg 5 fid
 	MOVL	$0, R9			// arg 6 -- unused
-	MOVQ	$0, AX
 	MOVL	36(SP), AX		// arg 7 offset
 	MOVQ	AX, 8(SP)		// "
 	MOVL	$197, AX
