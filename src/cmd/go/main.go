@@ -462,6 +462,8 @@ func matchPattern(pattern string) func(name string) bool {
 // The pattern is either "all" (all packages), "std" (standard packages)
 // or a path including "...".
 func allPackages(pattern string) []string {
+	println("entering allPackages()")
+	println("allPackages() pattern ==", pattern)
 	pkgs := matchPackages(pattern)
 	if len(pkgs) == 0 {
 		fmt.Fprintf(os.Stderr, "warning: %q matched no packages\n", pattern)
@@ -470,6 +472,7 @@ func allPackages(pattern string) []string {
 }
 
 func matchPackages(pattern string) []string {
+	println("entering matchPackages()")
 	match := func(string) bool { return true }
 	if pattern != "all" && pattern != "std" {
 		match = matchPattern(pattern)
@@ -512,6 +515,7 @@ func matchPackages(pattern string) []string {
 			return nil
 		}
 		pkgs = append(pkgs, name)
+		println("(0)matchPackages() returning nil")
 		return nil
 	})
 
@@ -549,9 +553,12 @@ func matchPackages(pattern string) []string {
 				}
 			}
 			pkgs = append(pkgs, name)
+			println("(1)matchPackages() returning nil")
 			return nil
 		})
 	}
+	println("matchPackages() returning pkgs ==", pkgs)
+	println("matchPackages() returning pkgs[0] ==", pkgs[0])
 	return pkgs
 }
 
