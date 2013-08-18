@@ -315,6 +315,7 @@ func importPathsNoDotExpansion(args []string) []string {
 // importPaths returns the import paths to use for the given command line.
 func importPaths(args []string) []string {
 	println("importPaths() args ==", args)
+	println("importPaths() args[0] ==", args[0])
 	args = importPathsNoDotExpansion(args)
 	var out []string
 	for _, a := range args {
