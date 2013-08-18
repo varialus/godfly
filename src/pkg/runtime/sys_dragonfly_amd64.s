@@ -169,7 +169,7 @@ TEXT runtime·sigtramp(SB),7,$64
 	CMPQ	BP, $0
 	JNE	4(PC)
 	MOVQ	DI, 0(SP)
-	CALL	runtime·badsignal(SB)
+	CALL	runtime·badsignal2(SB)
 	RET
 
 	// save g
