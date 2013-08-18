@@ -704,7 +704,7 @@ var cmdCache = map[string]*Package{}
 // loadPackage accepts pseudo-paths beginning with cmd/ to denote commands
 // in the Go command directory, as well as paths to those directories.
 func loadPackage(arg string, stk *importStack) *Package {
-	print("arg ==", arg)
+	println("loadPackage() arg == ", arg)
 	if build.IsLocalImport(arg) {
 		dir := arg
 		if !filepath.IsAbs(dir) {
@@ -807,6 +807,7 @@ func packagesAndErrors(args []string) []*Package {
 
 	for _, arg := range args {
 		if !set[arg] {
+			println("packagesAndErrors() arg == ", pkg)
 			pkgs = append(pkgs, loadPackage(arg, &stk))
 			set[arg] = true
 		}
