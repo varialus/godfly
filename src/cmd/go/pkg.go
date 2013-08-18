@@ -807,7 +807,7 @@ func packagesAndErrors(args []string) []*Package {
 
 	for _, arg := range args {
 		if !set[arg] {
-			println("packagesAndErrors() arg == ", pkg)
+			println("packagesAndErrors() arg == ", arg)
 			pkgs = append(pkgs, loadPackage(arg, &stk))
 			set[arg] = true
 		}
