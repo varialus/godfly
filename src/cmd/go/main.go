@@ -313,10 +313,14 @@ func importPathsNoDotExpansion(args []string) []string {
 			println("(4)importPathsNoDotExpansion() a ==", a)
 			continue
 		}
+		println("(1)importPathsNoDotExpansion() out ==", out)
+		println("(1)importPathsNoDotExpansion() out[0] ==", out[0])
 		out = append(out, a)
+		println("(2)importPathsNoDotExpansion() out ==", out)
+		println("(2)importPathsNoDotExpansion() out[0] ==", out[0])
 	}
-	println("importPathsNoDotExpansion() out ==", out)
-	println("importPathsNoDotExpansion() out[0] ==", out[0])
+	println("(3)importPathsNoDotExpansion() out ==", out)
+	println("(3)importPathsNoDotExpansion() out[0] ==", out[0])
 	return out
 }
 
