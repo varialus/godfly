@@ -516,7 +516,7 @@ func matchPackages(pattern string) []string {
 			return nil
 		}
 		pkgs = append(pkgs, name)
-		println("(0)matchPackages() returning nil")
+		print("(0)matchPackages() returning nil")
 		return nil
 	})
 
@@ -554,7 +554,7 @@ func matchPackages(pattern string) []string {
 				}
 			}
 			pkgs = append(pkgs, name)
-			println("(1)matchPackages() returning nil")
+			print("(1)matchPackages() returning nil")
 			return nil
 		})
 	}
