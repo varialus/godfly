@@ -339,8 +339,14 @@ func importPaths(args []string) []string {
 			}
 			continue
 		}
+		println("importPaths() a ==", a)
+		println("(1)importPaths() out ==", out)
 		out = append(out, a)
+		println("(2)importPaths() out ==", out)
+		println("(2)importPaths() out[0] ==", out[0])
 	}
+	println("(3)importPaths() out ==", out)
+	println("(3)importPaths() out[0] ==", out[0])
 	return out
 }
 
