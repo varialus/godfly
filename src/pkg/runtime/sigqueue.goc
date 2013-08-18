@@ -155,3 +155,11 @@ func signal_disable(s uint32) {
 	sig.wanted[s/32] &= ~(1U<<(s&31));
 	runtime·sigdisable(s);
 }
+
+// This runs on a foreign stack, without an m or a g.  No stack split.
+#pragma textflag NOSPLIT
+void
+runtime·badsignal(uintptr sig)
+{
+	runtime·cgocallback((void (*)(void))runtime·sigsend, &sig, sizeof(sig));
+}
