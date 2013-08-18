@@ -41,7 +41,7 @@ getncpu(void)
 
 // DragonFly's umtx syscall is effectively the same as Linux's futex, and
 // thus the code is largely similar. See linux/thread.c and lock_futex.c for comments.
-
+#pragma textflag 7
 void
 runtime·futexsleep(uint32 *addr, uint32 val, int64 ns)
 {
