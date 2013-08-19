@@ -325,18 +325,18 @@ const (
 ///*
 // * Top-level identifiers
 // */
-//#define	CTL_UNSPEC	0		/* unused */
-//#define	CTL_KERN	1		/* "high kernel": proc, limits */
-//#define	CTL_VM		2		/* virtual memory */
-//#define	CTL_VFS		3		/* file system, mount type is next */
-//#define	CTL_NET		4		/* network, see socket.h */
-//#define	CTL_DEBUG	5		/* debugging parameters */
-//#define	CTL_HW		6		/* generic cpu/io */
-//#define	CTL_MACHDEP	7		/* machine dependent */
-//#define	CTL_USER	8		/* user-level */
-//#define	CTL_P1003_1B	9		/* POSIX 1003.1B */
-//#define CTL_LWKT	10		/* light weight kernel threads */
-//#define	CTL_MAXID	11		/* number of valid top-level ids */
+	CTL_UNSPEC	= 0		/* unused */
+	CTL_KERN	= 1		/* "high kernel": proc, limits */
+	CTL_VM		= 2		/* virtual memory */
+	CTL_VFS		= 3		/* file system, mount type is next */
+	CTL_NET		= 4		/* network, see socket.h */
+	CTL_DEBUG	= 5		/* debugging parameters */
+	CTL_HW		= 6		/* generic cpu/io */
+	CTL_MACHDEP	= 7		/* machine dependent */
+	CTL_USER	= 8		/* user-level */
+	CTL_P1003_1B	= 9		/* POSIX 1003.1B */
+ CTL_LWKT	= 10		/* light weight kernel threads */
+	CTL_MAXID	= 11		/* number of valid top-level ids */
 //
 //#define CTL_NAMES { \
 //	{ 0, 0 }, \
