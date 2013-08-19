@@ -156,6 +156,7 @@ func (f *File) readdir(n int) (fi []FileInfo, err error) {
 	}
 	dirname += "/"
 	names, err := f.Readdirnames(n)
+	println("readdir() names ==", names)
 	fi = make([]FileInfo, len(names))
 	for i, filename := range names {
 		fip, lerr := lstat(dirname + filename)
