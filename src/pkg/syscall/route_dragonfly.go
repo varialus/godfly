@@ -47,7 +47,7 @@ type InterfaceMulticastAddrMessage struct {
 	Data   []byte
 }
 //
-//const rtaIfmaMask = RTA_GATEWAY | RTA_IFP | RTA_IFA
+const rtaIfmaMask = RTA_GATEWAY | RTA_IFP | RTA_IFA
 //
 func (m *InterfaceMulticastAddrMessage) sockaddr() (sas []Sockaddr) {
 	if m.Header.Addrs&rtaIfmaMask == 0 {
