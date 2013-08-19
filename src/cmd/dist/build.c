@@ -743,7 +743,7 @@ install(char *dir)
 
 	for(i=0; i<nelem(deptab); i++) {
 		// TODO: Remove print line
-		printf("build.c install() for(i=0; i<nelem(deptab); i++) i == %d\n", i);
+		//printf("build.c install() for(i=0; i<nelem(deptab); i++) i == %d\n", i);
 		if(hasprefix(dir, deptab[i].prefix)) {
 			for(j=0; (p=deptab[i].dep[j])!=nil; j++) {
 				breset(&b1);
@@ -1030,7 +1030,7 @@ install(char *dir)
 
 	if(isgo) {
 		// TODO: Remove print line
-		printf("build.c install() if(isgo) == true");
+		printf("build.c install() if(isgo) == true\n");
 		// The last loop was compiling individual files.
 		// Hand the Go files to the compiler en masse.
 		vreset(&compile);
@@ -1055,7 +1055,7 @@ install(char *dir)
 
 		runv(nil, bstr(&path), CheckExit, &compile);
 		// TODO: Remove print line
-		printf("finishing build.c install() if(isgo) == true");
+		printf("finishing build.c install() if(isgo) == true\n");
 	}
 
 	if(!islib && !isgo) {

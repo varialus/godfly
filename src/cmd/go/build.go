@@ -665,7 +665,7 @@ func (b *builder) do(root *action) {
 	for _, a := range all {
 		// TODO: Remove print line
 		if a.p != nil {
-			println("build.go builder.do() a.p.Name ==", a.p.Name)
+			//println("build.go builder.do() a.p.Name ==", a.p.Name)
 		} else {
 			println("build.go builder.do() a.p.Name == nil")
 		}
@@ -685,7 +685,7 @@ func (b *builder) do(root *action) {
 	handle := func(a *action) {
 		// TODO: Remove print line
 		if a.p != nil {
-			println("build.go builder.do() handle() a.p.Name ==", a.p.Name)
+			//println("build.go builder.do() handle() a.p.Name ==", a.p.Name)
 		} else {
 			println("build.go builder.do() handle() a.p.Name == nil")
 		}
