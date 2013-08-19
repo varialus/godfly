@@ -5,6 +5,11 @@
 
 package net
 
+import (
+//	"os"
+	"syscall"
+)
+
 // interfaceMulticastAddrTable returns addresses for a specific
 // interface.
 func interfaceMulticastAddrTable(ifi *Interface) ([]Addr, error) {
