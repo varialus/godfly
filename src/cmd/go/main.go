@@ -312,14 +312,14 @@ func importPathsNoDotExpansion(args []string) []string {
 			println("(4)importPathsNoDotExpansion() a ==", a)
 			continue
 		}
-		println("(1)importPathsNoDotExpansion() out ==", out)
-		println("(1)importPathsNoDotExpansion() out[0] ==", out[0])
+		//println("(1)importPathsNoDotExpansion() out ==", out)
+		//println("(1)importPathsNoDotExpansion() out[0] ==", out[0])
 		out = append(out, a)
-		println("(2)importPathsNoDotExpansion() out ==", out)
-		println("(2)importPathsNoDotExpansion() out[0] ==", out[0])
+		//println("(2)importPathsNoDotExpansion() out ==", out)
+		//println("(2)importPathsNoDotExpansion() out[0] ==", out[0])
 	}
-	println("(3)importPathsNoDotExpansion() out ==", out)
-	println("(3)importPathsNoDotExpansion() out[0] ==", out[0])
+	//println("(3)importPathsNoDotExpansion() out ==", out)
+	//println("(3)importPathsNoDotExpansion() out[0] ==", out[0])
 	return out
 }
 
@@ -338,17 +338,17 @@ func importPaths(args []string) []string {
 			continue
 		}
 		println("importPaths() a ==", a)
-		if out[0] == "pkg" || out[0] == "std" {
-			println("(1)importPaths() out ==", out)
-		}
+		//if out[0] == "pkg" || out[0] == "std" {
+			//println("(1)importPaths() out ==", out)
+		//}
 		out = append(out, a)
-		if out[0] == "pkg" || out[0] == "std" {
-			println("(2)importPaths() out[0] ==", out[0])
-		}
+		//if out[0] == "pkg" || out[0] == "std" {
+			//println("(2)importPaths() out[0] ==", out[0])
+		//}
 	}
-	if out[0] == "pkg" || out[0] == "std" {
-		println("(3)importPaths() out[0] ==", out[0])
-	}
+	//if out[0] == "pkg" || out[0] == "std" {
+		//println("(3)importPaths() out[0] ==", out[0])
+	//}
 	return out
 }
 
