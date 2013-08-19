@@ -464,8 +464,8 @@ func matchPattern(pattern string) func(name string) bool {
 // The pattern is either "all" (all packages), "std" (standard packages)
 // or a path including "...".
 func allPackages(pattern string) []string {
-	println("entering allPackages()")
-	println("allPackages() pattern ==", pattern)
+	//println("entering allPackages()")
+	//println("allPackages() pattern ==", pattern)
 	pkgs := matchPackages(pattern)
 	if len(pkgs) == 0 {
 		fmt.Fprintf(os.Stderr, "warning: %q matched no packages\n", pattern)
@@ -474,7 +474,7 @@ func allPackages(pattern string) []string {
 }
 
 func matchPackages(pattern string) []string {
-	println("entering matchPackages()")
+	//println("entering matchPackages()")
 	match := func(string) bool { return true }
 	if pattern != "all" && pattern != "std" {
 		match = matchPattern(pattern)
@@ -490,29 +490,29 @@ func matchPackages(pattern string) []string {
 
 	// Commands
 	cmd := filepath.Join(goroot, "src/cmd") + string(filepath.Separator)
-	println("matchPackages() cmd ==", cmd)
+	//println("matchPackages() cmd ==", cmd)
 	filepath.Walk(cmd, func(path string, fi os.FileInfo, err error) error {
-		println("matchPackages() filepath.Walk() func() path == ", path)
+		//println("matchPackages() filepath.Walk() func() path == ", path)
 		if err != nil || !fi.IsDir() || path == cmd {
-			print("1 walk() nil")
+			//print("1 walk() nil")
 			return nil
 		}
 		name := path[len(cmd):]
 		// Commands are all in cmd/, not in subdirectories.
 		if strings.Contains(name, string(filepath.Separator)) {
-			print("2 walk() nil")
+			//print("2 walk() nil")
 			return filepath.SkipDir
 		}
 
 		// We use, e.g., cmd/gofmt as the pseudo import path for gofmt.
 		name = "cmd/" + name
 		if have[name] {
-			print("3 walk() nil")
+			//print("3 walk() nil")
 			return nil
 		}
 		have[name] = true
 		if !match(name) {
-			print("4 walk() nil")
+			//print("4 walk() nil")
 			return nil
 		}
 		_, err = buildContext.ImportDir(path, 0)
@@ -520,11 +520,11 @@ func matchPackages(pattern string) []string {
 			if _, noGo := err.(*build.NoGoError); !noGo {
 				log.Print(err)
 			}
-			print("5 walk() nil")
+			//print("5 walk() nil")
 			return nil
 		}
 		pkgs = append(pkgs, name)
-		print("6 walk() nil")
+		//print("6 walk() nil")
 		return nil
 	})
 
@@ -562,12 +562,12 @@ func matchPackages(pattern string) []string {
 				}
 			}
 			pkgs = append(pkgs, name)
-			print("(1)matchPackages() returning nil")
+			//print("(1)matchPackages() returning nil")
 			return nil
 		})
 	}
-	println("matchPackages() returning pkgs ==", pkgs)
-	println("matchPackages() returning pkgs[0] ==", pkgs[0])
+	//println("matchPackages() returning pkgs ==", pkgs)
+	//println("matchPackages() returning pkgs[0] ==", pkgs[0])
 	return pkgs
 }
 

@@ -352,6 +352,7 @@ func walk(path string, info os.FileInfo, walkFn WalkFunc) error {
 	}
 
 	list, err := readDir(path)
+	println("walk() list ==", list)
 	if err != nil {
 		return walkFn(path, info, err)
 	}
@@ -374,10 +375,10 @@ func walk(path string, info os.FileInfo, walkFn WalkFunc) error {
 // large directories Walk can be inefficient.
 // Walk does not follow symbolic links.
 func Walk(root string, walkFn WalkFunc) error {
-	println("Walk() root ==", root)
+	//println("Walk() root ==", root)
 	info, err := os.Lstat(root)
-	println("Walk() info ==", info)
-	println("Walk() err ==", err)
+	//println("Walk() info ==", info)
+	//println("Walk() err ==", err)
 	if err != nil {
 		return walkFn(root, nil, err)
 	}
