@@ -152,6 +152,8 @@ echo "# Building packages and commands for $GOOS/$GOARCH."
 "$GOTOOLDIR"/go_bootstrap install $GO_FLAGS -ccflags "$GO_CCFLAGS" -gcflags "$GO_GCFLAGS" -ldflags "$GO_LDFLAGS" -v std
 echo
 
+# TODO: Remove print line
+echo "# Removing go_bootstrap"
 rm -f "$GOTOOLDIR"/go_bootstrap
 
 if [ "$1" != "--no-banner" ]; then
