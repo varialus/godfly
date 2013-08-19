@@ -354,7 +354,7 @@ func walk(path string, info os.FileInfo, walkFn WalkFunc) error {
 	}
 
 	list, err := readDir(path)
-	println("walk() list ==", list)
+	//println("walk() list ==", list)
 	if err != nil {
 		return walkFn(path, info, err)
 	}
