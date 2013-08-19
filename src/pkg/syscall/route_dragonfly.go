@@ -1,12 +1,12 @@
 
 // Copied from the FreeBSD port
 
-//// Copyright 2011 The Go Authors.  All rights reserved.
-//// Use of this source code is governed by a BSD-style
-//// license that can be found in the LICENSE file.
-//
-//// Routing sockets and messages for DragonFly
-//
+// Copyright 2011 The Go Authors.  All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+// Routing sockets and messages for DragonFly
+
 package syscall
 
 import "unsafe"
@@ -31,24 +31,24 @@ func (any *anyMessage) toRoutingMessage(b []byte) RoutingMessage {
 	}
 	return nil
 }
-//
-//// InterfaceAnnounceMessage represents a routing message containing
-//// network interface arrival and depature information.
+
+// InterfaceAnnounceMessage represents a routing message containing
+// network interface arrival and depature information.
 type InterfaceAnnounceMessage struct {
 	Header IfAnnounceMsghdr
 }
-//
+
 func (m *InterfaceAnnounceMessage) sockaddr() (sas []Sockaddr) { return nil }
-//
+
 // InterfaceMulticastAddrMessage represents a routing message
 // containing network interface address entries.
 type InterfaceMulticastAddrMessage struct {
 	Header IfmaMsghdr
 	Data   []byte
 }
-//
+
 const rtaIfmaMask = RTA_GATEWAY | RTA_IFP | RTA_IFA
-//
+
 func (m *InterfaceMulticastAddrMessage) sockaddr() (sas []Sockaddr) {
 	if m.Header.Addrs&rtaIfmaMask == 0 {
 		return nil
