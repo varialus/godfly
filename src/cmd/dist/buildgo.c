@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+#include <stdio.h>
 #include "a.h"
 
 /*
@@ -18,6 +19,7 @@
 void
 mkzdefaultcc(char *dir, char *file)
 {
+	printf("buildgo.c mkzdefaultcc()\n");
 	Buf b, out;
 	
 	USED(dir);
