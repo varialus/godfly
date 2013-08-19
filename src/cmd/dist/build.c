@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// TODO: Remove #include <stdio.h>
+#include <stdio.h>
 #include "a.h"
 #include "arg.h"
 
@@ -740,6 +742,8 @@ install(char *dir)
 	files.len = n;
 
 	for(i=0; i<nelem(deptab); i++) {
+		// TODO: Remove print line
+		printf("build.c install() for(i=0; i<nelem(deptab); i++) i == %d", i);
 		if(hasprefix(dir, deptab[i].prefix)) {
 			for(j=0; (p=deptab[i].dep[j])!=nil; j++) {
 				breset(&b1);
