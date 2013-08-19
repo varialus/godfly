@@ -1030,7 +1030,7 @@ install(char *dir)
 
 	if(isgo) {
 		// TODO: Remove print line
-		printf("build.c install() if(isgo) == true")
+		printf("build.c install() if(isgo) == true");
 		// The last loop was compiling individual files.
 		// Hand the Go files to the compiler en masse.
 		vreset(&compile);
@@ -1055,7 +1055,7 @@ install(char *dir)
 
 		runv(nil, bstr(&path), CheckExit, &compile);
 		// TODO: Remove print line
-		printf("finishing build.c install() if(isgo) == true")
+		printf("finishing build.c install() if(isgo) == true");
 	}
 
 	if(!islib && !isgo) {
