@@ -743,7 +743,7 @@ install(char *dir)
 
 	for(i=0; i<nelem(deptab); i++) {
 		// TODO: Remove print line
-		printf("build.c install() for(i=0; i<nelem(deptab); i++) i == %d", i);
+		printf("build.c install() for(i=0; i<nelem(deptab); i++) i == %d\n", i);
 		if(hasprefix(dir, deptab[i].prefix)) {
 			for(j=0; (p=deptab[i].dep[j])!=nil; j++) {
 				breset(&b1);
@@ -1029,6 +1029,8 @@ install(char *dir)
 	bgwait();
 
 	if(isgo) {
+		// TODO: Remove print line
+		printf("build.c install() if(isgo) == true")
 		// The last loop was compiling individual files.
 		// Hand the Go files to the compiler en masse.
 		vreset(&compile);
@@ -1052,6 +1054,8 @@ install(char *dir)
 		vcopy(&compile, go.p, go.len);
 
 		runv(nil, bstr(&path), CheckExit, &compile);
+		// TODO: Remove print line
+		printf("finishing build.c install() if(isgo) == true")
 	}
 
 	if(!islib && !isgo) {
@@ -1067,6 +1071,8 @@ install(char *dir)
 	runv(nil, nil, CheckExit, &link);
 
 nobuild:
+	// TODO: Remove print line
+	printf("build.c install() nobuild:");
 	// In package runtime, we install runtime.h and cgocall.h too,
 	// for use by cgo compilation.
 	if(streq(dir, "pkg/runtime")) {
@@ -1078,6 +1084,8 @@ nobuild:
 
 
 out:
+	// TODO: Remove print line
+	printf("build.c install() out:");
 	for(i=0; i<clean.len; i++)
 		xremove(clean.p[i]);
 
