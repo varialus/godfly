@@ -2287,7 +2287,7 @@ const (
 //	struct	rt_metrics rtm_rmx; /* metrics themselves */
 //};
 //
-//#define RTM_VERSION	6	/* Up the ante and ignore older versions */
+ RTM_VERSION	= 6	/* Up the ante and ignore older versions */
 //
 ///*
 // * Message types.
