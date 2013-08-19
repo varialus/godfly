@@ -38,7 +38,7 @@ type InterfaceAnnounceMessage struct {
 	Header IfAnnounceMsghdr
 }
 //
-//func (m *InterfaceAnnounceMessage) sockaddr() (sas []Sockaddr) { return nil }
+func (m *InterfaceAnnounceMessage) sockaddr() (sas []Sockaddr) { return nil }
 //
 // InterfaceMulticastAddrMessage represents a routing message
 // containing network interface address entries.
@@ -49,27 +49,27 @@ type InterfaceMulticastAddrMessage struct {
 //
 //const rtaIfmaMask = RTA_GATEWAY | RTA_IFP | RTA_IFA
 //
-//func (m *InterfaceMulticastAddrMessage) sockaddr() (sas []Sockaddr) {
-//	if m.Header.Addrs&rtaIfmaMask == 0 {
-//		return nil
-//	}
-//	b := m.Data[:]
-//	for i := uint(0); i < RTAX_MAX; i++ {
-//		if m.Header.Addrs&rtaIfmaMask&(1<<i) == 0 {
-//			continue
-//		}
-//		rsa := (*RawSockaddr)(unsafe.Pointer(&b[0]))
-//		switch i {
-//		case RTAX_IFA:
-//			sa, e := anyToSockaddr((*RawSockaddrAny)(unsafe.Pointer(rsa)))
-//			if e != nil {
-//				return nil
-//			}
-//			sas = append(sas, sa)
-//		case RTAX_GATEWAY, RTAX_IFP:
-//			// nothing to do
-//		}
-//		b = b[rsaAlignOf(int(rsa.Len)):]
-//	}
-//	return sas
-//}
+func (m *InterfaceMulticastAddrMessage) sockaddr() (sas []Sockaddr) {
+	if m.Header.Addrs&rtaIfmaMask == 0 {
+		return nil
+	}
+	b := m.Data[:]
+	for i := uint(0); i < RTAX_MAX; i++ {
+		if m.Header.Addrs&rtaIfmaMask&(1<<i) == 0 {
+			continue
+		}
+		rsa := (*RawSockaddr)(unsafe.Pointer(&b[0]))
+		switch i {
+		case RTAX_IFA:
+			sa, e := anyToSockaddr((*RawSockaddrAny)(unsafe.Pointer(rsa)))
+			if e != nil {
+				return nil
+			}
+			sas = append(sas, sa)
+		case RTAX_GATEWAY, RTAX_IFP:
+			// nothing to do
+		}
+		b = b[rsaAlignOf(int(rsa.Len)):]
+	}
+	return sas
+}
