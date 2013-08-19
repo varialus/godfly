@@ -337,7 +337,9 @@ func importPaths(args []string) []string {
 			}
 			continue
 		}
-		println("importPaths() a ==", a)
+		if a == "std" || a == "pkg" {
+			println("importPaths() a ==", a)
+		}
 		//if out[0] == "pkg" || out[0] == "std" {
 			//println("(1)importPaths() out ==", out)
 		//}
