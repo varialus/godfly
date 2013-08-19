@@ -67,7 +67,7 @@ func ParseDirent(buf []byte, max int, names []string) (consumed int, count int, 
 		// reclen gets its value from the manually expanded macro _DIRENT_RECLEN(namelen) defined in http://gitweb.dragonflybsd.org/dragonfly.git/blob/HEAD:/sys/sys/dirent.h
 		// expanded but untranslated
 		//reclen := ((__offsetof(struct dirent, d_name) + (dirent.Namelen) + 1 + 7) & ~7)
-		reclen := ((unsafe.Offsetof(dirent.Name) + (dirent.Namlen) + 1 + 7) & ^7)
+		reclen := ((uint8(unsafe.Offsetof(dirent.Name)) + (dirent.Namlen) + 1 + 7) & ^7)
 		if reclen == 0 {
 			buf = nil
 			break
