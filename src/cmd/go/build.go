@@ -664,7 +664,7 @@ func (b *builder) do(root *action) {
 	// Initialize per-action execution state.
 	for _, a := range all {
 		// TODO: Remove print line
-		println("build.go builder.do() a ==", a)
+		println("build.go builder.do() a.Package.Name ==", a.Package.Name)
 
 		for _, a1 := range a.deps {
 			a1.triggers = append(a1.triggers, a)
@@ -680,7 +680,7 @@ func (b *builder) do(root *action) {
 	// any actions that are runnable as a result.
 	handle := func(a *action) {
 		// TODO: Remove print line
-		println("build.go builder.do() handle() a ==", a)
+		println("build.go builder.do() handle() a.Package.Name ==", a.Package.Name)
 		var err error
 		if a.f != nil && (!a.failed || a.ignoreFail) {
 			err = a.f(b, a)
