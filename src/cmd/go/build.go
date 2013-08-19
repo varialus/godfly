@@ -311,6 +311,8 @@ func runInstall(cmd *Command, args []string) {
 	raceInit()
 	pkgs := packagesForBuild(args)
 
+	// TODO: Remove print line
+	println("build.go runInstall() starting 1st for _, p := range pkgs")
 	for _, p := range pkgs {
 		if p.Target == "" && (!p.Standard || p.ImportPath != "unsafe") {
 			errorf("go install: no install location for directory %s outside GOPATH", p.Dir)
@@ -321,10 +323,16 @@ func runInstall(cmd *Command, args []string) {
 	var b builder
 	b.init()
 	a := &action{}
+	// TODO: Remove print line
+	println("build.go runInstall() starting 2nd for _, p := range pkgs")
 	for _, p := range pkgs {
 		a.deps = append(a.deps, b.action(modeInstall, modeInstall, p))
 	}
+	// TODO: Remove print line
+	println("build.go runInstall() starting b.do(a)")
 	b.do(a)
+	// TODO: Remove print line
+	println("finishing build.go runInstall()")
 }
 
 // Global build parameters (used during package load)

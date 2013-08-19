@@ -148,7 +148,8 @@ if [ "$GOHOSTARCH" != "$GOARCH" -o "$GOHOSTOS" != "$GOOS" ]; then
 	echo
 fi
 
-echo "# Building packages and commands for $GOOS/$GOARCH."
+# TODO: Remove print line, "make.bash: "
+echo "# make.bash: Building packages and commands for $GOOS/$GOARCH."
 "$GOTOOLDIR"/go_bootstrap install $GO_FLAGS -ccflags "$GO_CCFLAGS" -gcflags "$GO_GCFLAGS" -ldflags "$GO_LDFLAGS" -v std
 echo
 
