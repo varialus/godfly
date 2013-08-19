@@ -1621,16 +1621,16 @@ const (
 ///*
 // * Additional options, not kept in so_options.
 // */
-//#define SO_SNDBUF	0x1001		/* send buffer size */
-//#define SO_RCVBUF	0x1002		/* receive buffer size */
-//#define SO_SNDLOWAT	0x1003		/* send low-water mark */
-//#define SO_RCVLOWAT	0x1004		/* receive low-water mark */
-//#define SO_SNDTIMEO	0x1005		/* send timeout */
-//#define SO_RCVTIMEO	0x1006		/* receive timeout */
-//#define	SO_ERROR	0x1007		/* get error status and clear */
-//#define	SO_TYPE		0x1008		/* get socket type */
-///*efine	SO_PRIVSTATE	0x1009		   get/deny privileged state */
-//#define	SO_SNDSPACE	0x100a		/* get appr. send buffer free space */
+ SO_SNDBUF	= 0x1001		/* send buffer size */
+ SO_RCVBUF	= 0x1002		/* receive buffer size */
+ SO_SNDLOWAT	= 0x1003		/* send low-water mark */
+ SO_RCVLOWAT	= 0x1004		/* receive low-water mark */
+ SO_SNDTIMEO	= 0x1005		/* send timeout */
+ SO_RCVTIMEO	= 0x1006		/* receive timeout */
+	SO_ERROR	= 0x1007		/* get error status and clear */
+	SO_TYPE		= 0x1008		/* get socket type */
+	SO_PRIVSTATE	= 0x1009		/*   get/deny privileged state */
+	SO_SNDSPACE	= 0x100a		/* get appr. send buffer free space */
 //
 ///*
 // * Structure used for manipulating linger option.
@@ -1648,7 +1648,7 @@ const (
 ///*
 // * Level number for (get/set)sockopt() to apply to socket itself.
 // */
-//#define	SOL_SOCKET	0xffff		/* options for socket level */
+	SOL_SOCKET	= 0xffff		/* options for socket level */
 //
 ///*
 // * Address families.
@@ -1862,7 +1862,7 @@ const (
 ///*
 // * Maximum queue length specifiable by listen.
 // */
-//#define	SOMAXCONN	128
+	SOMAXCONN	= 128
 //
 ///*
 // * Maximum setsockopt buffer size
