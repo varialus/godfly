@@ -155,6 +155,7 @@ func (f *File) readdir(n int) (fi []FileInfo, err error) {
 		dirname = "."
 	}
 	dirname += "/"
+	println("readdir() dirname ==", dirname)
 	names, err := f.Readdirnames(n)
 	println("readdir() names ==", names)
 	fi = make([]FileInfo, len(names))
