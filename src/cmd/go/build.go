@@ -326,6 +326,8 @@ func runInstall(cmd *Command, args []string) {
 	// TODO: Remove print line
 	println("build.go runInstall() starting 2nd for _, p := range pkgs")
 	for _, p := range pkgs {
+		// TODO: Remove print line
+		println("build.go runInstall() p ==", p)
 		a.deps = append(a.deps, b.action(modeInstall, modeInstall, p))
 	}
 	// TODO: Remove print line
@@ -648,6 +650,8 @@ func (b *builder) do(root *action) {
 	// ensure that, all else being equal, the execution prefers
 	// to do what it would have done first in a simple depth-first
 	// dependency order traversal.
+	// TODO: Remove print line
+	println("build.go builder.do()")
 	all := actionList(root)
 	for i, a := range all {
 		a.priority = i
