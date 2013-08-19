@@ -4,7 +4,7 @@
 
 // Futex is only available on Linux and FreeBSD.
 // The race detector emits calls to split stack functions so it breaks the test.
-// +build linux freebsd
+// +build linux freebsd dragonfly
 // +build !race
 
 package runtime_test
