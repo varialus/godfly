@@ -133,6 +133,7 @@ type Flock_t struct {
 // Edited by dho
 type Dirent struct {
         Fileno uint64
+	Reclen uint16
         Namlen uint8
         Type   uint8
         Unused1 uint8
