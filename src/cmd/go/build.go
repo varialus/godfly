@@ -666,7 +666,7 @@ func (b *builder) do(root *action) {
 	// Initialize per-action execution state.
 	for _, a := range all {
 		// TODO: Remove print line
-		if a.p != nil && (a.p.Name == "cmd/go" || '.p.Name == "go" || a.p.Name == "Go") {
+		if a.p != nil && (a.p.Name == "cmd/go" || a.p.Name == "go" || a.p.Name == "Go") {
 			println("build.go builder.do() a.p.Name ==", a.p.Name)
 		} else {
 			//println("build.go builder.do() a.p.Name == nil")
@@ -686,7 +686,7 @@ func (b *builder) do(root *action) {
 	// any actions that are runnable as a result.
 	handle := func(a *action) {
 		// TODO: Remove print line
-		if a.p != nil && (a.p.Name == "cmd/go" || '.p.Name == "go" || a.p.Name == "Go") {
+		if a.p != nil && (a.p.Name == "cmd/go" || a.p.Name == "go" || a.p.Name == "Go") {
 			println("build.go builder.do() handle() a.p.Name ==", a.p.Name)
 		} else {
 			//println("build.go builder.do() handle() a.p.Name == nil")
