@@ -1072,7 +1072,7 @@ install(char *dir)
 
 nobuild:
 	// TODO: Remove print line
-	printf("build.c install() nobuild:");
+	printf("build.c install() nobuild:\n");
 	// In package runtime, we install runtime.h and cgocall.h too,
 	// for use by cgo compilation.
 	if(streq(dir, "pkg/runtime")) {
@@ -1085,7 +1085,7 @@ nobuild:
 
 out:
 	// TODO: Remove print line
-	printf("build.c install() out:");
+	printf("build.c install() out:\n");
 	for(i=0; i<clean.len; i++)
 		xremove(clean.p[i]);
 
