@@ -3242,51 +3242,51 @@ const (
 // * Options for use with [gs]etsockopt at the IP level.
 // * First word of comment is data type; bool is stored in int.
 // */
-//#define	IP_OPTIONS		1    /* buf/ip_opts; set/get IP options */
-//#define	IP_HDRINCL		2    /* int; header is included with data */
-//#define	IP_TOS			3    /* int; IP type of service and preced. */
-//#define	IP_TTL			4    /* int; IP time to live */
-//#define	IP_RECVOPTS		5    /* bool; receive all IP opts w/dgram */
-//#define	IP_RECVRETOPTS		6    /* bool; receive IP opts for response */
-//#define	IP_RECVDSTADDR		7    /* bool; receive IP dst addr w/dgram */
-//#define	IP_RETOPTS		8    /* ip_opts; set/get IP options */
-//#define	IP_MULTICAST_IF		9    /* u_char; set/get IP multicast i/f  */
-//#define	IP_MULTICAST_TTL	10   /* u_char; set/get IP multicast ttl */
-//#define	IP_MULTICAST_LOOP	11   /* u_char; set/get IP multicast loopback */
-//#define	IP_ADD_MEMBERSHIP	12   /* ip_mreq; add an IP group membership */
-//#define	IP_DROP_MEMBERSHIP	13   /* ip_mreq; drop an IP group membership */
-//#define IP_MULTICAST_VIF	14   /* set/get IP mcast virt. iface */
-//#define IP_RSVP_ON		15   /* enable RSVP in kernel */
-//#define IP_RSVP_OFF		16   /* disable RSVP in kernel */
-//#define IP_RSVP_VIF_ON		17   /* set RSVP per-vif socket */
-//#define IP_RSVP_VIF_OFF		18   /* unset RSVP per-vif socket */
-//#define IP_PORTRANGE		19   /* int; range to choose for unspec port */
-//#define	IP_RECVIF		20   /* bool; receive reception if w/dgram */
+	IP_OPTIONS		= 1    /* buf/ip_opts; set/get IP options */
+	IP_HDRINCL		= 2    /* int; header is included with data */
+	IP_TOS			= 3    /* int; IP type of service and preced. */
+	IP_TTL			= 4    /* int; IP time to live */
+	IP_RECVOPTS		= 5    /* bool; receive all IP opts w/dgram */
+	IP_RECVRETOPTS		= 6    /* bool; receive IP opts for response */
+	IP_RECVDSTADDR		= 7    /* bool; receive IP dst addr w/dgram */
+	IP_RETOPTS		= 8    /* ip_opts; set/get IP options */
+	IP_MULTICAST_IF		= 9    /* u_char; set/get IP multicast i/f  */
+	IP_MULTICAST_TTL	= 10   /* u_char; set/get IP multicast ttl */
+	IP_MULTICAST_LOOP	= 11   /* u_char; set/get IP multicast loopback */
+	IP_ADD_MEMBERSHIP	= 12   /* ip_mreq; add an IP group membership */
+	IP_DROP_MEMBERSHIP	= 13   /* ip_mreq; drop an IP group membership */
+ IP_MULTICAST_VIF	= 14   /* set/get IP mcast virt. iface */
+ IP_RSVP_ON		= 15   /* enable RSVP in kernel */
+ IP_RSVP_OFF		= 16   /* disable RSVP in kernel */
+ IP_RSVP_VIF_ON		= 17   /* set RSVP per-vif socket */
+ IP_RSVP_VIF_OFF		= 18   /* unset RSVP per-vif socket */
+ IP_PORTRANGE		= 19   /* int; range to choose for unspec port */
+	IP_RECVIF		= 20   /* bool; receive reception if w/dgram */
 ///* for IPSEC */
-//#define	IP_IPSEC_POLICY		21   /* int; set/get security policy */
-//#define	IP_FAITH		22   /* bool; accept FAITH'ed connections */
+	IP_IPSEC_POLICY		= 21   /* int; set/get security policy */
+	IP_FAITH		= 22   /* bool; accept FAITH'ed connections */
 //
-//#define	IP_FW_ADD		50   /* add a firewall rule to chain */
-//#define	IP_FW_DEL		51   /* delete a firewall rule from chain */
-//#define	IP_FW_FLUSH		52   /* flush firewall rule chain */
-//#define	IP_FW_ZERO		53   /* clear single/all firewall counter(s) */
-//#define	IP_FW_GET		54   /* get entire firewall rule chain */
-//#define	IP_FW_RESETLOG		55   /* reset logging counters */
+	IP_FW_ADD		= 50   /* add a firewall rule to chain */
+	IP_FW_DEL		= 51   /* delete a firewall rule from chain */
+	IP_FW_FLUSH		= 52   /* flush firewall rule chain */
+	IP_FW_ZERO		= 53   /* clear single/all firewall counter(s) */
+	IP_FW_GET		= 54   /* get entire firewall rule chain */
+	IP_FW_RESETLOG		= 55   /* reset logging counters */
 //
-//#define	IP_DUMMYNET_CONFIGURE	60   /* add/configure a dummynet pipe */
-//#define	IP_DUMMYNET_DEL		61   /* delete a dummynet pipe from chain */
-//#define	IP_DUMMYNET_FLUSH	62   /* flush dummynet */
-//#define	IP_DUMMYNET_GET		64   /* get entire dummynet pipes */
+	IP_DUMMYNET_CONFIGURE	= 60   /* add/configure a dummynet pipe */
+	IP_DUMMYNET_DEL		= 61   /* delete a dummynet pipe from chain */
+	IP_DUMMYNET_FLUSH	= 62   /* flush dummynet */
+	IP_DUMMYNET_GET		= 64   /* get entire dummynet pipes */
 //
-//#define	IP_RECVTTL		65   /* bool; receive IP TTL w/dgram */
-//#define	IP_MINTTL		66   /* minimum TTL for packet or drop */
+	IP_RECVTTL		= 65   /* bool; receive IP TTL w/dgram */
+	IP_MINTTL		= 66   /* minimum TTL for packet or drop */
 //
 ///*
 // * Defaults and limits for options
 // */
-//#define	IP_DEFAULT_MULTICAST_TTL  1	/* normally limit m'casts to 1 hop  */
-//#define	IP_DEFAULT_MULTICAST_LOOP 1	/* normally hear sends if a member  */
-//#define	IP_MAX_MEMBERSHIPS	20	/* per socket */
+	IP_DEFAULT_MULTICAST_TTL  = 1	/* normally limit m'casts to 1 hop  */
+	IP_DEFAULT_MULTICAST_LOOP = 1	/* normally hear sends if a member  */
+	IP_MAX_MEMBERSHIPS	= 20	/* per socket */
 //
 ///*
 // * Argument structure for IP_ADD_MEMBERSHIP and IP_DROP_MEMBERSHIP.
