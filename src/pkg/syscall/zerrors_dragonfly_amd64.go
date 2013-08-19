@@ -2292,24 +2292,24 @@ const (
 ///*
 // * Message types.
 // */
-//#define RTM_ADD		0x1	/* Add Route */
-//#define RTM_DELETE	0x2	/* Delete Route */
-//#define RTM_CHANGE	0x3	/* Change Metrics or flags */
-//#define RTM_GET		0x4	/* Report Metrics */
-//#define RTM_LOSING	0x5	/* Kernel Suspects Partitioning */
-//#define RTM_REDIRECT	0x6	/* Told to use different route */
-//#define RTM_MISS	0x7	/* Lookup failed on this address */
-//#define RTM_LOCK	0x8	/* fix specified metrics */
-//#define RTM_OLDADD	0x9	/* caused by SIOCADDRT */
-//#define RTM_OLDDEL	0xa	/* caused by SIOCDELRT */
-//#define RTM_RESOLVE	0xb	/* req to resolve dst to LL addr */
-//#define RTM_NEWADDR	0xc	/* address being added to iface */
-//#define RTM_DELADDR	0xd	/* address being removed from iface */
-//#define RTM_IFINFO	0xe	/* iface going up/down etc. */
-//#define	RTM_NEWMADDR	0xf	/* mcast group membership being added to if */
-//#define	RTM_DELMADDR	0x10	/* mcast group membership being deleted */
-//#define	RTM_IFANNOUNCE	0x11	/* iface arrival/departure */
-//#define	RTM_IEEE80211	0x12	/* IEEE80211 wireless event */
+ RTM_ADD		= 0x1	/* Add Route */
+ RTM_DELETE	= 0x2	/* Delete Route */
+ RTM_CHANGE	= 0x3	/* Change Metrics or flags */
+ RTM_GET		= 0x4	/* Report Metrics */
+ RTM_LOSING	= 0x5	/* Kernel Suspects Partitioning */
+ RTM_REDIRECT	= 0x6	/* Told to use different route */
+ RTM_MISS	= 0x7	/* Lookup failed on this address */
+ RTM_LOCK	= 0x8	/* fix specified metrics */
+ RTM_OLDADD	= 0x9	/* caused by SIOCADDRT */
+ RTM_OLDDEL	= 0xa	/* caused by SIOCDELRT */
+ RTM_RESOLVE	= 0xb	/* req to resolve dst to LL addr */
+ RTM_NEWADDR	= 0xc	/* address being added to iface */
+ RTM_DELADDR	= 0xd	/* address being removed from iface */
+ RTM_IFINFO	= 0xe	/* iface going up/down etc. */
+	RTM_NEWMADDR	= 0xf	/* mcast group membership being added to if */
+	RTM_DELMADDR	= 0x10	/* mcast group membership being deleted */
+	RTM_IFANNOUNCE	= 0x11	/* iface arrival/departure */
+	RTM_IEEE80211	= 0x12	/* IEEE80211 wireless event */
 //
 ///*
 // * Bitmask values for rtm_inits and rmx_locks.
