@@ -122,10 +122,8 @@ darwin_amd64)
 	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
 	;;
 dragonfly_amd64)
-	mkerrors="$mkerrors -m64"
 	# syscalls.master on dfly is formatted differently than on freebsd
-	#mksysnum="curl -s 'http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/kern/syscalls.master' | ./mksysnum_dragonfly.pl"
-	mktypes="GOARCH=$GOARCH go tool cgo -godefs"
+	mksysnum="curl -s 'http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/kern/syscalls.master' | ./mksysnum_dragonfly.pl"
 	;;
 freebsd_386)
 	mkerrors="$mkerrors -m32"
@@ -224,7 +222,7 @@ esac
 	if [ -n "$mkerrors" ]; then echo "$mkerrors |gofmt >$zerrors"; fi
 	syscall_goos="syscall_$GOOS.go"
 	case "$GOOS" in
-	darwin | freebsd | netbsd | openbsd | dragonfly)
+	darwin | freebsd | netbsd | openbsd)
 		syscall_goos="syscall_bsd.go $syscall_goos"
 		;;
 	windows)

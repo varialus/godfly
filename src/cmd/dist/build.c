@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// TODO: Remove #include <stdio.h>
-#include <stdio.h>
 #include "a.h"
 #include "arg.h"
 
@@ -742,8 +740,6 @@ install(char *dir)
 	files.len = n;
 
 	for(i=0; i<nelem(deptab); i++) {
-		// TODO: Remove print line
-		//printf("build.c install() for(i=0; i<nelem(deptab); i++) i == %d\n", i);
 		if(hasprefix(dir, deptab[i].prefix)) {
 			for(j=0; (p=deptab[i].dep[j])!=nil; j++) {
 				breset(&b1);
@@ -1029,8 +1025,6 @@ install(char *dir)
 	bgwait();
 
 	if(isgo) {
-		// TODO: Remove print line
-		printf("build.c install() if(isgo) == true\n");
 		// The last loop was compiling individual files.
 		// Hand the Go files to the compiler en masse.
 		vreset(&compile);
@@ -1054,8 +1048,6 @@ install(char *dir)
 		vcopy(&compile, go.p, go.len);
 
 		runv(nil, bstr(&path), CheckExit, &compile);
-		// TODO: Remove print line
-		printf("finishing build.c install() if(isgo) == true\n");
 	}
 
 	if(!islib && !isgo) {
@@ -1071,8 +1063,6 @@ install(char *dir)
 	runv(nil, nil, CheckExit, &link);
 
 nobuild:
-	// TODO: Remove print line
-	printf("build.c install() nobuild:\n");
 	// In package runtime, we install runtime.h and cgocall.h too,
 	// for use by cgo compilation.
 	if(streq(dir, "pkg/runtime")) {
@@ -1084,8 +1074,6 @@ nobuild:
 
 
 out:
-	// TODO: Remove print line
-	printf("build.c install() out:\n");
 	for(i=0; i<clean.len; i++)
 		xremove(clean.p[i]);
 
@@ -1604,8 +1592,6 @@ defaulttarg(void)
 void
 cmdinstall(int argc, char **argv)
 {
-	// TODO: Remove print line
-	xprintf("build.c cmdinstall()\n");
 	int i;
 
 	ARGBEGIN{

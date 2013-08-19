@@ -129,12 +129,6 @@ typedef long p9jmp_buf[sizeof(sigjmp_buf)/sizeof(long)];
 #		define NSIG 32
 #	endif
 #	define _NEEDLL 1
-// Copied from OpenBSD
-#elif defined(__DragonFly__)
-#	include <sys/types.h>
-#	undef _NEEDUSHORT
-#	undef _NEEDUINT
-#	undef _NEEDULONG
 #elif defined(__NetBSD__)
 #	include <sched.h>
 #	include <sys/types.h>

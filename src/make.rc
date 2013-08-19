@@ -87,8 +87,7 @@ if(! ~ $GOHOSTARCH $GOARCH || ! ~ $GOHOSTOS $GOOS){
 	echo
 }
 
-# TODO: Remove print line, "make.rc: "
-echo '# make.rc: Building packages and commands for' $GOOS/$GOARCH^.
+echo '# Building packages and commands for' $GOOS/$GOARCH^.
 $GOTOOLDIR/go_bootstrap install -ccflags $"GO_CCFLAGS -gcflags $"GO_GCFLAGS -ldflags $"GO_LDFLAGS -v $pflag std
 echo
 

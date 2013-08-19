@@ -306,13 +306,9 @@ See also: go build, go get, go clean.
 }
 
 func runInstall(cmd *Command, args []string) {
-	// TODO: Remove print line
-	println("build.go runInstall() args ==", args)
 	raceInit()
 	pkgs := packagesForBuild(args)
 
-	// TODO: Remove print line
-	println("build.go runInstall() starting 1st for _, p := range pkgs")
 	for _, p := range pkgs {
 		if p.Target == "" && (!p.Standard || p.ImportPath != "unsafe") {
 			errorf("go install: no install location for directory %s outside GOPATH", p.Dir)
@@ -323,20 +319,10 @@ func runInstall(cmd *Command, args []string) {
 	var b builder
 	b.init()
 	a := &action{}
-	// TODO: Remove print line
-	//println("build.go runInstall() starting 2nd for _, p := range pkgs")
 	for _, p := range pkgs {
-		// TODO: Remove print line
-		if p.Name == "cmd/go" || p.Name == "go" || p.Name == "Go" {
-			println("build.go runInstall() p.Name ==", p.Name)
-		}
 		a.deps = append(a.deps, b.action(modeInstall, modeInstall, p))
 	}
-	// TODO: Remove print line
-	println("build.go runInstall() starting b.do(a)")
 	b.do(a)
-	// TODO: Remove print line
-	println("finishing build.go runInstall()")
 }
 
 // Global build parameters (used during package load)
@@ -652,11 +638,7 @@ func (b *builder) do(root *action) {
 	// ensure that, all else being equal, the execution prefers
 	// to do what it would have done first in a simple depth-first
 	// dependency order traversal.
-	// TODO: Remove print line
-	println("build.go builder.do()")
 	all := actionList(root)
-	// TODO: Remove print line
-	println("build.go builder.do() all ==", all)
 	for i, a := range all {
 		a.priority = i
 	}
@@ -665,13 +647,6 @@ func (b *builder) do(root *action) {
 
 	// Initialize per-action execution state.
 	for _, a := range all {
-		// TODO: Remove print line
-		if a.p != nil && (a.p.Name == "cmd/go" || a.p.Name == "go" || a.p.Name == "Go") {
-			println("build.go builder.do() a.p.Name ==", a.p.Name)
-		} else {
-			//println("build.go builder.do() a.p.Name == nil")
-		}
-
 		for _, a1 := range a.deps {
 			a1.triggers = append(a1.triggers, a)
 		}
@@ -685,12 +660,6 @@ func (b *builder) do(root *action) {
 	// Handle runs a single action and takes care of triggering
 	// any actions that are runnable as a result.
 	handle := func(a *action) {
-		// TODO: Remove print line
-		if a.p != nil && (a.p.Name == "cmd/go" || a.p.Name == "go" || a.p.Name == "Go") {
-			println("build.go builder.do() handle() a.p.Name ==", a.p.Name)
-		} else {
-			//println("build.go builder.do() handle() a.p.Name == nil")
-		}
 		var err error
 		if a.f != nil && (!a.failed || a.ignoreFail) {
 			err = a.f(b, a)
@@ -2219,11 +2188,10 @@ func (b *builder) swigOne(p *Package, file, obj string, cxx bool, intgosize stri
 
 	// create shared library
 	osldflags := map[string][]string{
-		"darwin":    {"-dynamiclib", "-Wl,-undefined,dynamic_lookup"},
-		"dragonfly": {"-shared", "-lpthread", "-lm"},
-		"freebsd":   {"-shared", "-lpthread", "-lm"},
-		"linux":     {"-shared", "-lpthread", "-lm"},
-		"windows":   {"-shared", "-lm", "-mthreads"},
+		"darwin":  {"-dynamiclib", "-Wl,-undefined,dynamic_lookup"},
+		"freebsd": {"-shared", "-lpthread", "-lm"},
+		"linux":   {"-shared", "-lpthread", "-lm"},
+		"windows": {"-shared", "-lm", "-mthreads"},
 	}
 	var cxxlib []string
 	if cxx {
