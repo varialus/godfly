@@ -327,7 +327,7 @@ func runInstall(cmd *Command, args []string) {
 	println("build.go runInstall() starting 2nd for _, p := range pkgs")
 	for _, p := range pkgs {
 		// TODO: Remove print line
-		println("build.go runInstall() p ==", p)
+		println("build.go runInstall() p.Name ==", p.Name)
 		a.deps = append(a.deps, b.action(modeInstall, modeInstall, p))
 	}
 	// TODO: Remove print line
