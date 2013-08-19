@@ -24,7 +24,7 @@ func (f *File) readdirnames(n int) (names []string, err error) {
 		f.dirinfo.buf = make([]byte, blockSize)
 	}
 	d := f.dirinfo
-	println("readdirnames() *d ==", *d)
+	//println("readdirnames() *d ==", *d.String())
 
 	size := n
 	if size <= 0 {
