@@ -130,12 +130,14 @@ type Flock_t struct {
 	Pad_cgo_0 [4]byte
 }
 
+// Edited by dho
 type Dirent struct {
-	Fileno uint32
-	Reclen uint16
-	Type   uint8
-	Namlen uint8
-	Name   [256]int8
+        Fileno uint32
+        Namlen uint8
+        Type   uint8
+        Unused1 uint8
+        Unused2 uint32
+        Name   [256]int8
 }
 
 type Fsid struct {
