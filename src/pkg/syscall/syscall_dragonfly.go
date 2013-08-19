@@ -64,11 +64,15 @@ func ParseDirent(buf []byte, max int, names []string) (consumed int, count int, 
 	origlen := len(buf)
 	for max != 0 && len(buf) > 0 {
 		dirent := (*Dirent)(unsafe.Pointer(&buf[0]))
-		if dirent.Reclen == 0 {
+		// reclen gets its value from the manually expanded macro _DIRENT_RECLEN(namelen) defined in http://gitweb.dragonflybsd.org/dragonfly.git/blob/HEAD:/sys/sys/dirent.h
+		// expanded but untranslated
+		//reclen := ((__offsetof(struct dirent, d_name) + (dirent.Namelen) + 1 + 7) & ~7)
+		reclen := ((unsafe.Offsetof(Dirent, d_name) + (dirent.Namelen) + 1 + 7) & ~7)
+		if reclen == 0 {
 			buf = nil
 			break
 		}
-		buf = buf[dirent.Reclen:]
+		buf = buf[reclen:]
 		if dirent.Fileno == 0 { // File absent in directory.
 			continue
 		}
