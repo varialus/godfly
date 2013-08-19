@@ -34,18 +34,18 @@ func (any *anyMessage) toRoutingMessage(b []byte) RoutingMessage {
 //
 //// InterfaceAnnounceMessage represents a routing message containing
 //// network interface arrival and depature information.
-//type InterfaceAnnounceMessage struct {
-//	Header IfAnnounceMsghdr
-//}
+type InterfaceAnnounceMessage struct {
+	Header IfAnnounceMsghdr
+}
 //
 //func (m *InterfaceAnnounceMessage) sockaddr() (sas []Sockaddr) { return nil }
 //
-//// InterfaceMulticastAddrMessage represents a routing message
-//// containing network interface address entries.
-//type InterfaceMulticastAddrMessage struct {
-//	Header IfmaMsghdr
-//	Data   []byte
-//}
+// InterfaceMulticastAddrMessage represents a routing message
+// containing network interface address entries.
+type InterfaceMulticastAddrMessage struct {
+	Header IfmaMsghdr
+	Data   []byte
+}
 //
 //const rtaIfmaMask = RTA_GATEWAY | RTA_IFP | RTA_IFA
 //
