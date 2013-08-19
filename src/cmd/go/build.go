@@ -306,6 +306,8 @@ See also: go build, go get, go clean.
 }
 
 func runInstall(cmd *Command, args []string) {
+	// TODO: Remove print line
+	println("build.go runInstall() args ==", args)
 	raceInit()
 	pkgs := packagesForBuild(args)
 
@@ -871,32 +873,18 @@ func (b *builder) build(a *action) (err error) {
 	inc := b.includeArgs("-I", a.deps)
 
 	// Compile Go.
-	// TODO: Remove print lines
-	println("build.go build() Compile Go")
-	println("build.go build() gofiles ==", gofiles)
-	println("build.go build() len(gofiles) > 0 ==", len(gofiles) > 0)
 	if len(gofiles) > 0 {
 		ofile, out, err := buildToolchain.gc(b, a.p, obj, inc, gofiles)
-		// TODO: Remove print lines
-		println("build.go build() ofile ==", ofile)
-		println("build.go build() out ==", out)
-		println("build.go build() len(out) > 0 ==", len(out) > 0)
 		if len(out) > 0 {
 			b.showOutput(a.p.Dir, a.p.ImportPath, b.processOutput(out))
 			if err != nil {
-				// TODO: Remove print line
-				println("1. build.go build() err ==", err)
 				return errPrintedOutput
 			}
 		}
 		if err != nil {
-			// TODO: Remove print line
-			println("2. build.go build() err ==", err)
 			return err
 		}
 		objects = append(objects, ofile)
-		// TODO: Remove print line
-		println("build.go build() objects ==", objects)
 	}
 
 	// Copy .h files named for goos or goarch or goos_goarch
@@ -960,27 +948,17 @@ func (b *builder) build(a *action) (err error) {
 	}
 
 	// Pack into archive in obj directory
-	// Remove print line
-	println("build.go build() buildToolchain()")
 	if err := buildToolchain.pack(b, a.p, obj, a.objpkg, objects); err != nil {
 		return err
 	}
 
 	// Link if needed.
-	// Remove print line
-	println("build.go build() a.link ==", a.link)
 	if a.link {
 		// The compiler only cares about direct imports, but the
 		// linker needs the whole dependency tree.
 		all := actionList(a)
-		// Remove print line
-		println("(1)build.go build() all ==", all)
 		all = all[:len(all)-1] // drop a
-		// Remove print line
-		println("(2)build.go build() all ==", all)
 		if err := buildToolchain.ld(b, a.p, a.target, all, a.objpkg, objects); err != nil {
-			// TODO: Remove print line
-			println("3. build.go build() err ==", err)
 			return err
 		}
 	}
