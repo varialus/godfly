@@ -1593,7 +1593,7 @@ void
 cmdinstall(int argc, char **argv)
 {
 	// TODO: Remove print line
-	xprintf("build.c cmdinstall()\n")
+	xprintf("build.c cmdinstall()\n");
 	int i;
 
 	ARGBEGIN{
