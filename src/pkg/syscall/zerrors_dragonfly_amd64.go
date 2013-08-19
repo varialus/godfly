@@ -2344,18 +2344,18 @@ const (
 ///*
 // * Index offsets for sockaddr array for alternate internal encoding.
 // */
-//#define RTAX_DST	0	/* destination sockaddr present */
-//#define RTAX_GATEWAY	1	/* gateway sockaddr present */
-//#define RTAX_NETMASK	2	/* netmask sockaddr present */
-//#define RTAX_GENMASK	3	/* cloning mask sockaddr present */
-//#define RTAX_IFP	4	/* interface name sockaddr present */
-//#define RTAX_IFA	5	/* interface addr sockaddr present */
-//#define RTAX_AUTHOR	6	/* sockaddr for author of redirect */
-//#define RTAX_BRD	7	/* for NEWADDR, broadcast or p-p dest addr */
-//#define RTAX_MPLS1	8	/* mpls label and/or operation present */
-//#define RTAX_MPLS2	9	/* mpls label and/or operation present */
-//#define RTAX_MPLS3	10	/* mpls label and/or operation present */
-//#define RTAX_MAX	11	/* size of array to allocate */
+ RTAX_DST	= 0	/* destination sockaddr present */
+ RTAX_GATEWAY	= 1	/* gateway sockaddr present */
+ RTAX_NETMASK	= 2	/* netmask sockaddr present */
+ RTAX_GENMASK	= 3	/* cloning mask sockaddr present */
+ RTAX_IFP	= 4	/* interface name sockaddr present */
+ RTAX_IFA	= 5	/* interface addr sockaddr present */
+ RTAX_AUTHOR	= 6	/* sockaddr for author of redirect */
+ RTAX_BRD	= 7	/* for NEWADDR, broadcast or p-p dest addr */
+ RTAX_MPLS1	= 8	/* mpls label and/or operation present */
+ RTAX_MPLS2	= 9	/* mpls label and/or operation present */
+ RTAX_MPLS3	= 10	/* mpls label and/or operation present */
+ RTAX_MAX	= 11	/* size of array to allocate */
 //
 //struct rt_addrinfo {
 //	int		 rti_addrs;
