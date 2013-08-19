@@ -338,9 +338,6 @@ type WalkFunc func(path string, info os.FileInfo, err error) error
 
 // walk recursively descends path, calling w.
 func walk(path string, info os.FileInfo, walkFn WalkFunc) error {
-	if path == "/root/go/src/cmd/" || path == "/root/go/src/pkg/" || path == "/root/go/src/cmd/cmd" || path == "/root/go/src/cmd/5a" {
-		println("walk() path == ", path)
-	}
 	err := walkFn(path, info, nil)
 	if err != nil {
 		if info.IsDir() && err == SkipDir {
@@ -354,7 +351,6 @@ func walk(path string, info os.FileInfo, walkFn WalkFunc) error {
 	}
 
 	list, err := readDir(path)
-	//println("walk() list ==", list)
 	if err != nil {
 		return walkFn(path, info, err)
 	}
@@ -377,10 +373,7 @@ func walk(path string, info os.FileInfo, walkFn WalkFunc) error {
 // large directories Walk can be inefficient.
 // Walk does not follow symbolic links.
 func Walk(root string, walkFn WalkFunc) error {
-	//println("Walk() root ==", root)
 	info, err := os.Lstat(root)
-	//println("Walk() info ==", info)
-	//println("Walk() err ==", err)
 	if err != nil {
 		return walkFn(root, nil, err)
 	}

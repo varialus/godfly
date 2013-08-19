@@ -16,7 +16,6 @@ const (
 )
 
 func (f *File) readdirnames(n int) (names []string, err error) {
-	//println("readdirnames() f.dirinfo ==", f.dirinfo)
 	// If this file has no dirinfo, create one.
 	if f.dirinfo == nil {
 		f.dirinfo = new(dirInfo)
@@ -24,7 +23,6 @@ func (f *File) readdirnames(n int) (names []string, err error) {
 		f.dirinfo.buf = make([]byte, blockSize)
 	}
 	d := f.dirinfo
-	//println("readdirnames() *d ==", *d.String())
 
 	size := n
 	if size <= 0 {

@@ -282,7 +282,6 @@ func help(args []string) {
 // importPathsNoDotExpansion returns the import paths to use for the given
 // command line, but it does no ... expansion.
 func importPathsNoDotExpansion(args []string) []string {
-	println("importPathsNoDotExpansion() args[0] ==", args[0])
 	if len(args) == 0 {
 		return []string{"."}
 	}
@@ -302,30 +301,23 @@ func importPathsNoDotExpansion(args []string) []string {
 				a = "."
 			}
 		} else {
-			println("(1)importPathsNoDotExpansion() a ==", a)
 			a = path.Clean(a)
-			println("(2)importPathsNoDotExpansion() a ==", a)
 		}
 		if a == "all" || a == "std" {
-			println("(3)importPathsNoDotExpansion() a ==", a)
 			out = append(out, allPackages(a)...)
-			println("(4)importPathsNoDotExpansion() a ==", a)
 			continue
 		}
-		//println("(1)importPathsNoDotExpansion() out ==", out)
-		//println("(1)importPathsNoDotExpansion() out[0] ==", out[0])
 		out = append(out, a)
-		//println("(2)importPathsNoDotExpansion() out ==", out)
-		//println("(2)importPathsNoDotExpansion() out[0] ==", out[0])
 	}
-	//println("(3)importPathsNoDotExpansion() out ==", out)
-	//println("(3)importPathsNoDotExpansion() out[0] ==", out[0])
+	println("importPathsNoDotExpansion() out ==", out)
+	println("importPathsNoDotExpansion() out[] ==", out[0])
 	return out
 }
 
 // importPaths returns the import paths to use for the given command line.
 func importPaths(args []string) []string {
-	//println("importPaths() args[0] ==", args[0])
+	println("importPaths() args ==", args)
+	println("importPaths() args[0] ==", args[0])
 	args = importPathsNoDotExpansion(args)
 	var out []string
 	for _, a := range args {
@@ -337,20 +329,8 @@ func importPaths(args []string) []string {
 			}
 			continue
 		}
-		if a == "std" || a == "pkg" {
-			println("importPaths() a ==", a)
-		}
-		//if out[0] == "pkg" || out[0] == "std" {
-			//println("(1)importPaths() out ==", out)
-		//}
 		out = append(out, a)
-		//if out[0] == "pkg" || out[0] == "std" {
-			//println("(2)importPaths() out[0] ==", out[0])
-		//}
 	}
-	//if out[0] == "pkg" || out[0] == "std" {
-		//println("(3)importPaths() out[0] ==", out[0])
-	//}
 	return out
 }
 
@@ -466,8 +446,6 @@ func matchPattern(pattern string) func(name string) bool {
 // The pattern is either "all" (all packages), "std" (standard packages)
 // or a path including "...".
 func allPackages(pattern string) []string {
-	//println("entering allPackages()")
-	//println("allPackages() pattern ==", pattern)
 	pkgs := matchPackages(pattern)
 	if len(pkgs) == 0 {
 		fmt.Fprintf(os.Stderr, "warning: %q matched no packages\n", pattern)
@@ -476,7 +454,6 @@ func allPackages(pattern string) []string {
 }
 
 func matchPackages(pattern string) []string {
-	//println("entering matchPackages()")
 	match := func(string) bool { return true }
 	if pattern != "all" && pattern != "std" {
 		match = matchPattern(pattern)
@@ -492,29 +469,23 @@ func matchPackages(pattern string) []string {
 
 	// Commands
 	cmd := filepath.Join(goroot, "src/cmd") + string(filepath.Separator)
-	//println("matchPackages() cmd ==", cmd)
 	filepath.Walk(cmd, func(path string, fi os.FileInfo, err error) error {
-		//println("matchPackages() filepath.Walk() func() path == ", path)
 		if err != nil || !fi.IsDir() || path == cmd {
-			//print("1 walk() nil")
 			return nil
 		}
 		name := path[len(cmd):]
 		// Commands are all in cmd/, not in subdirectories.
 		if strings.Contains(name, string(filepath.Separator)) {
-			//print("2 walk() nil")
 			return filepath.SkipDir
 		}
 
 		// We use, e.g., cmd/gofmt as the pseudo import path for gofmt.
 		name = "cmd/" + name
 		if have[name] {
-			//print("3 walk() nil")
 			return nil
 		}
 		have[name] = true
 		if !match(name) {
-			//print("4 walk() nil")
 			return nil
 		}
 		_, err = buildContext.ImportDir(path, 0)
@@ -522,11 +493,9 @@ func matchPackages(pattern string) []string {
 			if _, noGo := err.(*build.NoGoError); !noGo {
 				log.Print(err)
 			}
-			//print("5 walk() nil")
 			return nil
 		}
 		pkgs = append(pkgs, name)
-		//print("6 walk() nil")
 		return nil
 	})
 
@@ -564,12 +533,9 @@ func matchPackages(pattern string) []string {
 				}
 			}
 			pkgs = append(pkgs, name)
-			//print("(1)matchPackages() returning nil")
 			return nil
 		})
 	}
-	//println("matchPackages() returning pkgs ==", pkgs)
-	//println("matchPackages() returning pkgs[0] ==", pkgs[0])
 	return pkgs
 }
 

@@ -38,21 +38,20 @@ ok:
 	CALL	runtime·exitsyscall(SB)
 	RET
 
-// Copied Syscall6 from NetBSD/OpenBSD
 TEXT	·Syscall6(SB),NOSPLIT,$0-88
 	CALL	runtime·entersyscall(SB)
-	MOVQ	8(SP), AX	// syscall entry
 	MOVQ	16(SP), DI
 	MOVQ	24(SP), SI
 	MOVQ	32(SP), DX
 	MOVQ	40(SP), R10
 	MOVQ	48(SP), R8
 	MOVQ	56(SP), R9
+	MOVQ	8(SP), AX	// syscall entry
 	SYSCALL
 	JCC	ok6
 	MOVQ	$-1, 64(SP)	// r1
 	MOVQ	$0, 72(SP)	// r2
-	MOVQ	AX, 80(SP)  	// errno
+	MOVQ	AX, 80(SP)  // errno
 	CALL	runtime·exitsyscall(SB)
 	RET
 ok6:
