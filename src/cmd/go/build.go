@@ -669,7 +669,7 @@ func (b *builder) do(root *action) {
 		if a.p != nil && a.p.Name == "cmd/go" {
 			println("build.go builder.do() a.p.Name ==", a.p.Name)
 		} else {
-			println("build.go builder.do() a.p.Name == nil")
+			//println("build.go builder.do() a.p.Name == nil")
 		}
 
 		for _, a1 := range a.deps {
@@ -689,7 +689,7 @@ func (b *builder) do(root *action) {
 		if a.p != nil && a.p.Name == "cmd/go"{
 			println("build.go builder.do() handle() a.p.Name ==", a.p.Name)
 		} else {
-			println("build.go builder.do() handle() a.p.Name == nil")
+			//println("build.go builder.do() handle() a.p.Name == nil")
 		}
 		var err error
 		if a.f != nil && (!a.failed || a.ignoreFail) {
