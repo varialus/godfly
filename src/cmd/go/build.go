@@ -653,6 +653,8 @@ func (b *builder) do(root *action) {
 	// TODO: Remove print line
 	println("build.go builder.do()")
 	all := actionList(root)
+	// TODO: Remove print line
+	println("build.go builder.do() all ==", all)
 	for i, a := range all {
 		a.priority = i
 	}
@@ -661,6 +663,9 @@ func (b *builder) do(root *action) {
 
 	// Initialize per-action execution state.
 	for _, a := range all {
+		// TODO: Remove print line
+		println("build.go builder.do() a ==", a)
+
 		for _, a1 := range a.deps {
 			a1.triggers = append(a1.triggers, a)
 		}
@@ -674,6 +679,8 @@ func (b *builder) do(root *action) {
 	// Handle runs a single action and takes care of triggering
 	// any actions that are runnable as a result.
 	handle := func(a *action) {
+		// TODO: Remove print line
+		println("build.go builder.do() handle() a ==", a)
 		var err error
 		if a.f != nil && (!a.failed || a.ignoreFail) {
 			err = a.f(b, a)
