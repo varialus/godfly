@@ -327,7 +327,7 @@ func runInstall(cmd *Command, args []string) {
 	//println("build.go runInstall() starting 2nd for _, p := range pkgs")
 	for _, p := range pkgs {
 		// TODO: Remove print line
-		if p.Name == "cmd/go" {
+		if p.Name == "cmd/go" || p.Name == "go" || p.Name == "Go" {
 			println("build.go runInstall() p.Name ==", p.Name)
 		}
 		a.deps = append(a.deps, b.action(modeInstall, modeInstall, p))
@@ -666,7 +666,7 @@ func (b *builder) do(root *action) {
 	// Initialize per-action execution state.
 	for _, a := range all {
 		// TODO: Remove print line
-		if a.p != nil && a.p.Name == "cmd/go" {
+		if a.p != nil && (a.p.Name == "cmd/go" || '.p.Name == "go" || a.p.Name == "Go") {
 			println("build.go builder.do() a.p.Name ==", a.p.Name)
 		} else {
 			//println("build.go builder.do() a.p.Name == nil")
@@ -686,7 +686,7 @@ func (b *builder) do(root *action) {
 	// any actions that are runnable as a result.
 	handle := func(a *action) {
 		// TODO: Remove print line
-		if a.p != nil && a.p.Name == "cmd/go"{
+		if a.p != nil && (a.p.Name == "cmd/go" || '.p.Name == "go" || a.p.Name == "Go") {
 			println("build.go builder.do() handle() a.p.Name ==", a.p.Name)
 		} else {
 			//println("build.go builder.do() handle() a.p.Name == nil")
