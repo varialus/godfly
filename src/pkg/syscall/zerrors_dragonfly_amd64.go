@@ -1844,13 +1844,13 @@ const (
 // *	Sixth: flag(s) to mask with for NET_RT_FLAGS
 // */
 //#define NET_RT_DUMP	1		/* dump; may limit to a.f. */
- NET_RT_DUMP	1		/* dump; may limit to a.f. */
+ NET_RT_DUMP	= 1		/* dump; may limit to a.f. */
 //#define NET_RT_FLAGS	2		/* by flags, e.g. RESOLVING */
- NET_RT_FLAGS	2		/* by flags, e.g. RESOLVING */
+ NET_RT_FLAGS	= 2		/* by flags, e.g. RESOLVING */
 //#define NET_RT_IFLIST	3		/* survey interface list */
- NET_RT_IFLIST	3		/* survey interface list */
+ NET_RT_IFLIST	= 3		/* survey interface list */
 //#define	NET_RT_MAXID	4
-	NET_RT_MAXID	4
+	NET_RT_MAXID	= 4
 //
 //#define CTL_NET_RT_NAMES { \
 //	{ 0, 0 }, \
