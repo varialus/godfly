@@ -2,16 +2,18 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// +build !dragonfly
+
 package multipart
 
 import (
-	//"bytes"
-	//"io"
-	//"os"
-	//"regexp"
+	"bytes"
+	"io"
+	"os"
+	"regexp"
 	"testing"
 )
-/*
+
 func TestReadForm(t *testing.T) {
 	testBody := regexp.MustCompile("\n").ReplaceAllString(message, "\r\n")
 	b := bytes.NewBufferString(testBody)
@@ -86,4 +88,4 @@ Content-Disposition: form-data; name="textb"
 
 ` + textbValue + `
 --MyBoundary--
-`*/
+`

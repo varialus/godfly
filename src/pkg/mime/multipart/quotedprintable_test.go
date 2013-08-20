@@ -2,24 +2,26 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// +build !dragonfly
+
 package multipart
 
 import (
-	//"bufio"
-	//"bytes"
-	//"errors"
-	//"flag"
-	//"fmt"
-	//"io"
-	//"os/exec"
-	//"regexp"
-	//"sort"
-	//"strings"
+	"bufio"
+	"bytes"
+	"errors"
+	"flag"
+	"fmt"
+	"io"
+	"os/exec"
+	"regexp"
+	"sort"
+	"strings"
 	"testing"
-	//"time"
+	"time"
 )
 func TestQuotedPrintable(t *testing.T) {}
-/*
+
 func TestQuotedPrintable(t *testing.T) {
 	tests := []struct {
 		in, want string
@@ -202,4 +204,4 @@ unexpected EOF: 3122`
 	if got != want {
 		t.Errorf("Got:\n%s\nWant:\n%s", got, want)
 	}
-}*/
+}

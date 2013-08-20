@@ -2,17 +2,19 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// +build !dragonfly
+
 package rand
 
 import (
-	//"errors"
-	//"fmt"
-	//"math"
+	"errors"
+	"fmt"
+	"math"
 	"testing"
 )
 func TestNonStandardNormalValues(t *testing.T) {}
 
-/*
+
 const (
 	numTestSamples = 10000
 )
@@ -358,4 +360,4 @@ func BenchmarkInt31n1000(b *testing.B) {
 	for n := b.N; n > 0; n-- {
 		r.Int31n(1000)
 	}
-}*/
+}

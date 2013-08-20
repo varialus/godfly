@@ -2,18 +2,20 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// +build !dragonfly
+
 package io_test
 
 import (
-	//"bytes"
-	//"errors"
-	//"fmt"
-	//. "io"
-	//"strings"
+	"bytes"
+	"errors"
+	"fmt"
+	. "io"
+	"strings"
 	"testing"
 )
 func TestCopy() {}
-/*
+
 // An version of bytes.Buffer without ReadFrom and WriteTo
 type Buffer struct {
 	bytes.Buffer
@@ -319,4 +321,4 @@ func TestSectionReader_Seek(t *testing.T) {
 	if n != 0 || err != EOF {
 		t.Errorf("Read = %v, %v; want 0, EOF", n, err)
 	}
-}*/
+}

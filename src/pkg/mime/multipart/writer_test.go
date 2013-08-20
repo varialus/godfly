@@ -2,16 +2,18 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// +build !dragonfly
+
 package multipart
 
 import (
-	//"bytes"
-	//"io/ioutil"
-	//"strings"
+	"bytes"
+	"io/ioutil"
+	"strings"
 	"testing"
 )
 func TestWriter(t *testing.T) {)
-/*
+
 func TestWriter(t *testing.T) {
 	fileContents := []byte("my file contents")
 
@@ -111,4 +113,4 @@ func TestWriterSetBoundary(t *testing.T) {
 	if got := b.String(); !strings.Contains(got, "\r\n--my-separator--\r\n") {
 		t.Errorf("expected my-separator in output. got: %q", got)
 	}
-}*/
+}
