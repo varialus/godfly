@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // See issue 5659.
-// +build !race !dragonfly
+// +build !race, !dragonfly
 
 package pprof_test
 
