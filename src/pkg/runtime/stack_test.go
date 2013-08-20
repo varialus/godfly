@@ -29,6 +29,8 @@
 // 	stack_test.go:22: after runtime_test.stack3864: sp=0x7f7818d5d048 < limit=0x7f7818d5d080
 // FAIL
 
+// +build !dragonfly
+
 package runtime_test
 
 import (

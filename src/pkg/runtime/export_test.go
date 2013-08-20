@@ -4,6 +4,8 @@
 
 // Export guts for testing.
 
+// +build !dragonfly
+
 package runtime
 
 var Fadd64 = fadd64
