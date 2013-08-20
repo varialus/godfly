@@ -5,6 +5,8 @@
 // TODO It would be nice to use a mock DNS server, to eliminate
 // external dependencies.
 
+// +build !dragonfly
+
 package net
 
 import (
