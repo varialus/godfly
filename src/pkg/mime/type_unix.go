@@ -52,12 +52,10 @@ func initMime() {
 
 func initMimeForTests() map[string]string {
 	return map[string]string{}
-	/*
 	typeFiles = []string{"testdata/test.types"}
 	return map[string]string{
 		".t1":  "application/test",
 		".t2":  "text/test; charset=utf-8",
 		".png": "image/png",
 	}
-	*/
 }
