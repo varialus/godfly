@@ -2,11 +2,12 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// +build !dragonfly
+
 package mime
 
 import "testing"
-func TestTypeByExtension(t *testing.T) {)
-/*
+
 var typeTests = initMimeForTests()
 
 func TestTypeByExtension(t *testing.T) {
@@ -27,4 +28,4 @@ func TestCustomExtension(t *testing.T) {
 	if registered := TypeByExtension(".xml"); registered != custom {
 		t.Fatalf("registered %s instead of %s", registered, custom)
 	}
-}*/
+}

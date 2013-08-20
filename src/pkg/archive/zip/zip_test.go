@@ -4,6 +4,8 @@
 
 // Tests that involve both reading and writing.
 
+// +build !dragonfly
+
 package zip
 
 import (
