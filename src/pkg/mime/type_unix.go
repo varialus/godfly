@@ -51,7 +51,7 @@ func initMime() {
 }
 
 func initMimeForTests() map[string]string {
-	return map[]string{}
+	return map[string]string{}
 	/*
 	typeFiles = []string{"testdata/test.types"}
 	return map[string]string{
