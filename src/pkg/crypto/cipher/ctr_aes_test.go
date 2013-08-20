@@ -8,6 +8,8 @@
 // Special Publication 800-38A, ``Recommendation for Block Cipher
 // Modes of Operation,'' 2001 Edition, pp. 55-58.
 
+// +build !dragonfly
+
 package cipher_test
 
 import (
