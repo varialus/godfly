@@ -677,7 +677,7 @@ func (p *Package) gccMachine() []string {
 
 func gccTmp() string {
 	// TODO: Remove print line
-	println("src/cmd/cgo/gcc.go gccTmp() before return *objDir + "_cgo_.o"")
+	println("src/cmd/cgo/gcc.go gccTmp() before return *objDir + \"_cgo_.o\"")
 	return *objDir + "_cgo_.o"
 }
 
