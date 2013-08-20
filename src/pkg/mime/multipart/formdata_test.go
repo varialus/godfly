@@ -5,13 +5,13 @@
 package multipart
 
 import (
-	"bytes"
-	"io"
-	"os"
-	"regexp"
+	//"bytes"
+	//"io"
+	//"os"
+	//"regexp"
 	"testing"
 )
-
+/*
 func TestReadForm(t *testing.T) {
 	testBody := regexp.MustCompile("\n").ReplaceAllString(message, "\r\n")
 	b := bytes.NewBufferString(testBody)
@@ -86,4 +86,4 @@ Content-Disposition: form-data; name="textb"
 
 ` + textbValue + `
 --MyBoundary--
-`
+`*/
