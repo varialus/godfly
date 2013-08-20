@@ -4,6 +4,8 @@
 
 // Code patterns that caused problems in the past.
 
+// +build !dragonfly
+
 package race_test
 
 import (
