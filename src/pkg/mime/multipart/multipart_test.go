@@ -19,9 +19,6 @@ import (
 	"testing"
 )
 
-func TestBoundaryLine(t *testing.T) {}
-
-
 func TestBoundaryLine(t *testing.T) {
 	mr := NewReader(strings.NewReader(""), "myBoundary")
 	if !mr.isBoundaryDelimiterLine([]byte("--myBoundary\r\n")) {
