@@ -12,8 +12,6 @@ import (
 	"math"
 	"testing"
 )
-func TestNonStandardNormalValues(t *testing.T) {}
-
 
 const (
 	numTestSamples = 10000

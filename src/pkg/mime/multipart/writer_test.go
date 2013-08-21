@@ -12,7 +12,6 @@ import (
 	"strings"
 	"testing"
 )
-func TestWriter(t *testing.T) {)
 
 func TestWriter(t *testing.T) {
 	fileContents := []byte("my file contents")

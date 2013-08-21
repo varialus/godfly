@@ -2,7 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build darwin dragonfly freebsd linux netbsd openbsd
+// +build darwin freebsd linux netbsd openbsd
+// +build !dragonfly
 
 package mime
 
@@ -51,7 +52,6 @@ func initMime() {
 }
 
 func initMimeForTests() map[string]string {
-	return map[string]string{}
 	typeFiles = []string{"testdata/test.types"}
 	return map[string]string{
 		".t1":  "application/test",

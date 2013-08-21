@@ -3,7 +3,8 @@
 // license that can be found in the LICENSE file.
 
 // The file contains tests that can not run under race detector for some reason.
-// +build !race !dragonfly
+// +build !race
+// +build !dragonfly
 
 package runtime_test
 

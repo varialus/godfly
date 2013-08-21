@@ -14,7 +14,6 @@ import (
 	"strings"
 	"testing"
 )
-func TestCopy() {}
 
 // An version of bytes.Buffer without ReadFrom and WriteTo
 type Buffer struct {
