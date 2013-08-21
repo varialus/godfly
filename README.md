@@ -31,7 +31,7 @@ Status
 * pass crypto/aes
 * fail crypto/cipher
 * pass crypto/des
-* ???? crypto/da
+* ???? crypto/dsa
 * fail crypto/ecdsa
 * ???? crypto/elliptic
 * pass crypto/hmac
@@ -99,7 +99,7 @@ Status
 * ???? math/rand
 * ???? mime
 * ???? mime/multipart
-* fail net
+* pass net
 * fail net/http
 * pass net/http/cgi
 * pass net/http/cookiejar
