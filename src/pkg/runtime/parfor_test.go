@@ -3,7 +3,8 @@
 // license that can be found in the LICENSE file.
 
 // The race detector does not understand ParFor synchronization.
-// +build !race !dragonfly
+// +build !race
+// +build !dragonfly
 
 package runtime_test
 

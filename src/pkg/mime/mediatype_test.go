@@ -2,16 +2,16 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// +build !dragonfly
+
 package mime
 
 import (
-	//"reflect"
+	"reflect"
 	"testing"
 )
 
-func TestConsumeToken(t *testing.T) {}
 
-/*
 func TestConsumeToken(t *testing.T) {
 	tests := [...][3]string{
 		{"foo bar", "foo", " bar"},
@@ -305,4 +305,4 @@ func TestFormatMediaType(t *testing.T) {
 			t.Errorf("%d. FormatMediaType(%q, %v) = %q; want %q", i, tt.typ, tt.params, got, tt.want)
 		}
 	}
-}*/
+}

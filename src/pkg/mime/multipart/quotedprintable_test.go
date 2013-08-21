@@ -20,7 +20,6 @@ import (
 	"testing"
 	"time"
 )
-func TestQuotedPrintable(t *testing.T) {}
 
 func TestQuotedPrintable(t *testing.T) {
 	tests := []struct {
