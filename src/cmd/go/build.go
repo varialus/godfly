@@ -2015,8 +2015,6 @@ func (b *builder) cgo(p *Package, cgoExe, obj string, gccfiles []string, gxxfile
 	}
 
 	linkobj = append(linkobj, p.SysoFiles...)
-	// TODO: Remove print line
-	println("src/cmd/go/build.go cgo() before dynobj := obj + \"_cgo_.o\"")
 	dynobj := obj + "_cgo_.o"
 	if goarch == "arm" && goos == "linux" { // we need to use -pie for Linux/ARM to get accurate imported sym
 		cgoLDFLAGS = append(cgoLDFLAGS, "-pie")
