@@ -29,7 +29,7 @@ Status
 * pass container/ring
 * ???? crypto
 * pass crypto/aes
-* fail crypto/cipher
+* pass crypto/cipher
 * pass crypto/des
 * ???? crypto/dsa
 * fail crypto/ecdsa

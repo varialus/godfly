@@ -4,6 +4,8 @@
 
 // Tests for client.go
 
+// +build !dragonfly
+
 package http_test
 
 import (

@@ -4,6 +4,8 @@
 
 // Tests for transport.go
 
+// +build !dragonfly
+
 package http_test
 
 import (

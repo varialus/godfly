@@ -5,6 +5,8 @@
 // This code is duplicated in httputil/chunked_test.go.
 // Please make any changes in both files.
 
+// +build !dragonfly
+
 package http
 
 import (

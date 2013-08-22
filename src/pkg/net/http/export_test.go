@@ -5,6 +5,8 @@
 // Bridge package to expose http internals to tests in the http_test
 // package.
 
+// +build !dragonfly
+
 package http
 
 import (

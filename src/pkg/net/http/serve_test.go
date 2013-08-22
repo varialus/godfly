@@ -4,6 +4,8 @@
 
 // End-to-end serving tests
 
+// +build !dragonfly
+
 package http_test
 
 import (
