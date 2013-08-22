@@ -8,15 +8,19 @@ package x509
 
 import "io/ioutil"
 
+// DragonFly: How to Install /etc/ssl/certs/ca-certificates.crt
+// # pkg_radd mozilla-rootcerts
+// # source ~/.cshrc
+// # mkdir -p /etc/openssl/certs
+// # mozilla-rootcerts install
+
 // Possible certificate files; stop after finding one.
 var certFiles = []string{
-	"/etc/ssl/certs/ca-certificates.crt",       // Linux etc
-	"/etc/pki/tls/certs/ca-bundle.crt",         // Fedora/RHEL
-	"/etc/ssl/ca-bundle.pem",                   // OpenSUSE
-	"/etc/ssl/cert.pem",                        // OpenBSD
-	"/usr/local/share/certs/ca-root-nss.crt",   // FreeBSD
-	"/etc/cert/ca.pem",                         // DragonFly, Not in Base
-	"/usr/pkg/lib/python2.7/test/ssl_cert.pem", // DragonFly, Not in Base
+	"/etc/ssl/certs/ca-certificates.crt",     // Linux etc
+	"/etc/pki/tls/certs/ca-bundle.crt",       // Fedora/RHEL
+	"/etc/ssl/ca-bundle.pem",                 // OpenSUSE
+	"/etc/ssl/cert.pem",                      // OpenBSD
+	"/usr/local/share/certs/ca-root-nss.crt", // FreeBSD
 }
 
 func (c *Certificate) systemVerify(opts *VerifyOptions) (chains [][]*Certificate, err error) {
