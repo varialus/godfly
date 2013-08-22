@@ -162,14 +162,15 @@ Setup
 5. mkdir -p /etc/openssl/certs
 6. mozilla-rootcerts install
 7. bash
-8. mkdir ~/go
-9. mkdir ~/bin
-10. cd go/
-11. git clone http://github.com/varialus/godfly.git .
-12. cd src/
-13. cd ..;git clean -f;rm -r ~/bin;mkdir ~/bin;git pull;cd src;./all.bash
-14. Fix errors and push fixes to github.com.
-15. Repeat steps 13 and 14.
+8. vidcontrol -h 5000
+9. mkdir ~/go
+10. mkdir ~/bin
+11. cd go/
+12. git clone http://github.com/varialus/godfly.git .
+13. cd src/
+14. cd ..;git clean -f;rm -r ~/bin;mkdir ~/bin;git pull;cd src;./all.bash
+15. Fix errors and push fixes to github.com.
+16. Repeat steps 14 and 15.
 
 Notes
 -----
