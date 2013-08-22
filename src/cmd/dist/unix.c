@@ -669,6 +669,8 @@ main(int argc, char **argv)
 	run(&b, nil, 0, "sysctl", "machdep.cpu.extfeatures", nil);
 	if(contains(bstr(&b), "EM64T"))
 		gohostarch = "amd64";
+#elif defined(__DragonFly__)
+	gohostos = "dragonfly";
 #elif defined(__linux__)
 	gohostos = "linux";
 #elif defined(__FreeBSD__)
@@ -681,8 +683,6 @@ main(int argc, char **argv)
 	gohostos = "openbsd";
 #elif defined(__NetBSD__)
 	gohostos = "netbsd";
-#elif defined(__DragonFly__)
-	gohostos = "dragonfly";
 #else
 	fatal("unknown operating system");
 #endif

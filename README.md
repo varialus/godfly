@@ -172,11 +172,10 @@ Setup
 15. Fix errors and push fixes to github.com.
 16. Repeat steps 14 and 15.
 
-Notes
------
+Files Needing Revisiting
+------------------------
 
-* http://golang.org/doc/install/source
-* Used FreeBSD specific code as a template.
+* include/u.h
 
 Auto-Generated Files Needing Git Commit
 ---------------------------------------
