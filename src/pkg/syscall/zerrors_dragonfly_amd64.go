@@ -4521,7 +4521,7 @@ http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/net/bpf.h
 // from http://golang.org/src/pkg/strconv/atoi.go
 intSize = 32 << uint(^uint(0)>>63)
 
-BIOCGBLEN = (uint32(IOC_OUT | (intSize & IOCPARM_MASK) << 16) | ((('B')) << 8) | ((102))))
+BIOCGBLEN = uint32(IOC_OUT | ((intSize & IOCPARM_MASK) << 16) | ((('B')) << 8) | ((102)))
 
 //#define	_IOC(inout,group,num,len) \
 //	((unsigned long)(inout | ((len & IOCPARM_MASK) << 16) | ((group) << 8) | (num)))
