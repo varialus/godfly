@@ -3,7 +3,8 @@
 // license that can be found in the LICENSE file.
 
 // This is a tool for packaging binary releases.
-// It supports FreeBSD, Linux, NetBSD, OS X, and Windows.
+// It supports DragonFly BSD, FreeBSD, Linux, NetBSD,
+// OS X, and Windows.
 package main
 
 import (
