@@ -6,7 +6,9 @@
 
 package syscall
 
-
+import (
+	"unsafe"
+)
 
 
 const (
@@ -4541,12 +4543,12 @@ BIOCGBLEN = uintptr(IOC_OUT | ((intSize & IOCPARM_MASK) << 16) | ((('B')) << 8) 
 //#define BIOCSETIF	_IOW('B',108, struct ifreq)
 //#define BIOCSRTIMEOUT	_IOW('B',109, struct timeval)
 //#define BIOCGRTIMEOUT	_IOR('B',110, struct timeval)
- BIOCGRTIMEOUT	= uintptr(IOC_OUT | ((unsafe.Sizeof(new(timeval)) & IOCPARM_MASK) << 16) | ((('B')) << 8) | ((110)))
+ BIOCGRTIMEOUT	= uintptr(IOC_OUT | ((unsafe.Sizeof(new(Timeval)) & IOCPARM_MASK) << 16) | ((('B')) << 8) | ((110)))
 //#define BIOCGSTATS	_IOR('B',111, struct bpf_stat)
- BIOCGSTATS	= uintptr(IOC_OUT | ((unsafe.Sizeof(new(timeval)) & IOCPARM_MASK) << 16) | ((('B')) << 8) | ((111)))
+ BIOCGSTATS	= uintptr(IOC_OUT | ((unsafe.Sizeof(new(Timeval)) & IOCPARM_MASK) << 16) | ((('B')) << 8) | ((111)))
 //#define BIOCIMMEDIATE	_IOW('B',112, u_int)
 //#define BIOCVERSION	_IOR('B',113, struct bpf_version)
- BIOCVERSION	= uintptr(IOC_OUT | ((unsafe.Sizeof(new(timeval)) & IOCPARM_MASK) << 16) | ((('B')) << 8) | ((113)))
+ BIOCVERSION	= uintptr(IOC_OUT | ((unsafe.Sizeof(new(Timeval)) & IOCPARM_MASK) << 16) | ((('B')) << 8) | ((113)))
 //#define BIOCGRSIG	_IOR('B',114, u_int)
  BIOCGRSIG	= uintptr(IOC_OUT | ((intSize & IOCPARM_MASK) << 16) | ((('B')) << 8) | ((114)))
 //#define BIOCSRSIG	_IOW('B',115, u_int)
