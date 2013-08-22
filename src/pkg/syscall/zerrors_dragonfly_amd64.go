@@ -4393,7 +4393,7 @@ const (
 
 
 
-http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/net/bpf.h
+// http://gitweb.dragonflybsd.org/dragonfly.git/blob_plain/HEAD:/sys/net/bpf.h
 
 
 
