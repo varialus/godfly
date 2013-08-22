@@ -176,6 +176,9 @@ Files Needing Revisiting
 ------------------------
 
 * include/u.h
+* src/pkg/syscall/mkall.sh
+* src/pkg/syscall/mkerrors.sh
+* src/pkg/syscall/route_dragonfly.go
 
 Auto-Generated Files Needing Git Commit
 ---------------------------------------
