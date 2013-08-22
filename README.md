@@ -32,11 +32,11 @@ Status
 * pass crypto/cipher
 * pass crypto/des
 * ???? crypto/dsa
-* fail crypto/ecdsa
+* pass crypto/ecdsa
 * ???? crypto/elliptic
 * pass crypto/hmac
 * pass crypto/md5
-* fail crypto/rand
+* pass crypto/rand
 * pass crypto/rc4
 * ???? crypto/rsa
 * pass crypto/sha1
@@ -44,7 +44,7 @@ Status
 * pass crypto/sha512
 * pass crypto/subtle
 * pass crypto/tls
-* fail crypto/x509
+* pass crypto/x509
 * ???? crypto/x509/pkix
 * pass database/sql
 * pass database/sql/driver
@@ -100,7 +100,7 @@ Status
 * ???? mime
 * ???? mime/multipart
 * pass net
-* fail net/http
+* ???? net/http
 * pass net/http/cgi
 * pass net/http/cookiejar
 * pass net/http/fcgi
@@ -114,7 +114,7 @@ Status
 * pass net/textproto
 * pass net/url
 * fail os
-* fail os/exec
+* pass os/exec
 * pass os/signal
 * pass os/user
 * pass path
