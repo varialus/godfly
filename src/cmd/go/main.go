@@ -144,7 +144,7 @@ func main() {
 	}
 
 	if fi, err := os.Stat(goroot); err != nil || !fi.IsDir() {
-		fmt.Fprintf(os.Stderr, "go: cannot find GOROOT directory: %v\n", goroot)
+		fmt.Fprintf(os.Stderr, "go: cannot find GOROOT directory: %v %#v\n", goroot, fi)
 		os.Exit(2)
 	}
 

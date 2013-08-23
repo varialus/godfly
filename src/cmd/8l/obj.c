@@ -53,6 +53,7 @@ Header headers[] = {
 	"msdoscom", Hmsdoscom,
 	"msdosexe", Hmsdosexe,
 	"darwin", Hdarwin,
+	"dragonfly", Hdragonfly,
 	"linux", Hlinux,
 	"freebsd", Hfreebsd,
 	"netbsd", Hnetbsd,
@@ -69,6 +70,7 @@ Header headers[] = {
  *	-Hmsdoscom -Tx -Rx			is MS-DOS .COM
  *	-Hmsdosexe -Tx -Rx			is fake MS-DOS .EXE
  *	-Hdarwin -Tx -Rx			is Apple Mach-O
+ *	-Hdragonfly -Tx -Rx			is DragonFly ELF32
  *	-Hlinux -Tx -Rx				is Linux ELF32
  *	-Hfreebsd -Tx -Rx			is FreeBSD ELF32
  *	-Hnetbsd -Tx -Rx			is NetBSD ELF32
