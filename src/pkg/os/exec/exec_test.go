@@ -205,7 +205,6 @@ func closeUnexpectedFds(t *testing.T, m string) {
 }
 
 func TestExtraFilesFDShuffle(t *testing.T) {
-	t.Skip("flaky test; see http://golang.org/issue/5780")
 	switch runtime.GOOS {
 	case "darwin":
 		// TODO(cnicolaou): http://golang.org/issue/2603
