@@ -8,6 +8,12 @@ Work on cgo
 
 There is a problem with cgo, auxiliary C/Go integration, which I'm hoping will be fixed and pushed upstream with plenty of time to review before the Go 1.2 freeze which is scheduled for September 1st.
 
+### Notes
+
+* Overview of how cgo works. http://golang.org/misc/cgo/gmp/gmp.go
+
+### Setup
+
 1. Log in as Root
 2. pkg_radd bash
 3. pkg_radd bison
