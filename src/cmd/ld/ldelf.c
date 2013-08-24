@@ -727,7 +727,7 @@ ldelf(Biobuf *f, char *pkg, int64 len, char *pn)
 	return;
 
 bad:
-	diag("error in src/cmd/ld/ldelf.c ldelf()\npn == %s\nmalformed elf file: %r\n\n", pn);
+	diag("error in src/cmd/ld/ldelf.c ldelf() bad:\npn == %s\nmalformed elf file: {\n%r\n}\n\n", pn);
 	free(symbols);
 }
 
