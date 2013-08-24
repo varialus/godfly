@@ -696,7 +696,7 @@ ldelf(Biobuf *f, char *pkg, int64 len, char *pn)
 				sym.sym = symbols[info>>32];
 				if(sym.sym == nil) {
 					werrstr("error in src/cmd/ld/ldelf.c ldelf()\nsect->sym->name is %s\nj is %d\nreloc of invalid sym\n(int)(info>>32) is %d\nsym.name is not %d\nsym.shndx is %d\nsym.type is %d\n\n",
-						sect->sym->name, j, (int)(info>>32), -42, sym.shndx, sym.type);
+						sect->sym->name, j, (int)(info>>32), (int)(info>>32), sym.shndx, sym.type);
 					//werrstr("%s#%d: reloc of invalid sym #%d %s shndx=%d type=%d",
 					//	sect->sym->name, j, (int)(info>>32), sym.name, sym.shndx, sym.type);
 					goto bad;
