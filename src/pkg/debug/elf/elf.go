@@ -116,7 +116,7 @@ func (i Data) GoString() string { return stringName(uint32(i), dataStrings, true
 type OSABI byte
 
 const (
-	ELFOSABI_DRAGONFLY  OSABI = 0   /* DragonFly BSD */
+	ELFOSABI_DRAGONFLY  OSABI = 9   /* DragonFly BSD */
 	ELFOSABI_NONE       OSABI = 0   /* UNIX System V ABI */
 	ELFOSABI_HPUX       OSABI = 1   /* HP-UX operating system */
 	ELFOSABI_NETBSD     OSABI = 2   /* NetBSD */
@@ -137,7 +137,7 @@ const (
 )
 
 var osabiStrings = []intName{
-	{0, "ELFOSABI_DRAGONFLY"},
+	{9, "ELFOSABI_DRAGONFLY"},
 	{0, "ELFOSABI_NONE"},
 	{1, "ELFOSABI_HPUX"},
 	{2, "ELFOSABI_NETBSD"},
