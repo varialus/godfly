@@ -112,6 +112,7 @@ typedef struct {
 #define ELFOSABI_ARM		97	/* ARM */
 #define ELFOSABI_STANDALONE	255	/* Standalone (embedded) application */
 
+#define ELFOSABI_DRAGONFLY	ELFOSABI_NONE	/* DragonFly BSD */
 #define ELFOSABI_SYSV		ELFOSABI_NONE	/* symbol used in old spec */
 #define ELFOSABI_MONTEREY	ELFOSABI_AIX	/* Monterey */
 
@@ -1005,11 +1006,11 @@ void	dwarfaddelfsectionsyms(void);
 void	dwarfaddelfheaders(void);
 void	asmbelf(vlong symo);
 void	asmbelfsetup(void);
+extern char dragonflydynld[];
 extern char linuxdynld[];
 extern char freebsddynld[];
 extern char netbsddynld[];
 extern char openbsddynld[];
-extern char dragonflydynld[];
 int	elfreloc1(Reloc*, vlong sectoff);
 void	putelfsectionsyms(void);
 
