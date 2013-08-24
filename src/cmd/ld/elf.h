@@ -1949,5 +1949,6 @@ EXTERN	int	buildinfolen;
  * On FreeBSD, cannot be larger than a page.
  */
 
+#define	ELFRESERVE	3072
 
 
