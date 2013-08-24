@@ -731,8 +731,8 @@ typedef struct {
 #define SHT_SUNW_versym 	0x6fffffff	/* Symbol versions */
 //
 #define SHT_GNU_verdef		SHT_SUNW_verdef
-#define SHT_GNU_verneed 	SHT_SUNW_verneed
-#define SHT_GNU_versym		SHT_SUNW_versym
+#define SHT_GNU_VERNEED 	SHT_SUNW_verneed
+#define SHT_GNU_VERSYM		SHT_SUNW_versym
 //
 #define SHT_LOPROC	0x70000000	/* Processor-specific semantics, lo */
 #define SHT_HIPROC	0x7FFFFFFF	/* Processor-specific semantics, hi */
@@ -1305,6 +1305,7 @@ typedef struct {
 /* Special section indexes. */
 
 /* sh_type */
+#define PT_PAX_FLAGS	0x65041580
 
 /* Flags for sh_flags. */
 
