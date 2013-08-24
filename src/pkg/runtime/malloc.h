@@ -467,7 +467,7 @@ uintptr	runtime·gettype(void*);
 enum
 {
 	// flags to malloc
-	FlagNoScan	= 1<<0,	// GC doesn't have to scan object
+	FlagNoPointers	= 1<<0,	// no pointers here
 	FlagNoProfiling	= 1<<1,	// must not profile
 	FlagNoGC	= 1<<2,	// must not free or scan for pointers
 	FlagNoZero	= 1<<3, // don't zero memory
