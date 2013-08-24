@@ -45,6 +45,14 @@ extern "C" {
 #	define _XOPEN_SOURCE 1000
 #	define _XOPEN_SOURCE_EXTENDED 1
 #endif
+#if defined(__DragonFly__)
+#	include <sys/cdefs.h>
+	/* for strtoll */
+#	undef __ISO_C_VISIBLE
+#	define __ISO_C_VISIBLE 1999
+#	undef __LONG_LONG_SUPPORTED
+#	define __LONG_LONG_SUPPORTED
+#endif
 #if defined(__FreeBSD__)
 #	include <sys/cdefs.h>
 	/* for strtoll */
@@ -103,6 +111,17 @@ typedef long p9jmp_buf[sizeof(sigjmp_buf)/sizeof(long)];
 #	undef _NEEDUINT
 #	undef _NEEDULONG
 #	define nil 0	/* no cast to void* */
+#elif defined(__DragonFly__)
+#	include <sys/types.h>
+#	include <osreldate.h>
+#	if __DragonFly_version >= 500000
+#		define PLAN9PORT_USING_PTHREADS 1
+#		include <pthread.h>
+#	endif
+#	if !defined(_POSIX_SOURCE)
+#		undef _NEEDUSHORT
+#		undef _NEEDUINT
+#	endif
 #elif defined(__FreeBSD__)
 #	include <sys/types.h>
 #	include <osreldate.h>
