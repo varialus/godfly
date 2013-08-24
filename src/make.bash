@@ -153,8 +153,9 @@ if [ "$GOHOSTARCH" != "$GOARCH" -o "$GOHOSTOS" != "$GOOS" ]; then
 	echo
 fi
 
-echo "# Building packages and commands for $GOOS/$GOARCH."
+echo "# START: Building packages and commands for $GOOS/$GOARCH."
 "$GOTOOLDIR"/go_bootstrap install $GO_FLAGS -ccflags "$GO_CCFLAGS" -gcflags "$GO_GCFLAGS" -ldflags "$GO_LDFLAGS" -v std
+echo "# DONE: Building packages and commands for $GOOS/$GOARCH."
 echo
 
 rm -f "$GOTOOLDIR"/go_bootstrap
