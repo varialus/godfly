@@ -1262,7 +1262,7 @@ typedef struct {
 //#define ELFOSABI_NONE		0	/* UNIX System V ABI */
 //#define ELFOSABI_HPUX		1	/* HP-UX operating system */
 //#define ELFOSABI_NETBSD		2	/* NetBSD */
-/#define ELFOSABI_LINUX		3	/* GNU/Linux */
+//#define ELFOSABI_LINUX		3	/* GNU/Linux */
 //#define ELFOSABI_HURD		4	/* GNU/Hurd */
 //#define ELFOSABI_86OPEN		5	/* 86Open common IA32 ABI */
 //#define ELFOSABI_SOLARIS	6	/* Solaris */
