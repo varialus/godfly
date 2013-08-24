@@ -28,7 +28,8 @@ THE SOFTWARE.
 #include	"l.h"
 #include	"lib.h"
 #include	"../ld/elf.h"
-#include	<unistd.h>
+#include	<u.h>
+#include	<libc.h>
 
 enum
 {
