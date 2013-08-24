@@ -209,7 +209,9 @@
 #define ELF64_R_TYPE(info)	((info) & 0xffffffffL)
 //
 ///* Macro for constructing r_info from field values. */
-#define ELF64_R_INFO(sym, type)	(((sym) << 32) + ((type) & 0xffffffffL))
+#define ELF64_R_INFO(sym, type)	((((uint64)(sym)) << 32) + (((uint64)(type)) & 0xffffffffULL))
+
+
 //
 //#define	ELF64_R_TYPE_DATA(info)	(((Elf64_Xword)(info)<<32)>>40)
 //#define	ELF64_R_TYPE_ID(info)	(((Elf64_Xword)(info)<<56)>>56)
@@ -1429,11 +1431,11 @@ typedef struct {
 } Elf32_Rela;
 
 /* Macros for accessing the fields of r_info. */
-#define ELF32_R_SYM(info)	((info) >> 8)
-#define ELF32_R_TYPE(info)	((unsigned char)(info))
+//#define ELF32_R_SYM(info)	((info) >> 8)
+//#define ELF32_R_TYPE(info)	((unsigned char)(info))
 
 /* Macro for constructing r_info from field values. */
-#define ELF32_R_INFO(sym, type)	(((sym) << 8) + (unsigned char)(type))
+//#define ELF32_R_INFO(sym, type)	(((sym) << 8) + (unsigned char)(type))
 
 /*
  * Relocation types.
