@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include	"l.h"
 #include	"lib.h"
 #include	"../ld/elf.h"
+#include	<unistd.h>
 
 enum
 {
@@ -699,6 +700,7 @@ ldelf(Biobuf *f, char *pkg, int64 len, char *pn)
 						sect->sym->name, j, (int)(info>>32), (int)(info>>32), sym.shndx, sym.type);
 					//werrstr("%s#%d: reloc of invalid sym #%d %s shndx=%d type=%d",
 					//	sect->sym->name, j, (int)(info>>32), sym.name, sym.shndx, sym.type);
+					sleep(1);
 					goto bad;
 				}
 				rp->sym = sym.sym;
@@ -728,6 +730,7 @@ ldelf(Biobuf *f, char *pkg, int64 len, char *pn)
 
 bad:
 	diag("error in src/cmd/ld/ldelf.c ldelf() bad:\npn == %s\nmalformed elf file: {\n%r\n}\n\n", pn);
+	sleep(1);
 	free(symbols);
 }
 
