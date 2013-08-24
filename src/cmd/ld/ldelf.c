@@ -695,7 +695,7 @@ ldelf(Biobuf *f, char *pkg, int64 len, char *pn)
 					goto bad;
 				sym.sym = symbols[info>>32];
 				if(sym.sym == nil) {
-					werrstr("sect->sym->name == %s\nj == %d\nreloc of invalid sym\n(int)(info>>32) == %d\nsym.name == %s\nsym.shndx == shndx=%d\nsym.type == %d",
+					werrstr("error in src/cmd/ld/ldelf.c ldelf()\nsect->sym->name == %s\nj == %d\nreloc of invalid sym\n(int)(info>>32) == %d\nsym.name == %s\nsym.shndx == shndx=%d\nsym.type == %d\n\n",
 						sect->sym->name, j, (int)(info>>32), sym.name, sym.shndx, sym.type);
 					//werrstr("%s#%d: reloc of invalid sym #%d %s shndx=%d type=%d",
 					//	sect->sym->name, j, (int)(info>>32), sym.name, sym.shndx, sym.type);
@@ -727,7 +727,7 @@ ldelf(Biobuf *f, char *pkg, int64 len, char *pn)
 	return;
 
 bad:
-	diag("%s: malformed elf file: %r", pn);
+	diag("error in src/cmd/ld/ldelf.c ldelf()\npn == %s\nmalformed elf file: %r\n\n", pn);
 	free(symbols);
 }
 
