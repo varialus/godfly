@@ -275,6 +275,7 @@ main(int argc, char *argv[])
 	cbc = sizeof(buf.cbuf);
 
 	addlibpath("command line", "command line", argv[0], "main");
+	print("loadlib()\n");
 	loadlib();
 	deadcode();
 	patch();
