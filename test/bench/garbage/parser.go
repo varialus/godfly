@@ -268,7 +268,7 @@ var packages = []string{
 	"testing/iotest",
 	"testing/quick",
 	"text",
-	"text/scanner",
+	//"text/scanner",
 	"text/tabwriter",
 	"text/template",
 	"text/template/parse",
