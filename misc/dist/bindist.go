@@ -284,7 +284,7 @@ func (b *Build) Do() error {
 	}
 	var targs []string
 	switch b.OS {
-	case "linux", "dragonfly", "freebsd", "netbsd", "":
+	case "linux", "freebsd", "netbsd", "":
 		// build tarball
 		targ := base
 		if b.Source {
@@ -549,9 +549,6 @@ func (b *Build) Upload(version string, filename string) error {
 	case "linux":
 		os_ = "Linux"
 		opsys = "Linux"
-	case "dragonfly":
-		os_ = "DragonFly BSD"
-		opsys = "DragonFly"
 	case "freebsd":
 		os_ = "FreeBSD"
 		opsys = "FreeBSD"

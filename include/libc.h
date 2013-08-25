@@ -278,7 +278,7 @@ extern	int	fd2path(int, char*, int);
 extern	long	readn(int, void*, long);
 extern	int	remove(const char*);
 extern	vlong	p9seek(int, vlong, int);
-//extern	int	p9sleep(long);
+extern	int	p9sleep(long);
 extern	Waitmsg*	p9wait(void);
 extern	Waitmsg*	p9waitfor(int);
 extern	Waitmsg*	waitnohang(void);
@@ -338,7 +338,7 @@ extern int pwrite(int fd, void *buf, int n, int off);
 #define	exec		p9exec
 #define	execl	p9execl
 #define	seek		p9seek
-//#define sleep		p9sleep
+#define sleep		p9sleep
 #define wait		p9wait
 #define waitpid		p9waitpid
 #define rfork		p9rfork

@@ -305,7 +305,7 @@ func TestDWARFRelocations(t *testing.T) {
 
 func TestNoSectionOverlaps(t *testing.T) {
 	// Ensure 6l outputs sections without overlaps.
-	if runtime.GOOS != "linux" && runtime.GOOS != "freebsd" && runtime.GOOS != "dragonfly" {
+	if runtime.GOOS != "linux" && runtime.GOOS != "freebsd" {
 		return // not ELF
 	}
 	_ = net.ResolveIPAddr // force dynamic linkage

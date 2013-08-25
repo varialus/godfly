@@ -162,10 +162,6 @@ func forkExec(argv0 string, argv []string, attr *ProcAttr) (pid int, err error) 
 		argvp[0] = argv0p
 	}
 
-	if runtime.GOOS == "dragonfly" && len(argv[0]) > len(argv0) {
-		argvp[0] = argv0p
-	}
-
 	var chroot *byte
 	if sys.Chroot != "" {
 		chroot, err = BytePtrFromString(sys.Chroot)

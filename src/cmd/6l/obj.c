@@ -74,9 +74,6 @@ Header headers[] = {
 void
 main(int argc, char *argv[])
 {
-	//print("argv[0] == ");
-	//print(argv[0]);
-	//print("\n");
 	Binit(&bso, 1, OWRITE);
 	listinit();
 	memset(debug, 0, sizeof(debug));
@@ -155,7 +152,6 @@ main(int argc, char *argv[])
 			sysfatal("cannot use -linkmode=external with -H %s", headstr(HEADTYPE));
 		break;
 	case Hdarwin:
-	case Hdragonfly:
 	case Hfreebsd:
 	case Hlinux:
 	case Hnetbsd:
@@ -278,7 +274,6 @@ main(int argc, char *argv[])
 	cbc = sizeof(buf.cbuf);
 
 	addlibpath("command line", "command line", argv[0], "main");
-	//print("loadlib()\n");
 	loadlib();
 	deadcode();
 	patch();
@@ -423,7 +418,6 @@ nopout(Prog *p)
 void
 ldobj1(Biobuf *f, char *pkg, int64 len, char *pn)
 {
-	//print("ldobj1()\n");
 	vlong ipc;
 	Prog *p;
 	int v, o, r, skip, mode;
