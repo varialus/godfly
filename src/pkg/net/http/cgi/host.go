@@ -33,6 +33,7 @@ var trailingPort = regexp.MustCompile(`:([0-9]+)$`)
 
 var osDefaultInheritEnv = map[string][]string{
 	"darwin":  {"DYLD_LIBRARY_PATH"},
+	"dragonfly": {"LD_LIBRARY_PATH"},
 	"freebsd": {"LD_LIBRARY_PATH"},
 	"hpux":    {"LD_LIBRARY_PATH", "SHLIB_PATH"},
 	"irix":    {"LD_LIBRARY_PATH", "LD_LIBRARYN32_PATH", "LD_LIBRARY64_PATH"},
