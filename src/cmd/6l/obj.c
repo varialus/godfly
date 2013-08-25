@@ -74,7 +74,9 @@ Header headers[] = {
 void
 main(int argc, char *argv[])
 {
-	print("argv[0] == " + argv[0]);
+	print("argv[0] == ");
+	print(argv[0]);
+	print("/n");
 	Binit(&bso, 1, OWRITE);
 	listinit();
 	memset(debug, 0, sizeof(debug));
