@@ -24,7 +24,7 @@
 //	}
 //
 
-// +build !dragonfly
+// +build !cgo
 
 package scanner
 
