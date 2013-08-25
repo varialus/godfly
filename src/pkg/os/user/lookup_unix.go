@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // +build darwin freebsd linux netbsd openbsd
-// +build cgo
+// +build cgo,!dragonfly
 
 package user
 
