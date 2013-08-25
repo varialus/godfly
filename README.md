@@ -8,6 +8,12 @@ Work on cgo
 
 There is a problem with cgo, auxiliary C/Go integration, which I'm hoping will be fixed and pushed upstream with plenty of time to review before the Go 1.2 freeze which is scheduled for September 1st.
 
+### Status
+
+* No environment variable builds with one malformed elf error right before the end of the build process but it doesn't start the testing phase.
+* GO_LDFLAGS="-linkmode external" builds with 3 warnings that runtime/cgo.a not found and 23 failed tests including 20 malformed elf erors and one segmentation fault.
+* CGO_LDFLAGS="-linkmode external" builds with one error that prints "gcc(or clang): error: external: No such file or directory" but it doesn't start the testing phase.
+
 ### Notes
 
 * Overview of how cgo works. http://golang.org/misc/cgo/gmp/gmp.go
