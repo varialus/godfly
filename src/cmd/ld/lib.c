@@ -812,6 +812,7 @@ ldobj(Biobuf *f, char *pkg, int64 len, char *pn, char *file, int whence)
 
 	magic = c1<<24 | c2<<16 | c3<<8 | c4;
 	if(magic == 0x7f454c46) {	// \x7F E L F
+		print("src/cmd/ld/lib.c ldobj() magic == ELF")
 		ldhostobj(ldelf, f, pkg, len, pn, file);
 		return;
 	}
