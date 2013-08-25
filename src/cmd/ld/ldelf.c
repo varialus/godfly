@@ -695,11 +695,11 @@ ldelf(Biobuf *f, char *pkg, int64 len, char *pn)
 					goto bad;
 				sym.sym = symbols[info>>32];
 				if(sym.sym == nil) {
-					werrstr("er ldelf()\nsect->sym->name=%s\nj=%d\nreloc of invalid sym\ninfo>>32=%d\nsym.name=%s\nsym.shndx=%d\nsym.type=%d\n\n",
+					//werrstr("er ldelf()\nsect->sym->name=%s\nj=%d\nreloc of invalid sym\ninfo>>32=%d\nsym.name=%s\nsym.shndx=%d\nsym.type=%d\n\n",
+						//sect->sym->name, j, (int)(info>>32), sym.name, sym.shndx, sym.type);
+					werrstr("%s#%d: reloc of invalid sym #%d %s shndx=%d type=%d",
 						sect->sym->name, j, (int)(info>>32), sym.name, sym.shndx, sym.type);
-					//werrstr("%s#%d: reloc of invalid sym #%d %s shndx=%d type=%d",
-					//	sect->sym->name, j, (int)(info>>32), sym.name, sym.shndx, sym.type);
-					sleep(1);
+					//sleep(1);
 					goto bad;
 				}
 				rp->sym = sym.sym;
@@ -728,8 +728,8 @@ ldelf(Biobuf *f, char *pkg, int64 len, char *pn)
 	return;
 
 bad:
-	diag("error in src/cmd/ld/ldelf.c ldelf() bad:\npn == %s\nmalformed elf file: {\n%r\n}\n\n", pn);
-	sleep(1);
+	//diag("error in src/cmd/ld/ldelf.c ldelf() bad:\npn == %s\nmalformed elf file: {\n%r\n}\n\n", pn);
+	//sleep(1);
 	free(symbols);
 }
 
