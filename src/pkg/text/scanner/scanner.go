@@ -23,9 +23,6 @@
 //		tok = s.Scan()
 //	}
 //
-
-// +build !cgo
-
 package scanner
 
 import (
