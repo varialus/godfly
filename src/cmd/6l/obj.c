@@ -74,7 +74,7 @@ Header headers[] = {
 void
 main(int argc, char *argv[])
 {
-	printf("argv[0] == %s", argv[0])
+	printf("argv[0] == %s", argv[0]);
 	Binit(&bso, 1, OWRITE);
 	listinit();
 	memset(debug, 0, sizeof(debug));
