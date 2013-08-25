@@ -2189,7 +2189,7 @@ func (b *builder) swigOne(p *Package, file, obj string, cxx bool, intgosize stri
 	// create shared library
 	osldflags := map[string][]string{
 		"darwin":  {"-dynamiclib", "-Wl,-undefined,dynamic_lookup"},
-		"dragonfly": {"-shared", "-lpthread", "-lm"},
+		//"dragonfly": {"-shared", "-lpthread", "-lm"},
 		"freebsd": {"-shared", "-lpthread", "-lm"},
 		"linux":   {"-shared", "-lpthread", "-lm"},
 		"windows": {"-shared", "-lm", "-mthreads"},
