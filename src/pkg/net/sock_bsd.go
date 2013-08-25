@@ -17,7 +17,7 @@ func maxListenerBacklog() int {
 		err error
 	)
 	switch runtime.GOOS {
-	case "darwin", "freebsd":
+	case "darwin","dragonfly", "freebsd":
 		n, err = syscall.SysctlUint32("kern.ipc.somaxconn")
 	case "netbsd":
 		// NOTE: NetBSD has no somaxconn-like kernel state so far
