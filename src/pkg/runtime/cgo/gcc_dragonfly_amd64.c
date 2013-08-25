@@ -35,7 +35,7 @@ _cgo_sys_thread_start(ThreadStart *ts)
 	int err;
 
 	//SIGFILLSET(ign);
-	sigfillset(&ign)
+	sigfillset(&ign);
 	sigprocmask(SIG_SETMASK, &ign, &oset);
 
 	pthread_attr_init(&attr);
