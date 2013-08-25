@@ -213,7 +213,7 @@ var pkgDeps = map[string][]string{
 	"mime":                {"L4", "OS", "syscall"},
 	"net/url":             {"L4"},
 	"text/scanner":        {"L4", "OS"},
-	//"text/template/parse": {"L4"},
+	"text/template/parse": {"L4"},
 
 	"html/template": {
 		"L4", "OS", "encoding/json", "html", "text/template",

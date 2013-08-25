@@ -23,6 +23,9 @@
 //		tok = s.Scan()
 //	}
 //
+
+// +build !dragonfly
+
 package scanner
 
 import (
