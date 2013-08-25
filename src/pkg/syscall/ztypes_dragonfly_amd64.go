@@ -84,9 +84,9 @@ type Stat_t struct {
 	Uid      uint32
 	Gid      uint32
 	Rdev     uint32
-	Atimespec     Timespec
-	Mtimespec     Timespec
-	Ctimespec     Timespec
+	Atim     Timespec
+	Mtim     Timespec
+	Ctim     Timespec
 	Size     int64
 	Blocks   int64
 	Blksize  uint32
