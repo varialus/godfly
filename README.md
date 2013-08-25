@@ -11,6 +11,7 @@ There is a problem with cgo, auxiliary C/Go integration, which I'm hoping will b
 ### Notes
 
 * Overview of how cgo works. http://golang.org/misc/cgo/gmp/gmp.go
+* Overview of how cgo works. http://golang.org/src/pkg/runtime/cgocall.c
 
 ### Setup
 
