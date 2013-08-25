@@ -74,9 +74,9 @@ Header headers[] = {
 void
 main(int argc, char *argv[])
 {
-	print("argv[0] == ");
-	print(argv[0]);
-	print("\n");
+	//print("argv[0] == ");
+	//print(argv[0]);
+	//print("\n");
 	Binit(&bso, 1, OWRITE);
 	listinit();
 	memset(debug, 0, sizeof(debug));
@@ -278,7 +278,7 @@ main(int argc, char *argv[])
 	cbc = sizeof(buf.cbuf);
 
 	addlibpath("command line", "command line", argv[0], "main");
-	print("loadlib()\n");
+	//print("loadlib()\n");
 	loadlib();
 	deadcode();
 	patch();
