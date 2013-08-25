@@ -419,7 +419,7 @@ nopout(Prog *p)
 void
 ldobj1(Biobuf *f, char *pkg, int64 len, char *pn)
 {
-	print("ldobj1()\n")
+	print("ldobj1()\n");
 	vlong ipc;
 	Prog *p;
 	int v, o, r, skip, mode;
