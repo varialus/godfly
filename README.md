@@ -35,7 +35,7 @@ There is a problem with cgo, auxiliary C/Go integration, which I'm hoping will b
 19. git clone http://go.googlecode.com/hg/ ~/go/
 20. bash
 21. export CC=clang # Optional. Try both with and without this step.
-22. vidcontrol -h 5000;cd ~/go/;git reset --hard;git pull;git checkout cgo;cd ~/go/src/;./all.bash
+22. export GO_LDFLAGS="-linkmode external";vidcontrol -h 5000;cd ~/go/;git reset --hard;git pull;git checkout cgo;cd ~/go/src/;./all.bash
 23. exit
 24. Push fixes to github.com.
 25. Repeat steps 20 through 24
