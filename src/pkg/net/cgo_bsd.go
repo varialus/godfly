@@ -8,6 +8,7 @@
 package net
 
 /*
+#cgo LDFLAGS: -linkmode external
 #include <netdb.h>
 */
 import "C"
