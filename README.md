@@ -26,7 +26,7 @@ There is a problem with cgo, auxiliary C/Go integration, which I'm hoping will b
 2. pkg_radd bash
 3. pkg_radd bison
 4. pkg_radd clang
-5. pkg_radd gcc
+5. pkg_radd gcc47
 6. pkg_radd gmake
 7. pkg_radd git
 8. pkg_radd mozilla-rootcerts
