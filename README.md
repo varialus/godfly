@@ -28,7 +28,6 @@ There is a problem with cgo, auxiliary C/Go integration, which I'm hoping will b
 4. pkg_radd clang
 5. pkg_radd gcc47
 6. pkg_radd gmake
-7. pkg_radd git
 8. pkg_radd mozilla-rootcerts
 9. pkg_radd nano
 10. rehash
