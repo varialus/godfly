@@ -588,8 +588,8 @@ ldhostobj(void (*ld)(Biobuf*, char*, int64, char*), Biobuf *f, char *pkg, int64 
 	// force external linking for any libraries that link in code that
 	// uses errno. This can be removed if the Go linker ever supports
 	// these relocation types.
-	if( HEADTYPE == Hdragonfly )
-	if( strcmp(pkg, "net") == 0 || strcmp(pkg, "os/user") == 0 )
+	if(HEADTYPE == Hdragonfly)
+	if(strcmp(pkg, "net") == 0 || strcmp(pkg, "os/user") == 0)
 		isinternal = 0;
 
 	if(!isinternal)
