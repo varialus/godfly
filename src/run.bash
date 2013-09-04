@@ -105,6 +105,7 @@ go run $GOROOT/test/run.go - . || exit 1
 (xcd ../misc/cgo/test
 go test -ldflags '-linkmode=auto' || exit 1
 # linkmode=internal fails on dragonfly since errno is a TLS relocation.
+[ "$GOHOSTOS" != dragonfly ] || echo "not running go test with linkmode set to internal" || exit 1
 [ "$GOHOSTOS" == dragonfly ] || echo "running go test with linkmode set to internal" || exit 1
 [ "$GOHOSTOS" == dragonfly ] || go test -ldflags '-linkmode=internal' || exit 1
 case "$GOHOSTOS-$GOARCH" in
